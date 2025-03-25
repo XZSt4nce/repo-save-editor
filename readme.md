@@ -76,6 +76,3 @@ To build or contribute to this project, ensure you have the following:
 ## Contributions
 
 Enjoy using the R.E.P.O Save Editor! Feel free to open issues or suggestions on GitHub if you encounter any problems or have ideas for improvements.
-
----
-## Informations
