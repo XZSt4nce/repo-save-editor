@@ -17,11 +17,22 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 {
 	ui->setupUi( this );
 
+	setWindowTitle( QString( "%1 - %2" ).arg( windowTitle() ).arg( Version ) );
+
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
 	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveFile );
 
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
+	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->playerWidget, &PlayerWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
+
+	connect( ui->checkJsonButton, &QPushButton::clicked, this, &RepoSaveEditor::CheckJson );
+
+	ui->advancedTextEdit->setReadOnly( !ui->editableCheckBox->isChecked() );
+	connect( ui->editableCheckBox, &QCheckBox::checkStateChanged, this, [this]
+	{
+		ui->advancedTextEdit->setReadOnly( !ui->editableCheckBox->isChecked() );
+	} );
 
 	HideUi();
 }
@@ -133,6 +144,7 @@ void RepoSaveEditor::UpdateWidgets( const QString& json )
 	}
 
 	ui->worldWidget->UpdateWidgets( json_ );
+	ui->itemWidget->UpdateWidgets( json_ );
 	ui->playerWidget->UpdateWidgets( json_ );
 
 	ui->advancedTextEdit->setPlainText( json_.toJson( QJsonDocument::Indented ) );
@@ -142,15 +154,39 @@ void RepoSaveEditor::UpdateJsonText()
 {
 	// Update JSON from widgets
 	ui->worldWidget->SetJsonValue( json_ );
+	ui->itemWidget->SetJsonValue( json_ );
 	ui->playerWidget->SetJsonValue( json_ );
 
 	// Update JSON text
 	ui->advancedTextEdit->setPlainText( json_.toJson( QJsonDocument::Indented ) );
 }
 
+void RepoSaveEditor::CheckJson()
+{
+	const QString json = ui->advancedTextEdit->toPlainText();
+	QJsonParseError parseError;
+	const QJsonDocument jsonDoc = QJsonDocument::fromJson( json.toUtf8(), &parseError );
+	if ( parseError.error != QJsonParseError::NoError )
+	{
+		QMessageBox::critical( this, "Error JSON", QString( "Error JSON : %1" ).arg( parseError.errorString() ) );
+		qCritical() << "Error JSON :" << parseError.errorString();
+		return;
+	}
+
+	QMessageBox::information( this, "JSON", "JSON is valid." );
+	qDebug() << "JSON is valid.";
+
+	json_ = jsonDoc;
+
+	ui->worldWidget->UpdateWidgets( json_ );
+	ui->itemWidget->UpdateWidgets( json_ );
+	ui->playerWidget->UpdateWidgets( json_ );
+}
+
 void RepoSaveEditor::HideUi() const
 {
 	ui->worldWidget->SetVisible( false );
+	ui->itemWidget->SetVisible( false );
 	ui->playerWidget->SetVisible( false );
 
 	ui->advancedTextEdit->setPlainText( "" );

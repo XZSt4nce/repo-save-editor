@@ -64,6 +64,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -103,11 +113,15 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="itemwidget.cpp" />
+    <ClCompile Include="itemwidgetitem.cpp" />
     <ClCompile Include="playerwidget.cpp" />
     <ClCompile Include="playerwidgetitem.cpp" />
     <ClCompile Include="worldwidget.cpp" />
     <QtMoc Include="worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
+    <QtUic Include="itemwidget.ui" />
+    <QtUic Include="itemwidgetitem.ui" />
     <QtUic Include="playerwidget.ui" />
     <QtUic Include="reposaveeditor.ui" />
     <QtMoc Include="reposaveeditor.h" />
@@ -119,6 +133,8 @@
     <ResourceCompile Include="reposaveeditor.rc" />
     <QtMoc Include="playerwidgetitem.h" />
     <QtMoc Include="playerwidget.h" />
+    <QtMoc Include="itemwidget.h" />
+    <QtMoc Include="itemwidgetitem.h" />
     <ClInclude Include="stdafx.h" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>

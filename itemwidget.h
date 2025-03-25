@@ -1,0 +1,30 @@
+#pragma once
+
+#include <QWidget>
+#include "ui_itemwidget.h"
+
+QT_BEGIN_NAMESPACE namespace Ui
+{
+	class ItemWidgetClass;
+};
+
+QT_END_NAMESPACE class ItemWidget final : public QWidget
+{
+	Q_OBJECT public:
+	explicit ItemWidget( QWidget* parent = nullptr );
+	~ItemWidget() override;
+
+	void UpdateWidgets( const QJsonDocument& json ) const;
+	void SetJsonValue( QJsonDocument& json ) const;
+
+	void SetVisible( bool visible ) const;
+
+signals:
+	void Edited();
+
+private slots:
+	void ValueChanged();
+
+private:
+	Ui::ItemWidgetClass* ui;
+};
