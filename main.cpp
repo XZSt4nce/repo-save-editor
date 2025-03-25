@@ -5,6 +5,7 @@
 
 int main( int argc, char* argv[ ] )
 {
+#if defined( _DEBUG )
 	AllocConsole();
 	SetConsoleOutputCP( CP_UTF8 );
 	SetConsoleTitle( L"Console" );
@@ -12,6 +13,7 @@ int main( int argc, char* argv[ ] )
 	bool _ = freopen_s( &pConOut, "CONOUT$", "w", stdout );
 	FILE* pConErr;
 	_ = freopen_s( &pConErr, "CONOUT$", "w", stderr );
+#endif
 
 	QApplication a( argc, argv );
 
