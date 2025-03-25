@@ -93,8 +93,8 @@ void RepoSaveEditor::SaveFile()
 
 	if ( parseError.error != QJsonParseError::NoError )
 	{
-		QMessageBox::critical( this, "Erreur JSON", QString( "Erreur JSON : %1" ).arg( parseError.errorString() ) );
-		qCritical() << "Erreur de parsing JSON :" << parseError.errorString();
+		QMessageBox::critical( this, "Error JSON", QString( "Error JSON : %1" ).arg( parseError.errorString() ) );
+		qCritical() << "Error JSON :" << parseError.errorString();
 		return;
 	}
 
@@ -107,8 +107,8 @@ void RepoSaveEditor::SaveFile()
 	// Vérification de l'encryption
 	if ( encryptedData.isEmpty() )
 	{
-		QMessageBox::critical( this, "Erreur", "Erreur lors du chiffrement des données." );
-		qCritical() << "Erreur : données cryptées vides.";
+		QMessageBox::critical( this, "Error", "Encrypted data is empty." );
+		qCritical() << "Error : Encrypted data is empty.";
 		return;
 	}
 
@@ -117,8 +117,8 @@ void RepoSaveEditor::SaveFile()
 	file.close();
 
 	// Information utilisateur
-	QMessageBox::information( this, "Sauvegarde réussie", "Le fichier a été sauvegardé avec succès." );
-	qDebug() << "Sauvegarde effectuée avec succès :" << filePath;
+	QMessageBox::information( this, "Save", QString( "Save successful : %1" ).arg( filePath ) );
+	qDebug() << "Save successful :" << filePath;
 }
 
 void RepoSaveEditor::UpdateWidgets( const QString& json )
@@ -176,17 +176,17 @@ QString RepoSaveEditor::DecryptFile( const QString& filePath )
 	QByteArray iv = file.read( 16 );
 	QByteArray encryptedData = file.readAll();
 
-	// Dériver clé
+	// Derived key
 	byte key[ 16 ];
 	DeriveKey( Password.toStdString(), reinterpret_cast < const byte* >( iv.data() ), key );
 
-	// Déchiffrement
+	// AES CBC decryption
 	std::string decrypted_tmp;
 	CBC_Mode < AES >::Decryption decryptor( key, sizeof( key ), reinterpret_cast < const byte* >( iv.data() ) );
 
 	StringSource( reinterpret_cast < const byte* >( encryptedData.data() ), encryptedData.size(), true, new StreamTransformationFilter( decryptor, new StringSink( decrypted_tmp ), StreamTransformationFilter::PKCS_PADDING ) );
 
-	// Vérification GZip (optionnelle)
+	// GZip decompression (optional)
 	if ( decrypted_tmp.size() > 2 && static_cast < byte >( decrypted_tmp[ 0 ] ) == 0x1F && static_cast < byte >( decrypted_tmp[ 1 ] ) == 0x8B )
 	{
 		std::string decompressed;
@@ -202,17 +202,17 @@ QByteArray RepoSaveEditor::EncryptData( const QString& data, const bool useGzip 
 	using namespace CryptoPP;
 	QByteArray rawData = data.toUtf8();
 
-	// Générer IV aléatoire (16 octets)
+	// Generate IV
 	byte iv[ 16 ];
 	OS_GenerateRandomBlock( false, iv, sizeof( iv ) );
 
-	// Dériver la clé
+	// Derived key
 	byte key[ 16 ];
 	DeriveKey( Password.toStdString(), iv, key );
 
 	std::string processedData;
 
-	// Compression GZip (optionnelle !)
+	// GZip decompression (optional)
 	if ( useGzip )
 	{
 		StringSource( reinterpret_cast < const byte* >( rawData.data() ), rawData.size(), true, new Gzip( new StringSink( processedData ) ) );
@@ -222,13 +222,13 @@ QByteArray RepoSaveEditor::EncryptData( const QString& data, const bool useGzip 
 		processedData.assign( rawData.constData(), rawData.size() );
 	}
 
-	// Chiffrement AES CBC
+	// AES CBC encryption
 	std::string encryptedData;
 	CBC_Mode < AES >::Encryption encryptor( key, sizeof( key ), iv );
 
 	StringSource( processedData, true, new StreamTransformationFilter( encryptor, new StringSink( encryptedData ), StreamTransformationFilter::PKCS_PADDING ) );
 
-	// Préparer résultat final : IV (16 octets) + données chiffrées
+	// Prepend IV to encrypted data
 	QByteArray result;
 	result.append( reinterpret_cast < const char* >( iv ), sizeof( iv ) );
 	result.append( encryptedData.data(), encryptedData.size() );
@@ -249,14 +249,14 @@ void RepoSaveEditor::SaveData( const QJsonObject& jsonData, QWidget* parent )
 
 	if ( !filePath.isEmpty() )
 	{
-		// Conversion JSON en QByteArray (formaté indenté)
-		QJsonDocument doc( jsonData );
-		QByteArray jsonFormatted = doc.toJson( QJsonDocument::Indented );
+		// Json conversion
+		const QJsonDocument doc( jsonData );
+		const QByteArray jsonFormatted = doc.toJson( QJsonDocument::Indented );
 
-		// Encryptage des données JSON
-		QByteArray encryptedData = EncryptData( QString::fromUtf8( jsonFormatted ) );
+		// Json encryption
+		const QByteArray encryptedData = EncryptData( QString::fromUtf8( jsonFormatted ) );
 
-		// Écriture dans le fichier
+		// Write encrypted data to file
 		QFile file( filePath );
 		if ( file.open( QIODevice::WriteOnly ) )
 		{
@@ -297,7 +297,7 @@ void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byt
 
 	while ( generated < dkLen )
 	{
-		// Salt + compteur en big-endian comme en Python
+		// Salt + counter
 		byte salt_counter[ 20 ];
 		memcpy( salt_counter, iv, saltLen );
 		salt_counter[ saltLen ] = ( counter >> 24 ) & 0xff;
@@ -313,7 +313,7 @@ void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byt
 		byte u[ SHA1::DIGESTSIZE ];
 		memcpy( u, buffer, SHA1::DIGESTSIZE );
 
-		// XOR les itérations suivantes
+		// XOR iterations
 		for ( int i = 1; i < iterations; ++i )
 		{
 			hmac.Restart();
