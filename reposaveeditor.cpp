@@ -10,7 +10,6 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
 #include <fstream>
-#include "playerwidgetitem.h"
 
 
 RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RepoSaveEditorClass() )
@@ -33,6 +32,8 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	{
 		ui->advancedTextEdit->setReadOnly( !ui->editableCheckBox->isChecked() );
 	} );
+
+	jsonHighlighter = new JsonHighlighter( ui->advancedTextEdit->document() );
 
 	HideUi();
 }

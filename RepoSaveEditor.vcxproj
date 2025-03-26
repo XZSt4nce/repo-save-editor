@@ -119,6 +119,7 @@
     <ClCompile Include="playerwidget.cpp" />
     <ClCompile Include="playerwidgetitem.cpp" />
     <ClCompile Include="worldwidget.cpp" />
+    <ClInclude Include="utility.h" />
     <QtMoc Include="worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
     <QtUic Include="itemwidget.ui" />

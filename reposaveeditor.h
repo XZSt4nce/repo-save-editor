@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_reposaveeditor.h"
+#include "utility.h"
 
 #include <cryptopp/sha.h>
 
@@ -29,6 +30,8 @@ private slots:
 
 private:
 	Ui::RepoSaveEditorClass* ui;
+
+	JsonHighlighter* jsonHighlighter = nullptr;
 
 	QJsonDocument json_;
 
