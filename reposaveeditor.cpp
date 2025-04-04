@@ -83,7 +83,7 @@ void RepoSaveEditor::OpenFile()
 
 void RepoSaveEditor::SaveFile()
 {
-	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", QString(), "ES3 File (*.es3)" );
+	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) ), "ES3 File (*.es3)" );
 
 	if ( filePath.isEmpty() )
 		return;
