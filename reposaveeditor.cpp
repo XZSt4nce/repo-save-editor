@@ -62,7 +62,7 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 
 void RepoSaveEditor::OpenFile()
 {
-	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", QString(), "ES3 File (*.es3)" );
+	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) ), "ES3 File (*.es3)" );
 
 	if ( filePath.isEmpty() )
 		return;
