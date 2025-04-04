@@ -45,5 +45,5 @@ private:
 	static void DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key );
 
 	inline static const QString Password = "Why would you want to cheat?... :o It's no fun. :') :'D";
-	inline static const QString Version = "1.0.0";
+	inline static const QString Version = "1.0.1";
 };

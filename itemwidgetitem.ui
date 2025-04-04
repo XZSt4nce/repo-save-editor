@@ -40,7 +40,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="valueSpinBox">
+    <widget class="NoWheelSpinBox" name="valueSpinBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -61,6 +61,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>NoWheelSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>nowheelspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -29,7 +29,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -122,7 +122,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="levelSpinBox">
+            <widget class="NoWheelSpinBox" name="levelSpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -164,7 +164,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="currencySpinBox">
+            <widget class="NoWheelSpinBox" name="currencySpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -215,7 +215,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="liveSpinBox">
+            <widget class="NoWheelSpinBox" name="liveSpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -257,7 +257,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="chargeSpinBox">
+            <widget class="NoWheelSpinBox" name="chargeSpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -299,7 +299,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="totalHaulSpinBox">
+            <widget class="NoWheelSpinBox" name="totalHaulSpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -428,7 +428,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="timePlayedDoubleSpinBox">
+            <widget class="NoWheelDoubleSpinBox" name="timePlayedDoubleSpinBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -476,6 +476,18 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>NoWheelSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>nowheelspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NoWheelDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>nowheelspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

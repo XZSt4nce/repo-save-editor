@@ -48,7 +48,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="playerHealthSpinBox">
+         <widget class="NoWheelSpinBox" name="playerHealthSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -145,7 +145,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="healthSpinBox">
+         <widget class="NoWheelSpinBox" name="healthSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -184,7 +184,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="staminaSpinBox">
+         <widget class="NoWheelSpinBox" name="staminaSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -223,7 +223,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="extraJumpSpinBox">
+         <widget class="NoWheelSpinBox" name="extraJumpSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -262,7 +262,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="launchSpinBox">
+         <widget class="NoWheelSpinBox" name="launchSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -301,7 +301,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="mapPlayerCountSpinBox">
+         <widget class="NoWheelSpinBox" name="mapPlayerCountSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -340,7 +340,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="speedSpinBox">
+         <widget class="NoWheelSpinBox" name="speedSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -379,7 +379,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="strengthSpinBox">
+         <widget class="NoWheelSpinBox" name="strengthSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -418,7 +418,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="rangeSpinBox">
+         <widget class="NoWheelSpinBox" name="rangeSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -457,7 +457,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="throwSpinBox">
+         <widget class="NoWheelSpinBox" name="throwSpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -522,6 +522,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>NoWheelSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>nowheelspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
