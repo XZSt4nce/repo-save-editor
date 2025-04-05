@@ -20,7 +20,8 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	setWindowTitle( QString( "%1 - %2" ).arg( windowTitle() ).arg( Version ) );
 
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
-	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveFile );
+	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveOpenedFile );
+	connect( ui->actionSaveAs, &QAction::triggered, this, &RepoSaveEditor::SaveFileAs );
 
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -61,6 +62,8 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 	}
 }
 
+QString openedFile;
+
 void RepoSaveEditor::OpenFile()
 {
 	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
@@ -68,9 +71,11 @@ void RepoSaveEditor::OpenFile()
 	if ( filePath.isEmpty() )
 		return;
 
+	openedFile = filePath;
+
 	HideUi();
 
-	const QString json = DecryptFile( filePath );
+	const QString json = DecryptFile( openedFile );
 
 	if ( json.isEmpty() )
 	{
@@ -82,14 +87,25 @@ void RepoSaveEditor::OpenFile()
 	UpdateWidgets( json );
 }
 
-void RepoSaveEditor::SaveFile()
+void RepoSaveEditor::SaveFile(QString filePath)
 {
-	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
-
-	if ( filePath.isEmpty() )
+	// There is nothing to save if file is not open
+	if (openedFile.isEmpty())
 		return;
 
-	QFile file( filePath );
+	// If directory with save file was deleted, create directory again and save file there
+	QDir dir;
+	QString directoryPath = QFileInfo(filePath).absolutePath();
+
+	if (!dir.exists(directoryPath)) {
+		if (!dir.mkpath(directoryPath)) {
+			QMessageBox::critical(this, "Error", "Unable to open file for writing.");
+			qCritical() << "Error : Unable to open file for writing :" << filePath;
+			return;
+		}
+	}
+
+	QFile file( filePath ) ;
 	if ( !file.open( QIODevice::WriteOnly ) )
 	{
 		QMessageBox::critical( this, "Error", "Unable to open file for writing." );
@@ -132,6 +148,33 @@ void RepoSaveEditor::SaveFile()
 	// Information utilisateur
 	QMessageBox::information( this, "Save", QString( "Save successful : %1" ).arg( filePath ) );
 	qDebug() << "Save successful :" << filePath;
+}
+
+void RepoSaveEditor::SaveOpenedFile()
+{
+	RepoSaveEditor::SaveFile(openedFile);
+}
+
+void RepoSaveEditor::SaveFileAs()
+{
+	QString savesLocation = DEFAULT_SAVES_LOCATION;
+	
+	if (openedFile.isEmpty())
+	{
+		return;
+	}
+	else {
+		QDir dir;
+		QString openedDirectory = QFileInfo(openedFile).absolutePath();
+		if (dir.exists(openedDirectory))
+		{
+			savesLocation = openedDirectory;
+		}
+	}
+
+	const QString filePath = QFileDialog::getSaveFileName(this, "Save as", savesLocation, "ES3 File (*.es3)");
+
+	RepoSaveEditor::SaveFile(filePath);
 }
 
 void RepoSaveEditor::UpdateWidgets( const QString& json )

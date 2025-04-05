@@ -211,6 +211,7 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -224,6 +225,11 @@
    <property name="text">
     <string>Save</string>
    </property>
+  </action>
+  <action name="actionSaveAs">
+    <property name="text">
+      <string>Save As</string>
+    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

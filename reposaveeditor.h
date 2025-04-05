@@ -21,7 +21,9 @@ QT_END_NAMESPACE class RepoSaveEditor final : public QMainWindow
 
 private slots:
 	void OpenFile();
-	void SaveFile();
+	void SaveFile(QString filePath);
+	void SaveOpenedFile();
+	void SaveFileAs();
 
 	void UpdateWidgets( const QString& json );
 	void UpdateJsonText();
