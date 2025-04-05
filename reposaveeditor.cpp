@@ -1,16 +1,17 @@
 ﻿#include "stdafx.h"
 #include "reposaveeditor.h"
 
-#include <cryptopp/aes.h>
+//#include <cryptopp/aes.h>
 #include <cryptopp/modes.h>
-#include <cryptopp/pwdbased.h>
-#include <cryptopp/hmac.h>
-#include <cryptopp/sha.h>
+//#include <cryptopp/pwdbased.h>
+//#include <cryptopp/hmac.h>
+//#include <cryptopp/sha.h>
 #include <cryptopp/gzip.h>
-#include <cryptopp/filters.h>
+//#include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
 #include <fstream>
 
+#define DEFAULT_SAVES_LOCATION QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) )
 
 RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RepoSaveEditorClass() )
 {
@@ -62,7 +63,7 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 
 void RepoSaveEditor::OpenFile()
 {
-	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) ), "ES3 File (*.es3)" );
+	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
 
 	if ( filePath.isEmpty() )
 		return;
@@ -83,7 +84,7 @@ void RepoSaveEditor::OpenFile()
 
 void RepoSaveEditor::SaveFile()
 {
-	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) ), "ES3 File (*.es3)" );
+	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
 
 	if ( filePath.isEmpty() )
 		return;
