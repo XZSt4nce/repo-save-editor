@@ -89,9 +89,7 @@ void PlayerEditionWindow::RemovePlayer()
 	const QString steamId = ui->removeComboBox->currentData().toString();
 
 	for ( const QString& key : PlayerStats.keys() )
-	{
 		json.Remove( JsonPath::PlayerUpgrade( steamId, key ) );
-	}
 
 	json.Remove( JsonPath::PlayerNamePath( steamId ) );
 
