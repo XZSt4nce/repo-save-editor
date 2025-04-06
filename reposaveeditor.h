@@ -40,6 +40,7 @@ private:
 	QJsonDocument json_;
 
 	void HideUi() const;
+	void SetupShortcuts();
 
 	static QString DecryptFile( const QString& filePath );
 	static QByteArray EncryptData( const QString& data, bool useGzip = false );

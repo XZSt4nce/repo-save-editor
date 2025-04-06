@@ -31,6 +31,7 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	jsonHighlighter = new JsonHighlighter( ui->advancedTextEdit->document() );
 
 	HideUi();
+	SetupShortcuts();
 }
 
 RepoSaveEditor::~RepoSaveEditor()
@@ -227,6 +228,14 @@ void RepoSaveEditor::HideUi() const
 	ui->playerWidget->SetVisible( false );
 
 	ui->advancedTextEdit->setPlainText( "" );
+}
+
+void RepoSaveEditor::SetupShortcuts()
+{
+	// Setup shortcuts for actions
+	ui->actionOpen->setShortcut( QKeySequence::Open );
+	ui->actionSave->setShortcut( QKeySequence::Save );
+	ui->actionSaveAs->setShortcut( QKeySequence::SaveAs );
 }
 
 QString RepoSaveEditor::DecryptFile( const QString& filePath )
