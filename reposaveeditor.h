@@ -6,6 +6,8 @@
 
 #include <cryptopp/sha.h>
 
+#include "jsonwrapper.h"
+
 QT_BEGIN_NAMESPACE namespace Ui
 {
 	class RepoSaveEditorClass;

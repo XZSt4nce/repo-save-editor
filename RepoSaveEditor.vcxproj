@@ -117,10 +117,12 @@
     <ClCompile Include="innerwindow.cpp" />
     <ClCompile Include="itemwidget.cpp" />
     <ClCompile Include="itemwidgetitem.cpp" />
+    <ClCompile Include="jsonwrapper.cpp" />
     <ClCompile Include="playereditionwindow.cpp" />
     <ClCompile Include="playerwidget.cpp" />
     <ClCompile Include="worldwidget.cpp" />
     <QtMoc Include="innerwindow.h" />
+    <ClInclude Include="jsonwrapper.h" />
     <ClInclude Include="nowheelspinbox.h" />
     <QtMoc Include="playereditionwindow.h" />
     <ClInclude Include="utility.h" />
