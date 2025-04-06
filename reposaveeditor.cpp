@@ -1,13 +1,8 @@
 ﻿#include "stdafx.h"
 #include "reposaveeditor.h"
 
-//#include <cryptopp/aes.h>
 #include <cryptopp/modes.h>
-//#include <cryptopp/pwdbased.h>
-//#include <cryptopp/hmac.h>
-//#include <cryptopp/sha.h>
 #include <cryptopp/gzip.h>
-//#include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
 #include <fstream>
 
