@@ -6,8 +6,6 @@
 #include <cryptopp/osrng.h>
 #include <fstream>
 
-#define DEFAULT_SAVES_LOCATION QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) )
-
 RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RepoSaveEditorClass() )
 {
 	ui->setupUi( this );
@@ -82,25 +80,26 @@ void RepoSaveEditor::OpenFile()
 	UpdateWidgets( json );
 }
 
-void RepoSaveEditor::SaveFile(QString filePath)
+void RepoSaveEditor::SaveFile( const QString& filePath )
 {
 	// There is nothing to save if file is not open
-	if (openedFile.isEmpty())
+	if ( openedFile.isEmpty() || filePath.isEmpty() )
 		return;
 
 	// If directory with save file was deleted, create directory again and save file there
-	QDir dir;
-	QString directoryPath = QFileInfo(filePath).absolutePath();
+	const QString directoryPath = QFileInfo( filePath ).absolutePath();
 
-	if (!dir.exists(directoryPath)) {
-		if (!dir.mkpath(directoryPath)) {
-			QMessageBox::critical(this, "Error", "Unable to open file for writing.");
+	if ( const QDir dir; !dir.exists( directoryPath ) )
+	{
+		if ( !dir.mkpath( directoryPath ) )
+		{
+			QMessageBox::critical( this, "Error", "Unable to open file for writing." );
 			qCritical() << "Error : Unable to open file for writing :" << filePath;
 			return;
 		}
 	}
 
-	QFile file( filePath ) ;
+	QFile file( filePath );
 	if ( !file.open( QIODevice::WriteOnly ) )
 	{
 		QMessageBox::critical( this, "Error", "Unable to open file for writing." );
@@ -147,29 +146,27 @@ void RepoSaveEditor::SaveFile(QString filePath)
 
 void RepoSaveEditor::SaveOpenedFile()
 {
-	RepoSaveEditor::SaveFile(openedFile);
+	SaveFile( openedFile );
 }
 
 void RepoSaveEditor::SaveFileAs()
 {
 	QString savesLocation = DEFAULT_SAVES_LOCATION;
 
-	if (openedFile.isEmpty())
+	if ( openedFile.isEmpty() )
 	{
 		return;
 	}
-	else {
-		QDir dir;
-		QString openedDirectory = QFileInfo(openedFile).absolutePath();
-		if (dir.exists(openedDirectory))
-		{
-			savesLocation = openedDirectory;
-		}
+
+	const QString openedDirectory = QFileInfo( openedFile ).absolutePath();
+	if ( const QDir dir; dir.exists( openedDirectory ) )
+	{
+		savesLocation = openedDirectory;
 	}
 
-	const QString filePath = QFileDialog::getSaveFileName(this, "Save as", savesLocation, "ES3 File (*.es3)");
+	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", savesLocation, "ES3 File (*.es3)" );
 
-	RepoSaveEditor::SaveFile(filePath);
+	SaveFile( filePath );
 }
 
 void RepoSaveEditor::UpdateWidgets( const QString& json )

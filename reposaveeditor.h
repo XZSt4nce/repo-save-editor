@@ -11,7 +11,9 @@ QT_BEGIN_NAMESPACE namespace Ui
 	class RepoSaveEditorClass;
 };
 
-QT_END_NAMESPACE class RepoSaveEditor final : public QMainWindow
+QT_END_NAMESPACE const inline QString DEFAULT_SAVES_LOCATION = QString( R"(%1\AppData\LocalLow\semiwork\Repo\saves)" ).arg( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+
+class RepoSaveEditor final : public QMainWindow
 {
 	Q_OBJECT public:
 	explicit RepoSaveEditor( QWidget* parent = nullptr );
@@ -21,7 +23,7 @@ QT_END_NAMESPACE class RepoSaveEditor final : public QMainWindow
 
 private slots:
 	void OpenFile();
-	void SaveFile(QString filePath);
+	void SaveFile( const QString& filePath );
 	void SaveOpenedFile();
 	void SaveFileAs();
 
