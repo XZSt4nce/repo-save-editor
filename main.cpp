@@ -18,6 +18,7 @@ int main( int argc, char* argv[ ] )
 	QApplication a( argc, argv );
 
 	RepoSaveEditor w;
+	Global::SetApplication( &w );
 	w.show();
 
 	return QApplication::exec();

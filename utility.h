@@ -4,6 +4,25 @@
 #include <QRegularExpression>
 #include <QTextCharFormat>
 
+class RepoSaveEditor;
+
+class Global
+{
+public:
+	static RepoSaveEditor* Application()
+	{
+		return application;
+	}
+
+	static void SetApplication( RepoSaveEditor* app )
+	{
+		application = app;
+	}
+
+private:
+	inline static RepoSaveEditor* application = nullptr;
+};
+
 class JsonHighlighter final : public QSyntaxHighlighter
 {
 public:

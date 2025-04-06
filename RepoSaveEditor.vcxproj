@@ -114,16 +114,21 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="innerwindow.cpp" />
     <ClCompile Include="itemwidget.cpp" />
     <ClCompile Include="itemwidgetitem.cpp" />
+    <ClCompile Include="playereditionwindow.cpp" />
     <ClCompile Include="playerwidget.cpp" />
     <ClCompile Include="worldwidget.cpp" />
+    <QtMoc Include="innerwindow.h" />
     <ClInclude Include="nowheelspinbox.h" />
+    <QtMoc Include="playereditionwindow.h" />
     <ClInclude Include="utility.h" />
     <QtMoc Include="worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
     <QtUic Include="itemwidget.ui" />
     <QtUic Include="itemwidgetitem.ui" />
+    <QtUic Include="playereditionwindow.ui" />
     <QtUic Include="playerwidget.ui" />
     <QtUic Include="reposaveeditor.ui" />
     <QtMoc Include="reposaveeditor.h" />

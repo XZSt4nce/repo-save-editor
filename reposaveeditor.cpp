@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "reposaveeditor.h"
+#include "playereditionwindow.h"
 
 #include <cryptopp/modes.h>
 #include <cryptopp/gzip.h>
@@ -15,6 +16,9 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
 	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveOpenedFile );
 	connect( ui->actionSaveAs, &QAction::triggered, this, &RepoSaveEditor::SaveFileAs );
+
+	connect( ui->actionAddPlayer, &QAction::triggered, this, &RepoSaveEditor::AddPlayer );
+	connect( ui->actionRemovePlayer, &QAction::triggered, this, &RepoSaveEditor::RemovePlayer );
 
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -56,16 +60,12 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 	}
 }
 
-QString openedFile;
-
 void RepoSaveEditor::OpenFile()
 {
-	const QString filePath = QFileDialog::getOpenFileName( this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
+	openedFile = QFileDialog::getOpenFileName( this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
 
-	if ( filePath.isEmpty() )
+	if ( openedFile.isEmpty() )
 		return;
-
-	openedFile = filePath;
 
 	HideUi();
 
@@ -78,13 +78,13 @@ void RepoSaveEditor::OpenFile()
 		return;
 	}
 
-	UpdateWidgets( json );
+	LoadJson( json );
 }
 
 void RepoSaveEditor::SaveFile( const QString& filePath )
 {
 	// There is nothing to save if file is not open
-	if ( openedFile.isEmpty() || filePath.isEmpty() )
+	if ( filePath.isEmpty() )
 		return;
 
 	// If directory with save file was deleted, create directory again and save file there
@@ -155,9 +155,7 @@ void RepoSaveEditor::SaveFileAs()
 	QString savesLocation = DEFAULT_SAVES_LOCATION;
 
 	if ( openedFile.isEmpty() )
-	{
 		return;
-	}
 
 	const QString openedDirectory = QFileInfo( openedFile ).absolutePath();
 	if ( const QDir dir; dir.exists( openedDirectory ) )
@@ -170,7 +168,29 @@ void RepoSaveEditor::SaveFileAs()
 	SaveFile( filePath );
 }
 
-void RepoSaveEditor::UpdateWidgets( const QString& json )
+void RepoSaveEditor::AddPlayer()
+{
+	if ( json_.isNull() )
+		return;
+
+	auto* window = new PlayerEditionWindow( this, json_ );
+	window->show();
+	window->SetEditionMode( PlayerEditionWindow::ePlayerEditionMode::Add );
+	connect( window, &PlayerEditionWindow::Edited, this, &RepoSaveEditor::UpdateWidgets );
+}
+
+void RepoSaveEditor::RemovePlayer()
+{
+	if ( json_.isNull() )
+		return;
+
+	auto* window = new PlayerEditionWindow( this, json_ );
+	window->show();
+	window->SetEditionMode( PlayerEditionWindow::ePlayerEditionMode::Remove );
+	connect( window, &PlayerEditionWindow::Edited, this, &RepoSaveEditor::UpdateWidgets );
+}
+
+void RepoSaveEditor::LoadJson( const QString& json )
 {
 	QJsonParseError parseError;
 	json_ = QJsonDocument::fromJson( json.toUtf8(), &parseError );
@@ -181,15 +201,21 @@ void RepoSaveEditor::UpdateWidgets( const QString& json )
 		return;
 	}
 
+	UpdateWidgets();
+}
+
+void RepoSaveEditor::UpdateWidgets() const
+{
 	ui->worldWidget->UpdateWidgets( json_ );
 	ui->itemWidget->UpdateWidgets( json_ );
 	ui->playerWidget->UpdateWidgets( json_ );
-
 	ui->advancedTextEdit->setPlainText( json_.toJson( QJsonDocument::Indented ) );
 }
 
 void RepoSaveEditor::UpdateJsonText()
 {
+	qDebug() << "UpdateJsonText" << json_[ "playerNames" ].toObject().value( "value" ).toObject().keys();
+
 	// Update JSON from widgets
 	ui->worldWidget->SetJsonValue( json_ );
 	ui->itemWidget->SetJsonValue( json_ );
@@ -413,4 +439,16 @@ void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byt
 	}
 
 	memcpy( key, derivedKey, dkLen );
+}
+
+void RepoSaveEditor::moveEvent( QMoveEvent* event )
+{
+	emit WindowMovedOrResized();
+	QMainWindow::moveEvent( event );
+}
+
+void RepoSaveEditor::resizeEvent( QResizeEvent* event )
+{
+	emit WindowMovedOrResized();
+	QMainWindow::resizeEvent( event );
 }

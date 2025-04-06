@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>481</height>
+    <width>800</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -201,7 +201,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>673</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
@@ -213,7 +213,15 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
    </widget>
+   <widget class="QMenu" name="menuPlayers">
+    <property name="title">
+     <string>Players</string>
+    </property>
+    <addaction name="actionAddPlayer"/>
+    <addaction name="actionRemovePlayer"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuPlayers"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -227,9 +235,19 @@
    </property>
   </action>
   <action name="actionSaveAs">
-    <property name="text">
-      <string>Save As</string>
-    </property>
+   <property name="text">
+    <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionAddPlayer">
+   <property name="text">
+    <string>Add Player</string>
+   </property>
+  </action>
+  <action name="actionRemovePlayer">
+   <property name="text">
+    <string>Remove Player</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

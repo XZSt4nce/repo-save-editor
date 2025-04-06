@@ -21,13 +21,20 @@ class RepoSaveEditor final : public QMainWindow
 
 	static void SetWidgetsVisible( const QLayout* layout, bool enabled );
 
+signals:
+	void WindowMovedOrResized();
+
 private slots:
 	void OpenFile();
 	void SaveFile( const QString& filePath );
 	void SaveOpenedFile();
 	void SaveFileAs();
 
-	void UpdateWidgets( const QString& json );
+	void AddPlayer();
+	void RemovePlayer();
+
+	void LoadJson( const QString& json );
+	void UpdateWidgets() const;
 	void UpdateJsonText();
 
 	void CheckJson();
@@ -39,6 +46,8 @@ private:
 
 	QJsonDocument json_;
 
+	QString openedFile;
+
 	void HideUi() const;
 	void SetupShortcuts();
 
@@ -48,6 +57,9 @@ private:
 	static void SaveData( const QJsonObject& jsonData, QWidget* parent );
 
 	static void DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key );
+
+	void moveEvent( QMoveEvent* event ) override;
+	void resizeEvent( QResizeEvent* event ) override;
 
 	inline static const QString Password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 	inline static const QString Version = "1.0.1";
