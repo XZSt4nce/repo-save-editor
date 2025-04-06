@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "playerwidget.h"
 
-
 PlayerWidget::PlayerWidget( QWidget* parent ) : QWidget( parent ), ui( new Ui::PlayerWidgetClass() )
 {
 	ui->setupUi( this );
@@ -17,14 +16,14 @@ PlayerWidget::~PlayerWidget()
 	delete ui;
 }
 
-void PlayerWidget::UpdateWidgets( const QJsonDocument& json )
+void PlayerWidget::UpdateWidgets( const JsonWrapper& json )
 {
-	json_ = json;
+	defaultJson = json;
 	ui->playerComboBox->clear();
 
-	for ( const QString& steamId : json[ "playerNames" ].toObject().value( "value" ).toObject().keys() )
+	for ( const QString& steamId : json.GetPlayerIds() )
 	{
-		const QString playerName = json[ "playerNames" ].toObject().value( "value" ).toObject().value( steamId ).toString();
+		const QString playerName = json.GetPlayerName( steamId );
 		ui->playerComboBox->addItem( playerName, steamId );
 	}
 
@@ -40,72 +39,61 @@ void PlayerWidget::UpdateWidgets( const QJsonDocument& json )
 void PlayerWidget::UpdatePlayerInfo() const
 {
 	const QString steamId = ui->playerComboBox->currentData().toString();
-	const QJsonObject& globalObj = json_[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject();
 
 	ui->steamIdLabel->setText( QString( "Steam ID: %1" ).arg( steamId ) );
 
-	ui->playerHealthSpinBox->setValue( globalObj.value( "playerHealth" ).toObject().value( steamId ).toInt() );
-	ui->healthSpinBox->setValue( globalObj.value( "playerUpgradeHealth" ).toObject().value( steamId ).toInt() );
-	ui->staminaSpinBox->setValue( globalObj.value( "playerUpgradeStamina" ).toObject().value( steamId ).toInt() );
-	ui->extraJumpSpinBox->setValue( globalObj.value( "playerUpgradeExtraJump" ).toObject().value( steamId ).toInt() );
-	ui->launchSpinBox->setValue( globalObj.value( "playerUpgradeLaunch" ).toObject().value( steamId ).toInt() );
-	ui->mapPlayerCountSpinBox->setValue( globalObj.value( "playerUpgradeMapPlayerCount" ).toObject().value( steamId ).toInt() );
-	ui->speedSpinBox->setValue( globalObj.value( "playerUpgradeSpeed" ).toObject().value( steamId ).toInt() );
-	ui->strengthSpinBox->setValue( globalObj.value( "playerUpgradeStrength" ).toObject().value( steamId ).toInt() );
-	ui->rangeSpinBox->setValue( globalObj.value( "playerUpgradeRange" ).toObject().value( steamId ).toInt() );
-	ui->throwSpinBox->setValue( globalObj.value( "playerUpgradeThrow" ).toObject().value( steamId ).toInt() );
-	ui->hasCrownCheckBox->setCheckState( globalObj.value( "playerHasCrown" ).toObject().value( steamId ).toInt() == 1 ? Qt::Checked : Qt::Unchecked );
+	ui->playerHealthSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerHealth" ) ).toInt() );
+	ui->healthSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeHealth" ) ).toInt() );
+	ui->staminaSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeStamina" ) ).toInt() );
+	ui->extraJumpSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" ) ).toInt() );
+	ui->launchSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" ) ).toInt() );
+	ui->mapPlayerCountSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" ) ).toInt() );
+	ui->speedSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" ) ).toInt() );
+	ui->strengthSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeStrength" ) ).toInt() );
+	ui->rangeSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeRange" ) ).toInt() );
+	ui->throwSpinBox->setValue( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerUpgradeThrow" ) ).toInt() );
+	ui->hasCrownCheckBox->setCheckState( defaultJson.Get( JsonPath::PlayerUpgrade( steamId, "playerHasCrown" ) ).toInt() == 1 ? Qt::Checked : Qt::Unchecked );
 }
 
-void PlayerWidget::SetJsonValue( QJsonDocument& json ) const
+void PlayerWidget::SetJsonValue( JsonWrapper& json ) const
 {
-	// Copy QJsonDocument to QJsonObject
-	QJsonObject root = json.object();
-
-	QStringList steamIds = json_[ "playerNames" ].toObject().value( "value" ).toObject().keys();
-
-	// Modify dictionaryOfDictionaries
-	QJsonObject dictOfDicts = json_[ "dictionaryOfDictionaries" ].toObject();
-	QJsonObject dictValue = dictOfDicts[ "value" ].toObject();
-
-	for ( const QString& steamId : steamIds )
+	for ( int i = 0; i < ui->playerComboBox->count(); ++i )
 	{
-		// Modify "playerNames"
-		QJsonObject playerNamesObj = json_[ "playerNames" ].toObject();
-		QJsonObject playerNamesValue = playerNamesObj[ "value" ].toObject();
-		playerNamesValue.insert( steamId, playerNamesObj.value( "value" ).toObject().value( steamId ).toString() );
-		playerNamesObj.insert( "value", playerNamesValue );
-		root.insert( "playerNames", playerNamesObj );
+		const QString steamId = ui->playerComboBox->itemData( i ).toString();
 
-		const QJsonObject& globalObj = json_[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject();
+		const JsonPath playerHealth = JsonPath::PlayerUpgrade( steamId, "playerHealth" );
+		json.Set( playerHealth, defaultJson.Get( playerHealth ).toInt() );
 
-		auto updatePlayerStat = [&] ( const QString& key, const int value )
-		{
-			QJsonObject statObj = dictValue[ key ].toObject();
-			statObj.insert( steamId, value );
-			dictValue.insert( key, statObj );
-		};
+		const JsonPath playerUpgradeHealth = JsonPath::PlayerUpgrade( steamId, "playerUpgradeHealth" );
+		json.Set( playerUpgradeHealth, defaultJson.Get( playerUpgradeHealth ).toInt() );
 
-		// Insert new values
-		updatePlayerStat( "playerHealth", globalObj.value( "playerHealth" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeHealth", globalObj.value( "playerUpgradeHealth" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeStamina", globalObj.value( "playerUpgradeStamina" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeExtraJump", globalObj.value( "playerUpgradeExtraJump" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeLaunch", globalObj.value( "playerUpgradeLaunch" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeMapPlayerCount", globalObj.value( "playerUpgradeMapPlayerCount" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeSpeed", globalObj.value( "playerUpgradeSpeed" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeStrength", globalObj.value( "playerUpgradeStrength" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeRange", globalObj.value( "playerUpgradeRange" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerUpgradeThrow", globalObj.value( "playerUpgradeThrow" ).toObject().value( steamId ).toInt() );
-		updatePlayerStat( "playerHasCrown", globalObj.value( "playerHasCrown" ).toObject().value( steamId ).toInt() );
+		const JsonPath playerUpgradeStamina = JsonPath::PlayerUpgrade( steamId, "playerUpgradeStamina" );
+		json.Set( playerUpgradeStamina, defaultJson.Get( playerUpgradeStamina ).toInt() );
 
-		// Reassign modified root object to QJsonDocument
-		dictOfDicts.insert( "value", dictValue );
-		root.insert( "dictionaryOfDictionaries", dictOfDicts );
+		const JsonPath playerUpgradeExtraJump = JsonPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" );
+		json.Set( playerUpgradeExtraJump, defaultJson.Get( playerUpgradeExtraJump ).toInt() );
+
+		const JsonPath playerUpgradeLaunch = JsonPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" );
+		json.Set( playerUpgradeLaunch, defaultJson.Get( playerUpgradeLaunch ).toInt() );
+
+		const JsonPath playerUpgradeMapPlayerCount = JsonPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" );
+		json.Set( playerUpgradeMapPlayerCount, defaultJson.Get( playerUpgradeMapPlayerCount ).toInt() );
+
+		const JsonPath playerUpgradeSpeed = JsonPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" );
+		json.Set( playerUpgradeSpeed, defaultJson.Get( playerUpgradeSpeed ).toInt() );
+
+		const JsonPath playerUpgradeStrength = JsonPath::PlayerUpgrade( steamId, "playerUpgradeStrength" );
+		json.Set( playerUpgradeStrength, defaultJson.Get( playerUpgradeStrength ).toInt() );
+
+		const JsonPath playerUpgradeRange = JsonPath::PlayerUpgrade( steamId, "playerUpgradeRange" );
+		json.Set( playerUpgradeRange, defaultJson.Get( playerUpgradeRange ).toInt() );
+
+		const JsonPath playerUpgradeThrow = JsonPath::PlayerUpgrade( steamId, "playerUpgradeThrow" );
+		json.Set( playerUpgradeThrow, defaultJson.Get( playerUpgradeThrow ).toInt() );
+
+		const JsonPath playerHasCrown = JsonPath::PlayerUpgrade( steamId, "playerHasCrown" );
+		json.Set( playerHasCrown, defaultJson.Get( playerHasCrown ).toInt() );
 	}
-
-	// Reassign modified root object to QJsonDocument
-	json.setObject( root );
 }
 
 void PlayerWidget::SetVisible( const bool visible ) const
@@ -122,46 +110,17 @@ void PlayerWidget::SavePlayerInfo()
 {
 	const QString steamId = ui->playerComboBox->currentData().toString();
 
-	// Copy QJsonDocument to QJsonObject
-	QJsonObject root = json_.object();
-
-	// Modify "playerNames"
-	QJsonObject playerNamesObj = json_[ "playerNames" ].toObject();
-	QJsonObject playerNamesValue = playerNamesObj[ "value" ].toObject();
-	playerNamesValue.insert( steamId, ui->playerComboBox->currentText() );
-	playerNamesObj.insert( "value", playerNamesValue );
-	root.insert( "playerNames", playerNamesObj );
-
-	// Modify dictionaryOfDictionaries
-	QJsonObject dictOfDicts = json_[ "dictionaryOfDictionaries" ].toObject();
-	QJsonObject dictValue = dictOfDicts[ "value" ].toObject();
-
-	auto updatePlayerStat = [&] ( const QString& key, const int value )
-	{
-		QJsonObject statObj = dictValue[ key ].toObject();
-		statObj.insert( steamId, value );
-		dictValue.insert( key, statObj );
-	};
-
-	// Insert new values
-	updatePlayerStat( "playerHealth", ui->playerHealthSpinBox->value() );
-	updatePlayerStat( "playerUpgradeHealth", ui->healthSpinBox->value() );
-	updatePlayerStat( "playerUpgradeStamina", ui->staminaSpinBox->value() );
-	updatePlayerStat( "playerUpgradeExtraJump", ui->extraJumpSpinBox->value() );
-	updatePlayerStat( "playerUpgradeLaunch", ui->launchSpinBox->value() );
-	updatePlayerStat( "playerUpgradeMapPlayerCount", ui->mapPlayerCountSpinBox->value() );
-	updatePlayerStat( "playerUpgradeSpeed", ui->speedSpinBox->value() );
-	updatePlayerStat( "playerUpgradeStrength", ui->strengthSpinBox->value() );
-	updatePlayerStat( "playerUpgradeRange", ui->rangeSpinBox->value() );
-	updatePlayerStat( "playerUpgradeThrow", ui->throwSpinBox->value() );
-	updatePlayerStat( "playerHasCrown", ui->hasCrownCheckBox->isChecked() ? 1 : 0 );
-
-	// Reassign modified root object to QJsonDocument
-	dictOfDicts.insert( "value", dictValue );
-	root.insert( "dictionaryOfDictionaries", dictOfDicts );
-
-	// Reassign modified root object to QJsonDocument
-	json_.setObject( root );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerHealth" ), ui->playerHealthSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeHealth" ), ui->healthSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeStamina" ), ui->staminaSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" ), ui->extraJumpSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" ), ui->launchSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" ), ui->mapPlayerCountSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" ), ui->speedSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeStrength" ), ui->strengthSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeRange" ), ui->rangeSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerUpgradeThrow" ), ui->throwSpinBox->value() );
+	defaultJson.Set( JsonPath::PlayerUpgrade( steamId, "playerHasCrown" ), ui->hasCrownCheckBox->checkState() == Qt::Checked ? 1 : 0 );
 
 	emit Edited();
 }

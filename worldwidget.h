@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_worldwidget.h"
 
+#include "jsonwrapper.h"
+
 QT_BEGIN_NAMESPACE namespace Ui
 {
 	class WorldWidgetClass;
@@ -14,8 +16,8 @@ QT_END_NAMESPACE class WorldWidget final : public QWidget
 	explicit WorldWidget( QWidget* parent = nullptr );
 	~WorldWidget() override;
 
-	void UpdateWidgets( const QJsonDocument& json ) const;
-	void SetJsonValue( QJsonDocument& json ) const;
+	void UpdateWidgets( const JsonWrapper& json ) const;
+	void SetJsonValue( JsonWrapper& json ) const;
 
 	void SetVisible( bool visible ) const;
 

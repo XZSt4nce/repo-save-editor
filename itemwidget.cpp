@@ -13,7 +13,7 @@ ItemWidget::~ItemWidget()
 	delete ui;
 }
 
-void ItemWidget::UpdateWidgets( const QJsonDocument& json ) const
+void ItemWidget::UpdateWidgets( const JsonWrapper& json ) const
 {
 	while ( ui->itemLayout->count() > 0 )
 	{
@@ -22,12 +22,10 @@ void ItemWidget::UpdateWidgets( const QJsonDocument& json ) const
 		delete widget;
 	}
 
-	const QJsonObject& itemsPurchased = json[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject().value( "itemsPurchased" ).toObject();
-
-	for ( const QString& steamId : itemsPurchased.keys() )
+	for ( const QString& itemName : json.Get( JsonPath::ItemsPurchasedPath() ).toObject().keys() )
 	{
 		const auto itemWidget = new ItemWidgetItem();
-		itemWidget->UpdateWidget( json, steamId );
+		itemWidget->UpdateWidget( json, itemName );
 		connect( itemWidget, &ItemWidgetItem::Edited, this, &ItemWidget::ValueChanged );
 		ui->itemLayout->insertWidget( ui->itemLayout->count(), itemWidget );
 	}
@@ -35,7 +33,7 @@ void ItemWidget::UpdateWidgets( const QJsonDocument& json ) const
 	SetVisible( true );
 }
 
-void ItemWidget::SetJsonValue( QJsonDocument& json ) const
+void ItemWidget::SetJsonValue( JsonWrapper& json ) const
 {
 	for ( int i = 0; i < ui->itemLayout->count(); ++i )
 	{

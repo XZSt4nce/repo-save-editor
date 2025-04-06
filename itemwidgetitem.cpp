@@ -13,30 +13,20 @@ ItemWidgetItem::~ItemWidgetItem()
 	delete ui;
 }
 
-void ItemWidgetItem::UpdateWidget( const QJsonDocument& json, const QString& itemName )
+void ItemWidgetItem::UpdateWidget( const JsonWrapper& json, const QString& itemName_ )
 {
-	itemName_ = itemName;
-
-	const int itemCount = json[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject().value( "itemsPurchased" ).toObject().value( itemName ).toInt();
+	itemName = itemName_;
 
 	// Block signals to prevent signals from being emitted when setting values
 	QSignalBlocker blockers[ ] = { QSignalBlocker( ui->valueSpinBox ) };
 
 	ui->itemNameLabel->setText( QString( itemName ).replace( "Item ", "" ) );
-	ui->valueSpinBox->setValue( itemCount );
+	ui->valueSpinBox->setValue( json.Get( JsonPath::ItemsPurchasedCountPath( itemName ) ).toInt() );
 }
 
-void ItemWidgetItem::SetJsonValues( QJsonDocument& json ) const
+void ItemWidgetItem::SetJsonValues( JsonWrapper& json ) const
 {
-	QJsonObject root = json.object();
-	QJsonObject itemsPurchased = root[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject().value( "itemsPurchased" ).toObject();
-	itemsPurchased.insert( itemName_, ui->valueSpinBox->value() );
-	QJsonObject dictOfDicts = root[ "dictionaryOfDictionaries" ].toObject();
-	QJsonObject dictOfDictsValue = dictOfDicts[ "value" ].toObject();
-	dictOfDictsValue.insert( "itemsPurchased", itemsPurchased );
-	dictOfDicts.insert( "value", dictOfDictsValue );
-	root.insert( "dictionaryOfDictionaries", dictOfDicts );
-	json.setObject( root );
+	json.Set( JsonPath::ItemsPurchasedCountPath( itemName ), ui->valueSpinBox->value() );
 }
 
 void ItemWidgetItem::ValueChanged()

@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_playerwidget.h"
 
+#include "jsonwrapper.h"
+
 QT_BEGIN_NAMESPACE namespace Ui
 {
 	class PlayerWidgetClass;
@@ -14,9 +16,9 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 	explicit PlayerWidget( QWidget* parent = nullptr );
 	~PlayerWidget() override;
 
-	void UpdateWidgets( const QJsonDocument& json );
+	void UpdateWidgets( const JsonWrapper& json );
 	void UpdatePlayerInfo() const;
-	void SetJsonValue( QJsonDocument& json ) const;
+	void SetJsonValue( JsonWrapper& json ) const;
 
 	void SetVisible( bool visible ) const;
 
@@ -30,5 +32,5 @@ private slots:
 private:
 	Ui::PlayerWidgetClass* ui;
 
-	QJsonDocument json_;
+	JsonWrapper defaultJson;
 };

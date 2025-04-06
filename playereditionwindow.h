@@ -3,6 +3,8 @@
 #include "innerwindow.h"
 #include "ui_playereditionwindow.h"
 
+#include "jsonwrapper.h"
+
 QT_BEGIN_NAMESPACE namespace Ui
 {
 	class PlayerEditionWindowClass;
@@ -17,7 +19,7 @@ QT_END_NAMESPACE class PlayerEditionWindow final : public InnerWindow
 		Remove,
 	};
 
-	explicit PlayerEditionWindow( QWidget* parent, QJsonDocument& json_ );
+	explicit PlayerEditionWindow( QWidget* parent, JsonWrapper& json_ );
 	~PlayerEditionWindow() override;
 
 	void SetEditionMode( ePlayerEditionMode mode );
@@ -32,7 +34,7 @@ private slots:
 private:
 	Ui::PlayerEditionWindowClass* ui;
 
-	QJsonDocument& json;
+	JsonWrapper& json;
 
 	inline static const QMap < QString, int > PlayerStats = {
 		{ "playerHealth", 100 },

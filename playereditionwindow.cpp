@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "playereditionwindow.h"
 
-PlayerEditionWindow::PlayerEditionWindow( QWidget* parent, QJsonDocument& json_ ) : InnerWindow( parent ), ui( new Ui::PlayerEditionWindowClass() ), json( json_ )
+PlayerEditionWindow::PlayerEditionWindow( QWidget* parent, JsonWrapper& json_ ) : InnerWindow( parent ), ui( new Ui::PlayerEditionWindowClass() ), json( json_ )
 {
 	ui->setupUi( this );
 
@@ -39,31 +39,16 @@ void PlayerEditionWindow::AddPlayer()
 
 void PlayerEditionWindow::RemovePlayer()
 {
-	QJsonObject root = json.object();
-
-	QJsonObject dictOfDicts = root[ "dictionaryOfDictionaries" ].toObject();
-	QJsonObject valueObj = dictOfDicts[ "value" ].toObject();
-
 	const QString steamId = ui->removeComboBox->currentData().toString();
 
 	for ( const QString& key : PlayerStats.keys() )
 	{
-		QJsonObject playerData = valueObj.value( key ).toObject();
-		playerData.remove( steamId );
-		valueObj.insert( key, playerData );
+		json.Remove( JsonPath::PlayerUpgrade( steamId, key ) );
 	}
 
-	dictOfDicts.insert( "value", valueObj );
-	root.insert( "dictionaryOfDictionaries", dictOfDicts );
+	json.Remove( JsonPath::PlayerNamePath( steamId ) );
 
-	// playerNames part
-	QJsonObject playerNamesObj = root[ "playerNames" ].toObject();
-	QJsonObject playerNamesValue = playerNamesObj[ "value" ].toObject();
-	playerNamesValue.remove( steamId );
-	playerNamesObj.insert( "value", playerNamesValue );
-	root.insert( "playerNames", playerNamesObj );
-
-	json.setObject( root );
+	qDebug() << "Removed player:" << steamId << "At path:" << JsonPath::PlayerNamePath( steamId ) << json.GetPlayerNames();
 
 	emit Edited();
 
@@ -86,9 +71,9 @@ void PlayerEditionWindow::SetupRemoveMode()
 	ui->utilityButton->setText( "Remove" );
 	ui->stackedWidget->setCurrentWidget( ui->removePage );
 
-	for ( const QString& steamId : json[ "playerNames" ].toObject().value( "value" ).toObject().keys() )
+	for ( const QString& steamId : json.GetPlayerIds() )
 	{
-		const QString playerName = json[ "playerNames" ].toObject().value( "value" ).toObject().value( steamId ).toString();
+		const QString playerName = json.GetPlayerName( steamId );
 		ui->removeComboBox->addItem( playerName, steamId );
 	}
 

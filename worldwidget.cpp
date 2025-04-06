@@ -23,10 +23,8 @@ WorldWidget::~WorldWidget()
 	delete ui;
 }
 
-void WorldWidget::UpdateWidgets( const QJsonDocument& json ) const
+void WorldWidget::UpdateWidgets( const JsonWrapper& json ) const
 {
-	const QJsonObject& runObj = json[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject().value( "runStats" ).toObject();
-
 	// Block signals to prevent signals from being emitted when setting values
 	QSignalBlocker blockers[ ] = {
 		QSignalBlocker( ui->levelSpinBox ),
@@ -41,54 +39,28 @@ void WorldWidget::UpdateWidgets( const QJsonDocument& json ) const
 
 	SetVisible( true );
 
-	ui->levelSpinBox->setValue( runObj.value( "level" ).toInt() );
-	ui->currencySpinBox->setValue( runObj.value( "currency" ).toInt() );
-	ui->liveSpinBox->setValue( runObj.value( "lives" ).toInt() );
-	ui->chargeSpinBox->setValue( runObj.value( "chargingStationCharge" ).toInt() );
-	ui->totalHaulSpinBox->setValue( runObj.value( "totalHaul" ).toInt() );
-	ui->teamLineEdit->setText( json[ "teamName" ].toObject().value( "value" ).toString() );
-	ui->dateEdit->setDate( QDate::fromString( json[ "dateAndTime" ].toObject().value( "value" ).toString(), "yyyy-MM-dd" ) );
-	ui->timePlayedDoubleSpinBox->setValue( json[ "timePlayed" ].toObject().value( "value" ).toDouble() );
+	ui->levelSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "level" ) ).toInt() );
+	ui->currencySpinBox->setValue( json.Get( JsonPath::RunStatsPath( "currency" ) ).toInt() );
+	ui->liveSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "lives" ) ).toInt() );
+	ui->chargeSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "chargingStationCharge" ) ).toInt() );
+	ui->totalHaulSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "totalHaul" ) ).toInt() );
+	ui->teamLineEdit->setText( json.Get( JsonPath::TeamNamePath() ).toString() );
+	ui->dateEdit->setDate( QDate::fromString( json.Get( JsonPath::DateAndTimePath() ).toString(), "yyyy-MM-dd" ) );
+	ui->timePlayedDoubleSpinBox->setValue( json.Get( JsonPath::TimePlayedPath() ).toDouble() );
 
 	UpdateTimePlayedLabel();
 }
 
-void WorldWidget::SetJsonValue( QJsonDocument& json ) const
+void WorldWidget::SetJsonValue( JsonWrapper& json ) const
 {
-	// Copy QJsonDocument to QJsonObject
-	QJsonObject root = json.object();
-
-	// Modify "runStats"
-	QJsonObject runObj;
-	runObj.insert( "level", ui->levelSpinBox->value() );
-	runObj.insert( "currency", ui->currencySpinBox->value() );
-	runObj.insert( "lives", ui->liveSpinBox->value() );
-	runObj.insert( "chargingStationCharge", ui->chargeSpinBox->value() );
-	runObj.insert( "totalHaul", ui->totalHaulSpinBox->value() );
-
-	QJsonObject dictOfDicts = root[ "dictionaryOfDictionaries" ].toObject();
-	QJsonObject dictOfDictsValue = dictOfDicts[ "value" ].toObject();
-	dictOfDictsValue.insert( "runStats", runObj );
-	dictOfDicts.insert( "value", dictOfDictsValue );
-	root.insert( "dictionaryOfDictionaries", dictOfDicts );
-
-	// Modify "teamName"
-	QJsonObject teamNameObj = root[ "teamName" ].toObject();
-	teamNameObj.insert( "value", ui->teamLineEdit->text() );
-	root.insert( "teamName", teamNameObj );
-
-	// Modify "dateAndTime"
-	QJsonObject dateAndTimeObj = root[ "dateAndTime" ].toObject();
-	dateAndTimeObj.insert( "value", ui->dateEdit->date().toString( "yyyy-MM-dd" ) );
-	root.insert( "dateAndTime", dateAndTimeObj );
-
-	// Modify "timePlayed"
-	QJsonObject timePlayedObj = root[ "timePlayed" ].toObject();
-	timePlayedObj.insert( "value", ui->timePlayedDoubleSpinBox->value() );
-	root.insert( "timePlayed", timePlayedObj );
-
-	// Replace QJsonObject in QJsonDocument
-	json.setObject( root );
+	json.Set( JsonPath::RunStatsPath( "level" ), ui->levelSpinBox->value() );
+	json.Set( JsonPath::RunStatsPath( "currency" ), ui->currencySpinBox->value() );
+	json.Set( JsonPath::RunStatsPath( "lives" ), ui->liveSpinBox->value() );
+	json.Set( JsonPath::RunStatsPath( "chargingStationCharge" ), ui->chargeSpinBox->value() );
+	json.Set( JsonPath::RunStatsPath( "totalHaul" ), ui->totalHaulSpinBox->value() );
+	json.Set( JsonPath::TeamNamePath(), ui->teamLineEdit->text() );
+	json.Set( JsonPath::DateAndTimePath(), ui->dateEdit->date().toString( "yyyy-MM-dd" ) );
+	json.Set( JsonPath::TimePlayedPath(), ui->timePlayedDoubleSpinBox->value() );
 }
 
 

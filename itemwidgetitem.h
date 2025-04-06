@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_itemwidgetitem.h"
 
+#include "jsonwrapper.h"
+
 QT_BEGIN_NAMESPACE namespace Ui
 {
 	class ItemWidgetItemClass;
@@ -14,8 +16,8 @@ QT_END_NAMESPACE class ItemWidgetItem final : public QWidget
 	explicit ItemWidgetItem( QWidget* parent = nullptr );
 	~ItemWidgetItem() override;
 
-	void UpdateWidget( const QJsonDocument& json, const QString& itemName );
-	void SetJsonValues( QJsonDocument& json ) const;
+	void UpdateWidget( const JsonWrapper& json, const QString& itemName_ );
+	void SetJsonValues( JsonWrapper& json ) const;
 
 signals:
 	void Edited();
@@ -26,5 +28,5 @@ private slots:
 private:
 	Ui::ItemWidgetItemClass* ui;
 
-	QString itemName_;
+	QString itemName;
 };

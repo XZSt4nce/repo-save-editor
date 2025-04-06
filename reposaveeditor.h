@@ -3,10 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_reposaveeditor.h"
 #include "utility.h"
+#include "jsonwrapper.h"
 
 #include <cryptopp/sha.h>
-
-#include "jsonwrapper.h"
 
 QT_BEGIN_NAMESPACE namespace Ui
 {
@@ -35,7 +34,7 @@ private slots:
 	void AddPlayer();
 	void RemovePlayer();
 
-	void LoadJson( const QString& json );
+	void LoadJson( const QString& filePath );
 	void UpdateWidgets() const;
 	void UpdateJsonText();
 
@@ -46,12 +45,12 @@ private:
 
 	JsonHighlighter* jsonHighlighter = nullptr;
 
-	QJsonDocument json_;
+	JsonWrapper json;
 
 	QString openedFile;
 
 	void HideUi() const;
-	void SetupShortcuts();
+	void SetupShortcuts() const;
 
 	static QString DecryptFile( const QString& filePath );
 	static QByteArray EncryptData( const QString& data, bool useGzip = false );
