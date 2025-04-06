@@ -15,7 +15,7 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 	~PlayerWidget() override;
 
 	void UpdateWidgets( const QJsonDocument& json );
-	void UpdatePlayerInfo(const uint8_t playerIndex) const;
+	void UpdatePlayerInfo() const;
 	void SetJsonValue( QJsonDocument& json ) const;
 
 	void SetVisible( bool visible ) const;
@@ -25,8 +25,10 @@ signals:
 
 private slots:
 	void ValueChanged();
+	void SavePlayerInfo();
 
 private:
 	Ui::PlayerWidgetClass* ui;
+
 	QJsonDocument json_;
 };

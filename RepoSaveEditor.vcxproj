@@ -117,7 +117,6 @@
     <ClCompile Include="itemwidget.cpp" />
     <ClCompile Include="itemwidgetitem.cpp" />
     <ClCompile Include="playerwidget.cpp" />
-    <ClCompile Include="playerwidgetitem.cpp" />
     <ClCompile Include="worldwidget.cpp" />
     <ClInclude Include="nowheelspinbox.h" />
     <ClInclude Include="utility.h" />
@@ -131,10 +130,8 @@
     <ClCompile Include="reposaveeditor.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="reposaveeditor.ico" />
-    <QtUic Include="playerwidgetitem.ui" />
     <QtUic Include="worldwidget.ui" />
     <ResourceCompile Include="reposaveeditor.rc" />
-    <QtMoc Include="playerwidgetitem.h" />
     <QtMoc Include="playerwidget.h" />
     <QtMoc Include="itemwidget.h" />
     <QtMoc Include="itemwidgetitem.h" />

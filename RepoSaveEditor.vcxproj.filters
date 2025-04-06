@@ -55,9 +55,6 @@
     <ClCompile Include="worldwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="playerwidgetitem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="playerwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
     <QtMoc Include="worldwidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="playerwidgetitem.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="playerwidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -87,9 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="worldwidget.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="playerwidgetitem.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="playerwidget.ui">
