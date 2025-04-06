@@ -82,11 +82,6 @@ void PlayerEditionWindow::AddPlayer()
 	} );
 
 	manager->get( QNetworkRequest( profileUrl ) );
-
-	//emit Edited();
-
-	// Close window
-	//this->close();
 }
 
 void PlayerEditionWindow::RemovePlayer()
