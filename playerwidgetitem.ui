@@ -28,9 +28,6 @@
    </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="playerGroupBox">
-     <property name="title">
-      <string>#PLAYER_NAME</string>
-     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">

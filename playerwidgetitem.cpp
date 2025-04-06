@@ -25,8 +25,6 @@ PlayerWidgetItem::~PlayerWidgetItem()
 
 void PlayerWidgetItem::UpdateWidgets( const QJsonDocument& json, const QString& steamId )
 {
-	const QString playerName = json[ "playerNames" ].toObject().value( "value" ).toObject().value( steamId ).toString();
-
 	steamId_ = steamId;
 
 	// Block signals to prevent signals from being emitted when setting values
@@ -45,12 +43,9 @@ void PlayerWidgetItem::UpdateWidgets( const QJsonDocument& json, const QString& 
 		QSignalBlocker( ui->hasCrownCheckBox )
 	};
 
-	ui->playerGroupBox->setTitle( QString( "%1 (Steam ID: %2)" ).arg( playerName ).arg( steamId ) );
-
 	const QJsonObject& globalObj = json[ "dictionaryOfDictionaries" ].toObject().value( "value" ).toObject();
 
 	ui->playerHealthSpinBox->setValue( globalObj.value( "playerHealth" ).toObject().value( steamId ).toInt() );
-
 	ui->healthSpinBox->setValue( globalObj.value( "playerUpgradeHealth" ).toObject().value( steamId ).toInt() );
 	ui->staminaSpinBox->setValue( globalObj.value( "playerUpgradeStamina" ).toObject().value( steamId ).toInt() );
 	ui->extraJumpSpinBox->setValue( globalObj.value( "playerUpgradeExtraJump" ).toObject().value( steamId ).toInt() );

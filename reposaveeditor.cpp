@@ -153,7 +153,7 @@ void RepoSaveEditor::SaveOpenedFile()
 void RepoSaveEditor::SaveFileAs()
 {
 	QString savesLocation = DEFAULT_SAVES_LOCATION;
-	
+
 	if (openedFile.isEmpty())
 	{
 		return;

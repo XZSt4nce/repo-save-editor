@@ -75,20 +75,21 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
-          <bool>true</bool>
+        <layout class="QVBoxLayout" name="playerLayout">
+         <property name="leftMargin">
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>598</width>
-            <height>398</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="playerLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QComboBox" name="playerComboBox">
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -101,9 +102,40 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-          </layout>
-         </widget>
-        </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>598</width>
+              <height>398</height>
+             </rect>
+            </property>
+            <widget class="QVBoxLayout" name="playerInfoLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </widget>
+           </widget>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
