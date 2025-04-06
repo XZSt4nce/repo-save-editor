@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "playereditionwindow.h"
 
+#include <QtNetwork/QNetworkReply>
+
 PlayerEditionWindow::PlayerEditionWindow( QWidget* parent, JsonWrapper& json_ ) : InnerWindow( parent ), ui( new Ui::PlayerEditionWindowClass() ), json( json_ )
 {
 	ui->setupUi( this );
@@ -29,12 +31,62 @@ void PlayerEditionWindow::SetEditionMode( const ePlayerEditionMode mode )
 
 void PlayerEditionWindow::AddPlayer()
 {
-	// TODO: Add player to json
+	const QUrl profileUrl = ui->urlLineEdit->text().trimmed();
 
-	emit Edited();
+	if ( !profileUrl.isValid() || profileUrl.isEmpty() )
+	{
+		qDebug() << "URL Steam invalide.";
+		return;
+	}
+
+	auto* manager = new QNetworkAccessManager( this );
+
+	connect( manager, &QNetworkAccessManager::finished, this, [this] ( QNetworkReply* reply )
+	{
+		const QString html = reply->readAll();
+		reply->deleteLater();
+
+		QString steamId, personaName;
+
+		// g_rgProfileData method
+		const QRegularExpression regex( R"(g_rgProfileData\s*=\s*(\{.*?\});)" );
+		if ( const QRegularExpressionMatch match = regex.match( html ); match.hasMatch() )
+		{
+			QJsonParseError err;
+			const QString jsonText = match.captured( 1 );
+			if ( const QJsonDocument doc = QJsonDocument::fromJson( jsonText.toUtf8(), &err ); err.error == QJsonParseError::NoError && doc.isObject() )
+			{
+				steamId = doc.object().value( "steamid" ).toString();
+				personaName = doc.object().value( "personaname" ).toString();
+			}
+		}
+
+		if ( !steamId.isEmpty() )
+		{
+			qDebug() << "SteamID trouve:" << steamId << personaName;
+
+			QMessageBox::information( this, "SteamID found", QString( "SteamID found: %1" ).arg( steamId ) );
+
+			json.Set( JsonPath::PlayerNamePath( steamId ), personaName );
+
+			for ( const QString& key : PlayerStats.keys() )
+				json.Set( JsonPath::PlayerUpgrade( steamId, key ), PlayerStats[ key ] );
+
+			emit Edited();
+			this->close();
+		}
+		else
+		{
+			QMessageBox::critical( this, "Error", "Unable to find SteamID in the provided URL." );
+		}
+	} );
+
+	manager->get( QNetworkRequest( profileUrl ) );
+
+	//emit Edited();
 
 	// Close window
-	this->close();
+	//this->close();
 }
 
 void PlayerEditionWindow::RemovePlayer()
@@ -47,8 +99,6 @@ void PlayerEditionWindow::RemovePlayer()
 	}
 
 	json.Remove( JsonPath::PlayerNamePath( steamId ) );
-
-	qDebug() << "Removed player:" << steamId << "At path:" << JsonPath::PlayerNamePath( steamId ) << json.GetPlayerNames();
 
 	emit Edited();
 

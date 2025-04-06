@@ -36,6 +36,14 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 
 	HideUi();
 	SetupShortcuts();
+
+#if defined( _DEBUG )
+	if ( QDirIterator it( DEFAULT_SAVES_LOCATION, QStringList() << "*.es3", QDir::Files, QDirIterator::Subdirectories ); it.hasNext() )
+	{
+		openedFile = it.next();
+		LoadJson( DecryptFile( openedFile ) );
+	}
+#endif
 }
 
 RepoSaveEditor::~RepoSaveEditor()
