@@ -39,28 +39,28 @@ void WorldWidget::UpdateWidgets( const JsonWrapper& json ) const
 
 	SetVisible( true );
 
-	ui->levelSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "level" ) ).toInt() );
-	ui->currencySpinBox->setValue( json.Get( JsonPath::RunStatsPath( "currency" ) ).toInt() );
-	ui->liveSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "lives" ) ).toInt() );
-	ui->chargeSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "chargingStationCharge" ) ).toInt() );
-	ui->totalHaulSpinBox->setValue( json.Get( JsonPath::RunStatsPath( "totalHaul" ) ).toInt() );
-	ui->teamLineEdit->setText( json.Get( JsonPath::TeamNamePath() ).toString() );
-	ui->dateEdit->setDate( QDate::fromString( json.Get( JsonPath::DateAndTimePath() ).toString(), "yyyy-MM-dd" ) );
-	ui->timePlayedDoubleSpinBox->setValue( json.Get( JsonPath::TimePlayedPath() ).toDouble() );
+	ui->levelSpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "level" ) ).toInt() );
+	ui->currencySpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "currency" ) ).toInt() );
+	ui->liveSpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "lives" ) ).toInt() );
+	ui->chargeSpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "chargingStationCharge" ) ).toInt() );
+	ui->totalHaulSpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "totalHaul" ) ).toInt() );
+	ui->teamLineEdit->setText( json.Get( PropertyPath::TeamNamePath() ).toString() );
+	ui->dateEdit->setDate( QDate::fromString( json.Get( PropertyPath::DateAndTimePath() ).toString(), "yyyy-MM-dd" ) );
+	ui->timePlayedDoubleSpinBox->setValue( json.Get( PropertyPath::TimePlayedPath() ).toDouble() );
 
 	UpdateTimePlayedLabel();
 }
 
 void WorldWidget::SetJsonValue( JsonWrapper& json ) const
 {
-	json.Set( JsonPath::RunStatsPath( "level" ), ui->levelSpinBox->value() );
-	json.Set( JsonPath::RunStatsPath( "currency" ), ui->currencySpinBox->value() );
-	json.Set( JsonPath::RunStatsPath( "lives" ), ui->liveSpinBox->value() );
-	json.Set( JsonPath::RunStatsPath( "chargingStationCharge" ), ui->chargeSpinBox->value() );
-	json.Set( JsonPath::RunStatsPath( "totalHaul" ), ui->totalHaulSpinBox->value() );
-	json.Set( JsonPath::TeamNamePath(), ui->teamLineEdit->text() );
-	json.Set( JsonPath::DateAndTimePath(), ui->dateEdit->date().toString( "yyyy-MM-dd" ) );
-	json.Set( JsonPath::TimePlayedPath(), ui->timePlayedDoubleSpinBox->value() );
+	json.Set( PropertyPath::RunStatsPath( "level" ), ui->levelSpinBox->value() );
+	json.Set( PropertyPath::RunStatsPath( "currency" ), ui->currencySpinBox->value() );
+	json.Set( PropertyPath::RunStatsPath( "lives" ), ui->liveSpinBox->value() );
+	json.Set( PropertyPath::RunStatsPath( "chargingStationCharge" ), ui->chargeSpinBox->value() );
+	json.Set( PropertyPath::RunStatsPath( "totalHaul" ), ui->totalHaulSpinBox->value() );
+	json.Set( PropertyPath::TeamNamePath(), ui->teamLineEdit->text() );
+	json.Set( PropertyPath::DateAndTimePath(), ui->dateEdit->date().toString( "yyyy-MM-dd" ) );
+	json.Set( PropertyPath::TimePlayedPath(), ui->timePlayedDoubleSpinBox->value() );
 }
 
 

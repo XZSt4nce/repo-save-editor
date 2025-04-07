@@ -21,12 +21,12 @@ void ItemWidgetItem::UpdateWidget( const JsonWrapper& json, const QString& itemN
 	QSignalBlocker blockers[ ] = { QSignalBlocker( ui->valueSpinBox ) };
 
 	ui->itemNameLabel->setText( QString( itemName ).replace( "Item ", "" ) );
-	ui->valueSpinBox->setValue( json.Get( JsonPath::ItemsPurchasedCountPath( itemName ) ).toInt() );
+	ui->valueSpinBox->setValue( json.Get( PropertyPath::ItemsPurchasedCountPath( itemName ) ).toInt() );
 }
 
 void ItemWidgetItem::SetJsonValues( JsonWrapper& json ) const
 {
-	json.Set( JsonPath::ItemsPurchasedCountPath( itemName ), ui->valueSpinBox->value() );
+	json.Set( PropertyPath::ItemsPurchasedCountPath( itemName ), ui->valueSpinBox->value() );
 }
 
 void ItemWidgetItem::ValueChanged()

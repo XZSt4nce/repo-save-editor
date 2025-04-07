@@ -22,7 +22,7 @@ void ItemWidget::UpdateWidgets( const JsonWrapper& json ) const
 		delete widget;
 	}
 
-	for ( const QString& itemName : json.Get( JsonPath::ItemsPurchasedPath() ).toObject().keys() )
+	for ( const QString& itemName : json.Get( PropertyPath::ItemsPurchasedPath() ).toObject().keys() )
 	{
 		const auto itemWidget = new ItemWidgetItem();
 		itemWidget->UpdateWidget( json, itemName );

@@ -27,22 +27,22 @@ private:
 	QJsonDocument document_;
 };
 
-class JsonPath : public QString
+class PropertyPath : public QString
 {
 public:
-	explicit JsonPath( const QString& path ) : QString( path ) {}
+	explicit PropertyPath( const QString& path ) : QString( path ) {}
 
 	[[nodiscard]] QStringList ToList() const;
 
-	[[nodiscard]] static JsonPath PlayerPath();
-	[[nodiscard]] static JsonPath PlayerNamePath( const QString& steamId );
-	[[nodiscard]] static JsonPath PlayerUpgrade( const QString& steamId, const QString& upgradeName );
-	[[nodiscard]] static JsonPath RunStatsPath( const QString& key );
-	[[nodiscard]] static JsonPath TeamNamePath();
-	[[nodiscard]] static JsonPath DateAndTimePath();
-	[[nodiscard]] static JsonPath TimePlayedPath();
-	[[nodiscard]] static JsonPath ItemsPurchasedPath();
-	[[nodiscard]] static JsonPath ItemsPurchasedCountPath( const QString& itemName );
+	[[nodiscard]] static PropertyPath PlayerPath();
+	[[nodiscard]] static PropertyPath PlayerNamePath( const QString& steamId );
+	[[nodiscard]] static PropertyPath PlayerUpgrade( const QString& steamId, const QString& upgradeName );
+	[[nodiscard]] static PropertyPath RunStatsPath( const QString& key );
+	[[nodiscard]] static PropertyPath TeamNamePath();
+	[[nodiscard]] static PropertyPath DateAndTimePath();
+	[[nodiscard]] static PropertyPath TimePlayedPath();
+	[[nodiscard]] static PropertyPath ItemsPurchasedPath();
+	[[nodiscard]] static PropertyPath ItemsPurchasedCountPath( const QString& itemName );
 
 	[[nodiscard]] static QStringList ToList( const QString& path );
 };
