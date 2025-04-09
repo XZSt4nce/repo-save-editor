@@ -52,7 +52,7 @@
     <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/utilities/jsonwrapper.cpp">
+    <ClCompile Include="src/utilities/jsonwrapper/jsonwrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp">
@@ -69,7 +69,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src/utilities/jsonwrapper.h">
+    <ClInclude Include="src/utilities/jsonwrapper/jsonwrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src/classes/nowheelspinbox/nowheelspinbox.h">

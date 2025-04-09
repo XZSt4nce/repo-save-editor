@@ -68,8 +68,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\Максим\Desktop\repo-save-editor\include;C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -79,8 +79,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\Максим\Desktop\repo-save-editor\include;C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\Максим\Desktop\repo-save-editor\vcpkg_installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -126,19 +126,19 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src/classes/innerwindow/innerwindow.cpp" />
+    <ClCompile Include="src\classes\innerwindow.cpp" />
     <ClCompile Include="src/widgets/itemwidget/itemwidget.cpp" />
     <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp" />
-    <ClCompile Include="src/utilities/jsonwrapper.cpp" />
+    <ClCompile Include="src\utilities\jsonwrapper.cpp" />
     <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp" />
     <ClCompile Include="src/widgets/playerwidget/playerwidget.cpp" />
     <ClCompile Include="src/widgets/worldwidget/worldwidget.cpp" />
-    <QtMoc Include="src/classes/innerwindow/innerwindow.h" />
-    <ClInclude Include="src/utilities/jsonwrapper.h" />
-    <ClInclude Include="src/classes/nowheelspinbox/nowheelspinbox.h" />
-    <QtMoc Include="src/windows/playereditionwindow/playereditionwindow.h" />
-    <ClInclude Include="src/utilities/utility.h" />
-    <QtMoc Include="src/widgets/worldwidget/worldwidget.h" />
+    <QtMoc Include="include\innerwindow.h" />
+    <ClInclude Include="include\jsonwrapper.h" />
+    <ClInclude Include="include\nowheelspinbox.h" />
+    <QtMoc Include="include\playereditionwindow.h" />
+    <ClInclude Include="include\utility.h" />
+    <QtMoc Include="include\worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
     <QtUic Include="src/widgets/itemwidget/itemwidget.ui" />
     <QtUic Include="src/widgets/itemwidgetitem/itemwidgetitem.ui" />
@@ -151,11 +151,11 @@
     <None Include="public/icon.ico" />
     <QtUic Include="src/widgets/worldwidget/worldwidget.ui" />
     <ResourceCompile Include="reposaveeditor.rc" />
-    <QtMoc Include="src/widgets/playerwidget/playerwidget.h" />
-    <QtMoc Include="src/widgets/itemwidget/itemwidget.h" />
-    <QtMoc Include="src/widgets/itemwidgetitem/itemwidgetitem.h" />
-    <ClInclude Include="src/utilities/stdafx/stdafx.h" />
-    <ClCompile Include="src/utilities/stdafx/stdafx.cpp">
+    <QtMoc Include="include\playerwidget.h" />
+    <QtMoc Include="include\itemwidget.h" />
+    <QtMoc Include="include\itemwidgetitem.h" />
+    <ClInclude Include="include\stdafx.h" />
+    <ClCompile Include="src\utilities\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
