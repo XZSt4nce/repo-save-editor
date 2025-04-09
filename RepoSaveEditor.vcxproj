@@ -89,7 +89,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <QtMoc>
-      <PrependInclude>stdafx.h;%(PrependInclude)</PrependInclude>
+      <PrependInclude>src/utilities/stdafx/stdafx.h;%(PrependInclude)</PrependInclude>
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
@@ -114,36 +114,36 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="innerwindow.cpp" />
-    <ClCompile Include="itemwidget.cpp" />
-    <ClCompile Include="itemwidgetitem.cpp" />
-    <ClCompile Include="jsonwrapper.cpp" />
-    <ClCompile Include="playereditionwindow.cpp" />
-    <ClCompile Include="playerwidget.cpp" />
-    <ClCompile Include="worldwidget.cpp" />
-    <QtMoc Include="innerwindow.h" />
-    <ClInclude Include="jsonwrapper.h" />
-    <ClInclude Include="nowheelspinbox.h" />
-    <QtMoc Include="playereditionwindow.h" />
-    <ClInclude Include="utility.h" />
-    <QtMoc Include="worldwidget.h" />
+    <ClCompile Include="src/classes/innerwindow/innerwindow.cpp" />
+    <ClCompile Include="src/widgets/itemwidget/itemwidget.cpp" />
+    <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp" />
+    <ClCompile Include="src/utilities/jsonwrapper.cpp" />
+    <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp" />
+    <ClCompile Include="src/widgets/playerwidget/playerwidget.cpp" />
+    <ClCompile Include="src/widgets/worldwidget/worldwidget.cpp" />
+    <QtMoc Include="src/classes/innerwindow/innerwindow.h" />
+    <ClInclude Include="src/utilities/jsonwrapper.h" />
+    <ClInclude Include="src/classes/nowheelspinbox/nowheelspinbox.h" />
+    <QtMoc Include="src/windows/playereditionwindow/playereditionwindow.h" />
+    <ClInclude Include="src/utilities/utility.h" />
+    <QtMoc Include="src/widgets/worldwidget/worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
-    <QtUic Include="itemwidget.ui" />
-    <QtUic Include="itemwidgetitem.ui" />
-    <QtUic Include="playereditionwindow.ui" />
-    <QtUic Include="playerwidget.ui" />
+    <QtUic Include="src/widgets/itemwidget/itemwidget.ui" />
+    <QtUic Include="src/widgets/itemwidgetitem/itemwidgetitem.ui" />
+    <QtUic Include="src/windows/playereditionwindow/playereditionwindow.ui" />
+    <QtUic Include="src/widgets/playerwidget/playerwidget.ui" />
     <QtUic Include="reposaveeditor.ui" />
     <QtMoc Include="reposaveeditor.h" />
     <ClCompile Include="reposaveeditor.cpp" />
     <ClCompile Include="main.cpp" />
-    <None Include="reposaveeditor.ico" />
-    <QtUic Include="worldwidget.ui" />
+    <None Include="public/icon.ico" />
+    <QtUic Include="src/widgets/worldwidget/worldwidget.ui" />
     <ResourceCompile Include="reposaveeditor.rc" />
-    <QtMoc Include="playerwidget.h" />
-    <QtMoc Include="itemwidget.h" />
-    <QtMoc Include="itemwidgetitem.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClCompile Include="stdafx.cpp">
+    <QtMoc Include="src/widgets/playerwidget/playerwidget.h" />
+    <QtMoc Include="src/widgets/itemwidget/itemwidget.h" />
+    <QtMoc Include="src/widgets/itemwidgetitem/itemwidgetitem.h" />
+    <ClInclude Include="src/classes/stdafx/stdafx.h" />
+    <ClCompile Include="src/classes/stdafx/stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
