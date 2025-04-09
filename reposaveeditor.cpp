@@ -66,13 +66,14 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 
 void RepoSaveEditor::OpenFile()
 {
-	openedFile = QFileDialog::getOpenFileName( this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)" );
+	QString file = QFileDialog::getOpenFileName(this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)");
 
-	if ( openedFile.isEmpty() )
+	if ( file.isEmpty() )
 		return;
 
 	HideUi();
 
+	openedFile = file;
 	const QString json = DecryptFile( openedFile );
 
 	if ( json.isEmpty() )
@@ -85,7 +86,7 @@ void RepoSaveEditor::OpenFile()
 	LoadJson( json );
 }
 
-void RepoSaveEditor::SaveFile( const QString& filePath )
+void RepoSaveEditor::SaveFile( const QString& filePath, const bool askBackup )
 {
 	// There is nothing to save if file is not open
 	if ( filePath.isEmpty() )
@@ -97,11 +98,34 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 
 	if ( !fileDirectory.exists() )
 	{
-		if ( !fileDirectory.mkdir(".") )
+		if ( QDir().mkpath(fileDirectory.path()) )
 		{
 			QMessageBox::critical( this, "Error", "Unable to open file for writing." );
 			qCritical() << "Error : Unable to open file for writing :" << filePath;
 			return;
+		}
+	}
+
+	if (askBackup) {
+		const int answer = QMessageBox::question(this, "Backup", "Save a backup copy of the file?", QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
+
+		if (answer == QMessageBox::StandardButton::Yes) {
+			if (QFile::exists(filePath)) {
+				const QString directoryPath = fileDirectory.path();
+				const QString fileName = fileInfo.baseName();
+				const QString currentTime = QDateTime::currentDateTime().toString("hhmmss");
+				const QString suffix = fileInfo.suffix();
+				QString backupName = QString("%1/BACKUP-%2-%3.%4").arg(directoryPath).arg(fileName).arg(currentTime).arg(suffix);
+				if (!QFile::copy(filePath, backupName)) {
+					QMessageBox::critical(this, "Error", "Unable to create backup file.");
+					qCritical() << "Error : Unable to create backup file :" << backupName;
+					return;
+				}
+				QMessageBox::information(this, "Save backup", QString("Save successful : %1").arg(backupName));
+			}
+			else {
+				QMessageBox::information(this, "Backup", "No existing file to backup.");
+			}
 		}
 	}
 
@@ -113,17 +137,6 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 		return;
 	}
 
-	const int answer = QMessageBox::question(this, "Backup", "Save a backup copy of the file?", QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
-
-	if (answer == QMessageBox::StandardButton::Yes) {
-		const QString directoryPath = fileDirectory.path();
-		const QString fileName = fileInfo.baseName();
-		const QString currentTime = QDateTime::currentDateTime().toString("hhmmss");
-		const QString suffix = fileInfo.suffix();
-		QString backupName = QString("%1/BACKUP-%2-%3.%4").arg(directoryPath.toStdString()).arg(fileName.toStdString()).arg(currentTime.toStdString()).arg(suffix);
-		file.copy(backupName);
-		QMessageBox::information(this, "Save backup", QString("Save successful : %1").arg(backupName));
-	}
 
 	// Récupère le texte du plainTextEdit
 	const QString texte = ui->advancedTextEdit->toPlainText();
@@ -164,7 +177,7 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 
 void RepoSaveEditor::SaveOpenedFile()
 {
-	SaveFile( openedFile );
+	SaveFile( openedFile, true );
 }
 
 void RepoSaveEditor::SaveFileAs()
@@ -182,7 +195,7 @@ void RepoSaveEditor::SaveFileAs()
 
 	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", savesLocation, "ES3 File (*.es3)" );
 
-	SaveFile( filePath );
+	SaveFile( filePath, openedFile == filePath );
 }
 
 void RepoSaveEditor::LoadJson( const QString& filePath )
