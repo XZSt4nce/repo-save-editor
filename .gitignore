@@ -35,3 +35,9 @@
 .vs
 x64
 saves
+UpgradeLog.htm
+
+# vcpkg dependencies
+vcpkg.json
+vcpkg-configuration.json
+vcpkg_installed/

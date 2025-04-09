@@ -67,10 +67,19 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 To build or contribute to this project, ensure you have the following:
 
 - Qt 6.7 or newer (recommended)
-
 - Crypto++ library
-
 - C++20 compatible compiler
+
+### Libraries installation
+
+[![vcpkg crypto++](https://img.shields.io/badge/crypto++-8.9.0-green)](https://repology.org/metapackage/cryptopp)
+
+With [vcpkg](https://github.com/Microsoft/vcpkg) on Windows
+```
+PS> vcpkg add port cryptopp
+PS> vcpkg install
+```
+
 
 ---
 ## Contributions
