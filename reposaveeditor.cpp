@@ -92,11 +92,12 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 		return;
 
 	// If directory with save file was deleted, create directory again and save file there
-	const QString directoryPath = QFileInfo( filePath ).absolutePath();
+	const QFileInfo fileInfo = QFileInfo(filePath);
+	const QDir fileDirectory = fileInfo.absolutePath();
 
-	if ( const QDir dir; !dir.exists( directoryPath ) )
+	if ( !fileDirectory.exists() )
 	{
-		if ( !dir.mkpath( directoryPath ) )
+		if ( !fileDirectory.mkdir(".") )
 		{
 			QMessageBox::critical( this, "Error", "Unable to open file for writing." );
 			qCritical() << "Error : Unable to open file for writing :" << filePath;
@@ -110,6 +111,18 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 		QMessageBox::critical( this, "Error", "Unable to open file for writing." );
 		qCritical() << "Error : Unable to open file for writing :" << filePath;
 		return;
+	}
+
+	const int answer = QMessageBox::question(this, "Backup", "Save a backup copy of the file?", QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
+
+	if (answer == QMessageBox::StandardButton::Yes) {
+		const QString directoryPath = fileDirectory.path();
+		const QString fileName = fileInfo.baseName();
+		const QString currentTime = QDateTime::currentDateTime().toString("hhmmss");
+		const QString suffix = fileInfo.suffix();
+		QString backupName = QString("%1/BACKUP-%2-%3.%4").arg(directoryPath.toStdString()).arg(fileName.toStdString()).arg(currentTime.toStdString()).arg(suffix);
+		file.copy(backupName);
+		QMessageBox::information(this, "Save backup", QString("Save successful : %1").arg(backupName));
 	}
 
 	// Récupère le texte du plainTextEdit
