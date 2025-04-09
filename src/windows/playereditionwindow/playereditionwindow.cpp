@@ -3,12 +3,12 @@
 
 #include <QtNetwork/QNetworkReply>
 
-PlayerEditionWindow::PlayerEditionWindow( QWidget* parent, JsonWrapper& json_ ) : InnerWindow( parent ), ui( new Ui::PlayerEditionWindowClass() ), json( json_ )
+PlayerEditionWindow::PlayerEditionWindow(QWidget* parent, JsonWrapper& json_) : InnerWindow(parent), ui(new Ui::PlayerEditionWindowClass()), json(json_)
 {
-	ui->setupUi( this );
+	ui->setupUi(this);
 
-	connect( ui->closeButton, &QPushButton::pressed, this, &PlayerEditionWindow::close );
-	connect( ui->cancelButton, &QPushButton::pressed, this, &PlayerEditionWindow::close );
+	connect(ui->closeButton, &QPushButton::pressed, this, &PlayerEditionWindow::close);
+	connect(ui->cancelButton, &QPushButton::pressed, this, &PlayerEditionWindow::close);
 }
 
 PlayerEditionWindow::~PlayerEditionWindow()
@@ -16,9 +16,9 @@ PlayerEditionWindow::~PlayerEditionWindow()
 	delete ui;
 }
 
-void PlayerEditionWindow::SetEditionMode( const ePlayerEditionMode mode )
+void PlayerEditionWindow::SetEditionMode(const ePlayerEditionMode mode)
 {
-	switch ( mode )
+	switch (mode)
 	{
 	case ePlayerEditionMode::Add:
 		SetupAddMode();
@@ -31,67 +31,80 @@ void PlayerEditionWindow::SetEditionMode( const ePlayerEditionMode mode )
 
 void PlayerEditionWindow::AddPlayer()
 {
-	const QUrl profileUrl = ui->urlLineEdit->text().trimmed();
+	const QString profileId = ui->idLineEdit->text().trimmed();
+	std::string inputType = "Steam URL";
+	QUrl profileUrl;
 
-	if ( !profileUrl.isValid() || profileUrl.isEmpty() )
+	if (profileId.startsWith("https://steamcommunity.com/id/")) {
+		profileUrl = profileId;
+	}
+	else if (profileId.length() == 17 && profileId.startsWith("7656119")) {
+		profileUrl = QString::fromStdString(std::format("{}{}", "https://steamcommunity.com/profiles/", profileId.toStdString()));
+		inputType = "SteamID";
+	}
+	else {
+		profileUrl = QString::fromStdString(std::format("{}{}", "https://steamcommunity.com/id/", profileId.toStdString()));
+	}
+
+	if (!profileUrl.isValid() || profileUrl.isEmpty())
 	{
-		qDebug() << "URL Steam invalide.";
+		qDebug() << std::format("%s invalide.", inputType);
 		return;
 	}
 
-	auto* manager = new QNetworkAccessManager( this );
+	auto* manager = new QNetworkAccessManager(this);
 
-	connect( manager, &QNetworkAccessManager::finished, this, [this] ( QNetworkReply* reply )
-	{
-		const QString html = reply->readAll();
-		reply->deleteLater();
-
-		QString steamId, personaName;
-
-		// g_rgProfileData method
-		const QRegularExpression regex( R"(g_rgProfileData\s*=\s*(\{.*?\});)" );
-		if ( const QRegularExpressionMatch match = regex.match( html ); match.hasMatch() )
+	connect(manager, &QNetworkAccessManager::finished, this, [this](QNetworkReply* reply)
 		{
-			QJsonParseError err;
-			const QString jsonText = match.captured( 1 );
-			if ( const QJsonDocument doc = QJsonDocument::fromJson( jsonText.toUtf8(), &err ); err.error == QJsonParseError::NoError && doc.isObject() )
+			const QString html = reply->readAll();
+			reply->deleteLater();
+
+			QString steamId, personaName;
+
+			// g_rgProfileData method
+			const QRegularExpression regex(R"(g_rgProfileData\s*=\s*(\{.*?\});)");
+			if (const QRegularExpressionMatch match = regex.match(html); match.hasMatch())
 			{
-				steamId = doc.object().value( "steamid" ).toString();
-				personaName = doc.object().value( "personaname" ).toString();
+				QJsonParseError err;
+				const QString jsonText = match.captured(1);
+				if (const QJsonDocument doc = QJsonDocument::fromJson(jsonText.toUtf8(), &err); err.error == QJsonParseError::NoError && doc.isObject())
+				{
+					steamId = doc.object().value("steamid").toString();
+					personaName = doc.object().value("personaname").toString();
+				}
 			}
-		}
 
-		if ( !steamId.isEmpty() )
-		{
-			qDebug() << "SteamID trouve:" << steamId << personaName;
+			if (!steamId.isEmpty())
+			{
+				qDebug() << "SteamID trouve:" << steamId << personaName;
 
-			QMessageBox::information( this, "SteamID found", QString( "SteamID found: %1" ).arg( steamId ) );
+				QMessageBox::information(this, "SteamID found", QString("SteamID found: %1").arg(steamId));
 
-			json.Set( PropertyPath::PlayerNamePath( steamId ), personaName );
+				json.Set(PropertyPath::PlayerNamePath(steamId), personaName);
 
-			for ( const QString& key : PlayerStats.keys() )
-				json.Set( PropertyPath::PlayerUpgrade( steamId, key ), PlayerStats[ key ] );
+				for (const QString& key : PlayerStats.keys())
+					json.Set(PropertyPath::PlayerUpgrade(steamId, key), PlayerStats[key]);
 
-			emit Edited();
-			this->close();
-		}
-		else
-		{
-			QMessageBox::critical( this, "Error", "Unable to find SteamID in the provided URL." );
-		}
-	} );
+				emit Edited();
+				this->close();
+			}
+			else
+			{
+				QMessageBox::critical(this, "Error", "Unable to find data in the provided URL/ID.");
+			}
+		});
 
-	manager->get( QNetworkRequest( profileUrl ) );
+	manager->get(QNetworkRequest(profileUrl));
 }
 
 void PlayerEditionWindow::RemovePlayer()
 {
 	const QString steamId = ui->removeComboBox->currentData().toString();
 
-	for ( const QString& key : PlayerStats.keys() )
-		json.Remove( PropertyPath::PlayerUpgrade( steamId, key ) );
+	for (const QString& key : PlayerStats.keys())
+		json.Remove(PropertyPath::PlayerUpgrade(steamId, key));
 
-	json.Remove( PropertyPath::PlayerNamePath( steamId ) );
+	json.Remove(PropertyPath::PlayerNamePath(steamId));
 
 	emit Edited();
 
@@ -101,24 +114,24 @@ void PlayerEditionWindow::RemovePlayer()
 
 void PlayerEditionWindow::SetupAddMode()
 {
-	ui->titleLabel->setText( "Add New Player" );
-	ui->utilityButton->setText( "Add" );
-	ui->stackedWidget->setCurrentWidget( ui->addPage );
+	ui->titleLabel->setText("Add New Player");
+	ui->utilityButton->setText("Add");
+	ui->stackedWidget->setCurrentWidget(ui->addPage);
 
-	connect( ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::AddPlayer );
+	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::AddPlayer);
 }
 
 void PlayerEditionWindow::SetupRemoveMode()
 {
-	ui->titleLabel->setText( "Remove Player" );
-	ui->utilityButton->setText( "Remove" );
-	ui->stackedWidget->setCurrentWidget( ui->removePage );
+	ui->titleLabel->setText("Remove Player");
+	ui->utilityButton->setText("Remove");
+	ui->stackedWidget->setCurrentWidget(ui->removePage);
 
-	for ( const QString& steamId : json.GetPlayerIds() )
+	for (const QString& steamId : json.GetPlayerIds())
 	{
-		const QString playerName = json.GetPlayerName( steamId );
-		ui->removeComboBox->addItem( playerName, steamId );
+		const QString playerName = json.GetPlayerName(steamId);
+		ui->removeComboBox->addItem(playerName, steamId);
 	}
 
-	connect( ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::RemovePlayer );
+	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::RemovePlayer);
 }

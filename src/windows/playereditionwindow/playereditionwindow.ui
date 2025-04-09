@@ -212,12 +212,12 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>Steam Account URL</string>
+               <string>Steam Account URL/ID</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="urlLineEdit">
+             <widget class="QLineEdit" name="idLineEdit">
               <property name="minimumSize">
                <size>
                 <width>0</width>
