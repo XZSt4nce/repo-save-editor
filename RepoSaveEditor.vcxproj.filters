@@ -29,7 +29,7 @@
     <QtUic Include="reposaveeditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="reposaveeditor.h">
+    <QtMoc Include="include\reposaveeditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <ClCompile Include="reposaveeditor.cpp">
@@ -43,16 +43,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/classes/innerwindow/innerwindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src/widgets/itemwidget/itemwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src/utilities/jsonwrapper/jsonwrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp">
@@ -64,21 +58,27 @@
     <ClCompile Include="src/widgets/worldwidget/worldwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/utilities/stdafx/stdafx.cpp">
+    <ClCompile Include="src\classes\innerwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utilities\jsonwrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utilities\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src/utilities/jsonwrapper/jsonwrapper.h">
+    <ClInclude Include="include\jsonwrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src/classes/nowheelspinbox/nowheelspinbox.h">
+    <ClInclude Include="include\nowheelspinbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src/utilities/utility.h">
+    <ClInclude Include="include\utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src/utilities/stdafx/stdafx.h">
+    <ClInclude Include="include\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,5 +86,42 @@
     <None Include="public/icon.ico">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\innerwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\playereditionwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\worldwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\playerwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\itemwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\itemwidgetitem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src/widgets/itemwidget/itemwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src/widgets/itemwidgetitem/itemwidgetitem.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src/windows/playereditionwindow/playereditionwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src/widgets/playerwidget/playerwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src/widgets/worldwidget/worldwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

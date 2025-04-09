@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "reposaveeditor.h"
-#include "playereditionwindow.h"
 
 #include <cryptopp/modes.h>
 #include <cryptopp/gzip.h>
@@ -16,9 +15,6 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
 	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveOpenedFile );
 	connect( ui->actionSaveAs, &QAction::triggered, this, &RepoSaveEditor::SaveFileAs );
-
-	connect( ui->actionAddPlayer, &QAction::triggered, this, &RepoSaveEditor::AddPlayer );
-	connect( ui->actionRemovePlayer, &QAction::triggered, this, &RepoSaveEditor::RemovePlayer );
 
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -174,28 +170,6 @@ void RepoSaveEditor::SaveFileAs()
 	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", savesLocation, "ES3 File (*.es3)" );
 
 	SaveFile( filePath );
-}
-
-void RepoSaveEditor::AddPlayer()
-{
-	if ( json.IsNull() )
-		return;
-
-	auto* window = new PlayerEditionWindow( this, json );
-	window->show();
-	window->SetEditionMode( PlayerEditionWindow::ePlayerEditionMode::Add );
-	connect( window, &PlayerEditionWindow::Edited, this, &RepoSaveEditor::UpdateWidgets );
-}
-
-void RepoSaveEditor::RemovePlayer()
-{
-	if ( json.IsNull() )
-		return;
-
-	auto* window = new PlayerEditionWindow( this, json );
-	window->show();
-	window->SetEditionMode( PlayerEditionWindow::ePlayerEditionMode::Remove );
-	connect( window, &PlayerEditionWindow::Edited, this, &RepoSaveEditor::UpdateWidgets );
 }
 
 void RepoSaveEditor::LoadJson( const QString& filePath )

@@ -26,6 +26,9 @@ signals:
 	void Edited();
 
 private slots:
+	void AddPlayer();
+	void RemovePlayer();
+
 	void ValueChanged();
 	void SavePlayerInfo();
 

@@ -145,7 +145,7 @@
     <QtUic Include="src/windows/playereditionwindow/playereditionwindow.ui" />
     <QtUic Include="src/widgets/playerwidget/playerwidget.ui" />
     <QtUic Include="reposaveeditor.ui" />
-    <QtMoc Include="reposaveeditor.h" />
+    <QtMoc Include="include\reposaveeditor.h" />
     <ClCompile Include="reposaveeditor.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="public/icon.ico" />

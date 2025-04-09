@@ -31,9 +31,6 @@ private slots:
 	void SaveOpenedFile();
 	void SaveFileAs();
 
-	void AddPlayer();
-	void RemovePlayer();
-
 	void LoadJson( const QString& filePath );
 	void UpdateWidgets() const;
 	void UpdateJsonText();

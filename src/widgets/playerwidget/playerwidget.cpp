@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "playerwidget.h"
 
+#include "playereditionwindow.h"
+
 PlayerWidget::PlayerWidget( QWidget* parent ) : QWidget( parent ), ui( new Ui::PlayerWidgetClass() )
 {
 	ui->setupUi( this );
 
 	connect( ui->playerComboBox, &QComboBox::currentIndexChanged, this, &PlayerWidget::UpdatePlayerInfo );
+
+	connect( ui->addButton, &QPushButton::clicked, this, &PlayerWidget::AddPlayer );
+	connect( ui->removeButton, &QPushButton::clicked, this, &PlayerWidget::RemovePlayer );
 
 	connect( ui->resetButton, &QPushButton::clicked, this, &PlayerWidget::UpdatePlayerInfo );
 	connect( ui->saveButton, &QPushButton::clicked, this, &PlayerWidget::SavePlayerInfo );
@@ -104,6 +109,28 @@ void PlayerWidget::SetVisible( const bool visible ) const
 void PlayerWidget::ValueChanged()
 {
 	emit Edited();
+}
+
+void PlayerWidget::AddPlayer()
+{
+	if (defaultJson.IsNull())
+		return;
+
+	auto* window = new PlayerEditionWindow(this, defaultJson);
+	window->show();
+	window->SetEditionMode(PlayerEditionWindow::ePlayerEditionMode::Add);
+	connect(window, &PlayerEditionWindow::Edited, this, [this] { UpdateWidgets(defaultJson); });
+}
+
+void PlayerWidget::RemovePlayer()
+{
+	if (defaultJson.IsNull())
+		return;
+
+	auto* window = new PlayerEditionWindow(this, defaultJson);
+	window->show();
+	window->SetEditionMode(PlayerEditionWindow::ePlayerEditionMode::Remove);
+	connect(window, &PlayerEditionWindow::Edited, this, [this] { UpdateWidgets(defaultJson); });
 }
 
 void PlayerWidget::SavePlayerInfo()
