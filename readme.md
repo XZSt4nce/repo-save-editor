@@ -6,8 +6,6 @@ R.E.P.O Save Editor (Qt/C++ Version)
 
 R.E.P.O Save Editor is a graphical user interface (GUI) application built using Qt and C++. It's specifically designed to edit and manage save files (.es3 format) for the game R.E.P.O. This tool enables users to easily modify game data such as currency, player health, player upgrades, items, and other relevant game statistics through a user-friendly interface.
 
-Inspired by: [N0edL's R.E.P.O Save Editor](https://github.com/N0edL/R.E.P.O-Save-Editor)
-
 ---
 ## Features
 
@@ -55,6 +53,7 @@ Inspired by: [N0edL's R.E.P.O Save Editor](https://github.com/N0edL/R.E.P.O-Save
 3. Save Your Changes:
 
     - Click "File" → "Save" to re-encrypt and save your changes back to the original .es3 format.
+    - Or click "File" → "Save As" to save your changes to a specific file.
 
 ---
 ## Contributing
