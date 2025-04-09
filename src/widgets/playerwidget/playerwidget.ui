@@ -211,7 +211,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Health</string>
+            <string>Default health</string>
            </property>
           </widget>
          </item>
