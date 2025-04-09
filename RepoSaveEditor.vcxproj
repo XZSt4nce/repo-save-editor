@@ -154,8 +154,8 @@
     <QtMoc Include="src/widgets/playerwidget/playerwidget.h" />
     <QtMoc Include="src/widgets/itemwidget/itemwidget.h" />
     <QtMoc Include="src/widgets/itemwidgetitem/itemwidgetitem.h" />
-    <ClInclude Include="src/classes/stdafx/stdafx.h" />
-    <ClCompile Include="src/classes/stdafx/stdafx.cpp">
+    <ClInclude Include="src/utilities/stdafx/stdafx.h" />
+    <ClCompile Include="src/utilities/stdafx/stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
