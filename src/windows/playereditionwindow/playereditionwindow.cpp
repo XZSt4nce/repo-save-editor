@@ -142,7 +142,7 @@ void PlayerEditionWindow::SetupRemoveMode()
 	for (const QString& steamId : json.GetPlayerIds())
 	{
 		const QString playerName = json.GetPlayerName(steamId);
-		ui->removeComboBox->addItem(playerName, steamId);
+		ui->removeComboBox->addItem(QString("%1 | %2").arg(playerName).arg(steamId), steamId);
 	}
 
 	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::RemovePlayer);
