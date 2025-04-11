@@ -23,6 +23,18 @@ WorldWidget::~WorldWidget()
 	delete ui;
 }
 
+void WorldWidget::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
+}
+
 void WorldWidget::UpdateWidgets( const JsonWrapper& json ) const
 {
 	// Block signals to prevent signals from being emitted when setting values
@@ -75,7 +87,7 @@ void WorldWidget::UpdateTimePlayedLabel() const
 
 	if ( totalSeconds == 0.0 )
 	{
-		ui->timePlayedLabel->setText( "Time Played" );
+		ui->timePlayedLabel->setText( tr("Time Played") );
 		return;
 	}
 
@@ -83,7 +95,7 @@ void WorldWidget::UpdateTimePlayedLabel() const
 	const int minutes = static_cast < int >( ( totalSeconds - hours * 3600 ) / 60 );
 	const int secs = static_cast < int >( totalSeconds - hours * 3600 - minutes * 60 );
 
-	ui->timePlayedLabel->setText( QString( "Time Played (%1h %2m %3s)" ).arg( hours ).arg( minutes ).arg( secs ) );
+	ui->timePlayedLabel->setText( QString( tr("Time Played (%1h %2m %3s)") ).arg( hours ).arg( minutes ).arg( secs ) );
 }
 
 void WorldWidget::ValueChanged()

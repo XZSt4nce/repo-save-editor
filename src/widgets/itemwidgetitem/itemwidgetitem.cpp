@@ -13,6 +13,18 @@ ItemWidgetItem::~ItemWidgetItem()
 	delete ui;
 }
 
+void ItemWidgetItem::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
+}
+
 void ItemWidgetItem::UpdateWidget( const JsonWrapper& json, const QString& itemName_ )
 {
 	itemName = itemName_;

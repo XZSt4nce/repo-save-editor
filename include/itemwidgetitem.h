@@ -16,6 +16,8 @@ QT_END_NAMESPACE class ItemWidgetItem final : public QWidget
 	explicit ItemWidgetItem( QWidget* parent = nullptr );
 	~ItemWidgetItem() override;
 
+	void changeEvent(QEvent* e);
+
 	void UpdateWidget( const JsonWrapper& json, const QString& itemName_ );
 	void SetJsonValues( JsonWrapper& json ) const;
 

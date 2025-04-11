@@ -22,6 +22,8 @@ QT_END_NAMESPACE class PlayerEditionWindow final : public InnerWindow
 	explicit PlayerEditionWindow( QWidget* parent, JsonWrapper& json_ );
 	~PlayerEditionWindow() override;
 
+	void changeEvent(QEvent* e);
+
 	void SetEditionMode( ePlayerEditionMode mode );
 
 signals:

@@ -28,6 +28,54 @@
     </message>
 </context>
 <context>
+    <name>PlayerEditionWindow</name>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="91"/>
+        <source>SteamID found:</source>
+        <translation>SteamID найден:</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="93"/>
+        <source>SteamID found</source>
+        <translation>SteamID найден</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="93"/>
+        <source>SteamID found: %1</source>
+        <translation>SteamID найден: %1</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="105"/>
+        <source>Error</source>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="105"/>
+        <source>Unable to find data in the provided URL/ID.</source>
+        <translation>Не получилось найти данные по предоставленному URL/ID.</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="129"/>
+        <source>Add New Player</source>
+        <translation>Добавить нового игрока</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="138"/>
+        <source>Remove Player</source>
+        <translation>Удалить игрока</translation>
+    </message>
+    <message>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="139"/>
+        <source>Remove</source>
+        <translation>Удалить</translation>
+    </message>
+</context>
+<context>
     <name>PlayerEditionWindowClass</name>
     <message>
         <location filename="../windows/playereditionwindow/playereditionwindow.ui" line="14"/>
@@ -206,19 +254,47 @@
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="221"/>
+        <location filename="../../reposaveeditor.ui" line="218"/>
+        <source>Language</source>
+        <translation>Язык</translation>
+    </message>
+    <message>
+        <location filename="../../reposaveeditor.ui" line="229"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="226"/>
+        <location filename="../../reposaveeditor.ui" line="234"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="231"/>
+        <location filename="../../reposaveeditor.ui" line="239"/>
         <source>Save As</source>
         <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <location filename="../../reposaveeditor.ui" line="244"/>
+        <source>English</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../reposaveeditor.ui" line="249"/>
+        <source>Русский</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>WorldWidget</name>
+    <message>
+        <location filename="../widgets/worldwidget/worldwidget.cpp" line="90"/>
+        <source>Time Played</source>
+        <translation>Времени сыграно</translation>
+    </message>
+    <message>
+        <location filename="../widgets/worldwidget/worldwidget.cpp" line="98"/>
+        <source>Time Played (%1h %2m %3s)</source>
+        <translation>Времени сыграно (%1h %2m %3s)</translation>
     </message>
 </context>
 <context>

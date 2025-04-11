@@ -13,6 +13,18 @@ ItemWidget::~ItemWidget()
 	delete ui;
 }
 
+void ItemWidget::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
+}
+
 void ItemWidget::UpdateWidgets( const JsonWrapper& json ) const
 {
 	while ( ui->itemLayout->count() > 0 )

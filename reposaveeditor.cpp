@@ -16,6 +16,9 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveOpenedFile );
 	connect( ui->actionSaveAs, &QAction::triggered, this, &RepoSaveEditor::SaveFileAs );
 
+	connect( ui->actionSelectEnglish, &QAction::triggered, this, &RepoSaveEditor::SelectEnglishLanguage );
+	connect( ui->actionSelectRussian, &QAction::triggered, this, &RepoSaveEditor::SelectRussianLanguage );
+
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->playerWidget, &PlayerWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -29,6 +32,8 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	} );
 
 	jsonHighlighter = new JsonHighlighter( ui->advancedTextEdit->document() );
+
+	SelectLanguage(QLocale::system().bcp47Name());
 
 	HideUi();
 	SetupShortcuts();
@@ -45,6 +50,18 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 RepoSaveEditor::~RepoSaveEditor()
 {
 	delete ui;
+}
+
+void RepoSaveEditor::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
 }
 
 void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enabled )
@@ -350,46 +367,21 @@ QByteArray RepoSaveEditor::EncryptData( const QString& data, const bool useGzip 
 	return result;
 }
 
-void RepoSaveEditor::SaveData( const QJsonObject& jsonData, QWidget* parent )
+void RepoSaveEditor::SelectLanguage(const QString& suffix) {
+	if (translator.load(QString("translation_%1.qm").arg(suffix), "translations"))
+	{
+		qApp->installTranslator(&translator);
+	}
+}
+
+void RepoSaveEditor::SelectEnglishLanguage()
 {
-	if ( jsonData.isEmpty() )
-	{
-		QMessageBox::critical( parent, "Erreur", "Aucune donnée à sauvegarder." );
-		qCritical() << "Erreur : aucune donnée à sauvegarder.";
-		return;
-	}
+	SelectLanguage("en");
+}
 
-	QString filePath = QFileDialog::getSaveFileName( parent, "Sauvegarder le fichier", QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation ), "Fichier sauvegarde (*.es3)" );
-
-	if ( !filePath.isEmpty() )
-	{
-		// Json conversion
-		const QJsonDocument doc( jsonData );
-		const QByteArray jsonFormatted = doc.toJson( QJsonDocument::Indented );
-
-		// Json encryption
-		const QByteArray encryptedData = EncryptData( QString::fromUtf8( jsonFormatted ) );
-
-		// Write encrypted data to file
-		QFile file( filePath );
-		if ( file.open( QIODevice::WriteOnly ) )
-		{
-			file.write( encryptedData );
-			file.close();
-
-			QMessageBox::information( parent, "Sauvegarde réussie", QString( "Fichier sauvegardé : %1" ).arg( filePath ) );
-			qDebug() << "Fichier sauvegardé :" << filePath;
-		}
-		else
-		{
-			QMessageBox::critical( parent, "Erreur", "Impossible d'écrire dans le fichier." );
-			qCritical() << "Erreur ouverture fichier pour écriture :" << filePath;
-		}
-	}
-	else
-	{
-		qCritical() << "Sauvegarde annulée par l'utilisateur.";
-	}
+void RepoSaveEditor::SelectRussianLanguage()
+{
+	SelectLanguage("ru");
 }
 
 void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key )
