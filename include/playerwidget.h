@@ -16,6 +16,8 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 	explicit PlayerWidget( QWidget* parent = nullptr );
 	~PlayerWidget() override;
 
+	void changeEvent(QEvent* e);
+
 	void UpdateWidgets( const JsonWrapper& json );
 	void UpdatePlayerInfo() const;
 	void SetJsonValue( JsonWrapper& json ) const;

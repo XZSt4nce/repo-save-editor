@@ -20,6 +20,8 @@ class RepoSaveEditor final : public QMainWindow
 	explicit RepoSaveEditor( QWidget* parent = nullptr );
 	~RepoSaveEditor() override;
 
+	void changeEvent(QEvent* e);
+
 	static void SetWidgetsVisible( const QLayout* layout, bool enabled );
 
 signals:
@@ -30,6 +32,10 @@ private slots:
 	void SaveFile( const QString& filePath, const bool askBackup );
 	void SaveOpenedFile();
 	void SaveFileAs();
+
+	void SelectLanguage(const QString& suffix);
+	void SelectEnglishLanguage();
+	void SelectRussianLanguage();
 
 	void LoadJson( const QString& filePath );
 	void UpdateWidgets() const;
@@ -46,13 +52,13 @@ private:
 
 	QString openedFile;
 
+	QTranslator translator;
+
 	void HideUi() const;
 	void SetupShortcuts() const;
 
 	static QString DecryptFile( const QString& filePath );
 	static QByteArray EncryptData( const QString& data, bool useGzip = false );
-
-	static void SaveData( const QJsonObject& jsonData, QWidget* parent );
 
 	static void DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key );
 

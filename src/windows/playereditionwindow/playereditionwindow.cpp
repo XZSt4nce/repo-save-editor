@@ -16,6 +16,18 @@ PlayerEditionWindow::~PlayerEditionWindow()
 	delete ui;
 }
 
+void PlayerEditionWindow::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
+}
+
 void PlayerEditionWindow::SetEditionMode(const ePlayerEditionMode mode)
 {
 	switch (mode)
@@ -76,9 +88,9 @@ void PlayerEditionWindow::AddPlayer()
 
 			if (!steamId.isEmpty())
 			{
-				qDebug() << "SteamID trouve:" << steamId << personaName;
+				qDebug() << tr("SteamID found:") << steamId << personaName;
 
-				QMessageBox::information(this, "SteamID found", QString("SteamID found: %1").arg(steamId));
+				QMessageBox::information(this, tr("SteamID found"), QString(tr("SteamID found: %1")).arg(steamId));
 
 				json.Set(PropertyPath::PlayerNamePath(steamId), personaName);
 
@@ -90,7 +102,7 @@ void PlayerEditionWindow::AddPlayer()
 			}
 			else
 			{
-				QMessageBox::critical(this, "Error", "Unable to find data in the provided URL/ID.");
+				QMessageBox::critical(this, tr("Error"), tr("Unable to find data in the provided URL/ID."));
 			}
 		});
 
@@ -114,8 +126,8 @@ void PlayerEditionWindow::RemovePlayer()
 
 void PlayerEditionWindow::SetupAddMode()
 {
-	ui->titleLabel->setText("Add New Player");
-	ui->utilityButton->setText("Add");
+	ui->titleLabel->setText(tr("Add New Player"));
+	ui->utilityButton->setText(tr("Add"));
 	ui->stackedWidget->setCurrentWidget(ui->addPage);
 
 	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::AddPlayer);
@@ -123,8 +135,8 @@ void PlayerEditionWindow::SetupAddMode()
 
 void PlayerEditionWindow::SetupRemoveMode()
 {
-	ui->titleLabel->setText("Remove Player");
-	ui->utilityButton->setText("Remove");
+	ui->titleLabel->setText(tr("Remove Player"));
+	ui->utilityButton->setText(tr("Remove"));
 	ui->stackedWidget->setCurrentWidget(ui->removePage);
 
 	for (const QString& steamId : json.GetPlayerIds())

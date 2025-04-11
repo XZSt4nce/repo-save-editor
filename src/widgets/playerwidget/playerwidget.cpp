@@ -21,6 +21,18 @@ PlayerWidget::~PlayerWidget()
 	delete ui;
 }
 
+void PlayerWidget::changeEvent(QEvent* e)
+{
+	QWidget::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+		default:
+			break;
+	}
+}
+
 void PlayerWidget::UpdateWidgets( const JsonWrapper& json )
 {
 	defaultJson = json;

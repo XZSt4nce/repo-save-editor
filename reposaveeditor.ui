@@ -213,7 +213,15 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
    </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Language</string>
+    </property>
+    <addaction name="actionSelectEnglish"/>
+    <addaction name="actionSelectRussian"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuLanguage"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -229,6 +237,16 @@
   <action name="actionSaveAs">
    <property name="text">
     <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionSelectEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionSelectRussian">
+   <property name="text">
+    <string>Русский</string>
    </property>
   </action>
  </widget>
