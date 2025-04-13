@@ -162,7 +162,12 @@ PropertyPath PropertyPath::PlayerNamePath( const QString& steamId )
 	return PropertyPath( PropertyPath( "playerNames.value.%1" ).arg( steamId ) );
 }
 
-PropertyPath PropertyPath::PlayerUpgrade( const QString& steamId, const QString& upgradeName )
+PropertyPath PropertyPath::PlayerUpgrade(const QString& upgradeName)
+{
+	return PropertyPath( PropertyPath( "dictionaryOfDictionaries.value.%1").arg(upgradeName) );
+}
+
+PropertyPath PropertyPath::PlayerIdUpgrade(const QString& upgradeName, const QString& steamId )
 {
 	return PropertyPath( PropertyPath( "dictionaryOfDictionaries.value.%1.%2" ).arg( upgradeName ).arg( steamId ) );
 }

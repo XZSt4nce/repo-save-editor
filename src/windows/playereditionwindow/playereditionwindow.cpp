@@ -64,7 +64,7 @@ void PlayerEditionWindow::AddPlayer()
 	std::string inputType = "Steam URL";
 	QUrl profileUrl;
 
-	if (profileId.startsWith("https://steamcommunity.com/id/")) {
+	if (profileId.startsWith("https://steamcommunity.com/id/") || profileId.startsWith("https://steamcommunity.com/profiles/")) {
 		profileUrl = profileId;
 	}
 	else if (profileId.length() == 17 && profileId.startsWith("7656119")) {
@@ -115,7 +115,7 @@ void PlayerEditionWindow::AddPlayer()
 			json.Set(PropertyPath::PlayerNamePath(steamId), personaName);
 
 			for (const QString& key : PlayerStats.keys())
-				json.Set(PropertyPath::PlayerUpgrade(steamId, key), PlayerStats[key]);
+				json.Set(PropertyPath::PlayerIdUpgrade(steamId, key), PlayerStats[key]);
 
 			emit Edited();
 			this->close();
@@ -138,7 +138,7 @@ void PlayerEditionWindow::RemovePlayer()
 	const QString steamId = ui->removeComboBox->currentData().toString();
 
 	for (const QString& key : PlayerStats.keys())
-		json.Remove(PropertyPath::PlayerUpgrade(steamId, key));
+		json.Remove(PropertyPath::PlayerIdUpgrade(steamId, key));
 
 	json.Remove(PropertyPath::PlayerNamePath(steamId));
 	emit Edited();

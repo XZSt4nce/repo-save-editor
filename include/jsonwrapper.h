@@ -36,7 +36,8 @@ public:
 
 	[[nodiscard]] static PropertyPath PlayerPath();
 	[[nodiscard]] static PropertyPath PlayerNamePath( const QString& steamId );
-	[[nodiscard]] static PropertyPath PlayerUpgrade( const QString& steamId, const QString& upgradeName );
+	[[nodiscard]] static PropertyPath PlayerUpgrade( const QString& upgradeName );
+	[[nodiscard]] static PropertyPath PlayerIdUpgrade(const QString& upgradeName, const QString& steamId );
 	[[nodiscard]] static PropertyPath RunStatsPath( const QString& key );
 	[[nodiscard]] static PropertyPath TeamNamePath();
 	[[nodiscard]] static PropertyPath DateAndTimePath();

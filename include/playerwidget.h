@@ -38,4 +38,18 @@ private:
 	Ui::PlayerWidgetClass* ui;
 
 	JsonWrapper defaultJson;
+
+	inline static const QMap < QString, int > PlayerStats = {
+		{ "playerHealth", 100 },
+		{ "playerUpgradeHealth", 0 },
+		{ "playerUpgradeStamina", 0 },
+		{ "playerUpgradeExtraJump", 0 },
+		{ "playerUpgradeLaunch", 0 },
+		{ "playerUpgradeMapPlayerCount", 0 },
+		{ "playerUpgradeSpeed", 0 },
+		{ "playerUpgradeStrength", 0 },
+		{ "playerUpgradeRange", 0 },
+		{ "playerUpgradeThrow", 0 },
+		{ "playerHasCrown", 0 }
+	};
 };

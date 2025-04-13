@@ -59,57 +59,36 @@ void PlayerWidget::UpdatePlayerInfo() const
 
 	ui->steamIdLabel->setText( QString( "Steam ID: %1" ).arg( steamId ) );
 
-	ui->playerHealthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerHealth" ) ).toInt() );
-	ui->healthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeHealth" ) ).toInt() );
-	ui->staminaSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStamina" ) ).toInt() );
-	ui->extraJumpSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" ) ).toInt() );
-	ui->launchSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" ) ).toInt() );
-	ui->mapPlayerCountSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" ) ).toInt() );
-	ui->speedSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" ) ).toInt() );
-	ui->strengthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStrength" ) ).toInt() );
-	ui->rangeSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeRange" ) ).toInt() );
-	ui->throwSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeThrow" ) ).toInt() );
-	ui->hasCrownCheckBox->setCheckState( defaultJson.Get( PropertyPath::PlayerUpgrade( steamId, "playerHasCrown" ) ).toInt() == 1 ? Qt::Checked : Qt::Unchecked );
+	ui->playerHealthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerHealth", steamId ) ).toInt() );
+	ui->healthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeHealth", steamId ) ).toInt() );
+	ui->staminaSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeStamina", steamId ) ).toInt() );
+	ui->extraJumpSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeExtraJump", steamId ) ).toInt() );
+	ui->launchSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeLaunch", steamId ) ).toInt() );
+	ui->mapPlayerCountSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeMapPlayerCount", steamId ) ).toInt() );
+	ui->speedSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeSpeed", steamId ) ).toInt() );
+	ui->strengthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeStrength", steamId ) ).toInt() );
+	ui->rangeSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeRange", steamId ) ).toInt() );
+	ui->throwSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerUpgradeThrow", steamId ) ).toInt() );
+	ui->hasCrownCheckBox->setCheckState( defaultJson.Get( PropertyPath::PlayerIdUpgrade( "playerHasCrown", steamId ) ).toInt() == 1 ? Qt::Checked : Qt::Unchecked );
 }
 
 void PlayerWidget::SetJsonValue( JsonWrapper& json ) const
 {
+	json.Set(PropertyPath::PlayerPath(), QJsonValue(QJsonObject()));
+
+	for (const QString& key : PlayerStats.keys())
+	{
+		json.Set(PropertyPath::PlayerUpgrade(key), QJsonValue(QJsonObject()));
+	}
+
 	for ( int i = 0; i < ui->playerComboBox->count(); ++i )
 	{
 		const QString steamId = ui->playerComboBox->itemData( i ).toString();
 
-		const PropertyPath playerHealth = PropertyPath::PlayerUpgrade( steamId, "playerHealth" );
-		json.Set( playerHealth, defaultJson.Get( playerHealth ).toInt() );
+		json.Set(PropertyPath::PlayerNamePath(steamId), defaultJson.GetPlayerName(steamId));
 
-		const PropertyPath playerUpgradeHealth = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeHealth" );
-		json.Set( playerUpgradeHealth, defaultJson.Get( playerUpgradeHealth ).toInt() );
-
-		const PropertyPath playerUpgradeStamina = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStamina" );
-		json.Set( playerUpgradeStamina, defaultJson.Get( playerUpgradeStamina ).toInt() );
-
-		const PropertyPath playerUpgradeExtraJump = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" );
-		json.Set( playerUpgradeExtraJump, defaultJson.Get( playerUpgradeExtraJump ).toInt() );
-
-		const PropertyPath playerUpgradeLaunch = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" );
-		json.Set( playerUpgradeLaunch, defaultJson.Get( playerUpgradeLaunch ).toInt() );
-
-		const PropertyPath playerUpgradeMapPlayerCount = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" );
-		json.Set( playerUpgradeMapPlayerCount, defaultJson.Get( playerUpgradeMapPlayerCount ).toInt() );
-
-		const PropertyPath playerUpgradeSpeed = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" );
-		json.Set( playerUpgradeSpeed, defaultJson.Get( playerUpgradeSpeed ).toInt() );
-
-		const PropertyPath playerUpgradeStrength = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStrength" );
-		json.Set( playerUpgradeStrength, defaultJson.Get( playerUpgradeStrength ).toInt() );
-
-		const PropertyPath playerUpgradeRange = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeRange" );
-		json.Set( playerUpgradeRange, defaultJson.Get( playerUpgradeRange ).toInt() );
-
-		const PropertyPath playerUpgradeThrow = PropertyPath::PlayerUpgrade( steamId, "playerUpgradeThrow" );
-		json.Set( playerUpgradeThrow, defaultJson.Get( playerUpgradeThrow ).toInt() );
-
-		const PropertyPath playerHasCrown = PropertyPath::PlayerUpgrade( steamId, "playerHasCrown" );
-		json.Set( playerHasCrown, defaultJson.Get( playerHasCrown ).toInt() );
+		for (const QString& key : PlayerStats.keys())
+			json.Set(PropertyPath::PlayerIdUpgrade(key, steamId), defaultJson.Get(PropertyPath::PlayerIdUpgrade(key, steamId)).toInt());
 	}
 }
 
@@ -120,6 +99,8 @@ void PlayerWidget::SetVisible( const bool visible ) const
 
 void PlayerWidget::ValueChanged()
 {
+	UpdateWidgets(defaultJson);
+	QMessageBox::information(this, "Remove", defaultJson.GetPlayerNames().join(", "));
 	emit Edited();
 }
 
@@ -131,7 +112,7 @@ void PlayerWidget::AddPlayer()
 	auto* window = new PlayerEditionWindow(this, defaultJson);
 	window->show();
 	window->SetEditionMode(PlayerEditionWindow::ePlayerEditionMode::Add);
-	connect(window, &PlayerEditionWindow::Edited, this, [this] { UpdateWidgets(defaultJson); });
+	connect(window, &PlayerEditionWindow::Edited, this, &PlayerWidget::ValueChanged);
 }
 
 void PlayerWidget::RemovePlayer()
@@ -142,24 +123,24 @@ void PlayerWidget::RemovePlayer()
 	auto* window = new PlayerEditionWindow(this, defaultJson);
 	window->show();
 	window->SetEditionMode(PlayerEditionWindow::ePlayerEditionMode::Remove);
-	connect(window, &PlayerEditionWindow::Edited, this, [this] { UpdateWidgets(defaultJson); });
+	connect(window, &PlayerEditionWindow::Edited, this, &PlayerWidget::ValueChanged);
 }
 
 void PlayerWidget::SavePlayerInfo()
 {
 	const QString steamId = ui->playerComboBox->currentData().toString();
 
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerHealth" ), ui->playerHealthSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeHealth" ), ui->healthSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStamina" ), ui->staminaSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeExtraJump" ), ui->extraJumpSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeLaunch" ), ui->launchSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeMapPlayerCount" ), ui->mapPlayerCountSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeSpeed" ), ui->speedSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeStrength" ), ui->strengthSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeRange" ), ui->rangeSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerUpgradeThrow" ), ui->throwSpinBox->value() );
-	defaultJson.Set( PropertyPath::PlayerUpgrade( steamId, "playerHasCrown" ), ui->hasCrownCheckBox->checkState() == Qt::Checked ? 1 : 0 );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerHealth", steamId ), ui->playerHealthSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeHealth", steamId ), ui->healthSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeStamina", steamId ), ui->staminaSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeExtraJump", steamId ), ui->extraJumpSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeLaunch", steamId ), ui->launchSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeMapPlayerCount", steamId ), ui->mapPlayerCountSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeSpeed", steamId ), ui->speedSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeStrength", steamId ), ui->strengthSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeRange", steamId ), ui->rangeSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerUpgradeThrow", steamId ), ui->throwSpinBox->value() );
+	defaultJson.Set( PropertyPath::PlayerIdUpgrade( "playerHasCrown", steamId ), ui->hasCrownCheckBox->checkState() == Qt::Checked ? 1 : 0 );
 
 	emit Edited();
 }
