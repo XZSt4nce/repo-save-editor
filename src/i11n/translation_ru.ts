@@ -30,47 +30,47 @@
 <context>
     <name>PlayerEditionWindow</name>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="111"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="128"/>
         <source>SteamID found:</source>
         <translation>SteamID найден:</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="113"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
         <source>SteamID found</source>
         <translation>SteamID найден</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="113"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
         <source>SteamID found: %1</source>
         <translation>SteamID найден: %1</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="125"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="142"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="125"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="142"/>
         <source>Unable to find data in the provided URL/ID.</source>
         <translation>Не получилось найти данные по предоставленному URL/ID.</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="152"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="169"/>
         <source>Add New Player</source>
         <translation>Добавить нового игрока</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="153"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="170"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="161"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="178"/>
         <source>Remove Player</source>
         <translation>Удалить игрока</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="162"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="179"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
