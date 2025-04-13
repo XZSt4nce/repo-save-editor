@@ -43,19 +43,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/widgets/itemwidget/itemwidget.cpp">
+    <ClCompile Include="src\widgets\itemwidget\itemwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp">
+    <ClCompile Include="src\widgets\itemwidgetitem\itemwidgetitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/widgets/playerwidget/playerwidget.cpp">
+    <ClCompile Include="src\widgets\playerwidget\playerwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/widgets/worldwidget/worldwidget.cpp">
+    <ClCompile Include="src\widgets\worldwidget\worldwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\classes\innerwindow.cpp">
@@ -109,19 +109,19 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="src/widgets/itemwidget/itemwidget.ui">
+    <QtUic Include="src\widgets\itemwidget\itemwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="src/widgets/itemwidgetitem/itemwidgetitem.ui">
+    <QtUic Include="src\widgets\itemwidgetitem\itemwidgetitem.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src/windows/playereditionwindow/playereditionwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="src/widgets/playerwidget/playerwidget.ui">
+    <QtUic Include="src\widgets\playerwidget\playerwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="src/widgets/worldwidget/worldwidget.ui">
+    <QtUic Include="src\widgets\worldwidget\worldwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

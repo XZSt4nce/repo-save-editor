@@ -33,6 +33,9 @@ private slots:
 	void AddPlayer();
 	void RemovePlayer();
 
+	void DisableButtons();
+	void EnableButtons();
+
 private:
 	Ui::PlayerEditionWindowClass* ui;
 

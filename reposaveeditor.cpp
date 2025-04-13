@@ -83,7 +83,7 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 
 void RepoSaveEditor::OpenFile()
 {
-	QString file = QFileDialog::getOpenFileName(this, "Open a File", DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)");
+	QString file = QFileDialog::getOpenFileName(this, tr("Open a File"), DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)");
 
 	if ( file.isEmpty() )
 		return;
@@ -95,18 +95,18 @@ void RepoSaveEditor::OpenFile()
 
 	if ( json.isEmpty() )
 	{
-		QMessageBox::critical( this, "Error", "Error while decrypting data." );
-		qCritical() << "Error : empty decrypted data.";
+		QMessageBox::critical( this, tr("Error"), tr("Error while decrypting data.") );
+		qCritical() << tr("Error : empty decrypted data.");
 		return;
 	}
 
 	LoadJson( json );
 }
 
-void RepoSaveEditor::SaveFile( const QString& filePath, const bool askBackup )
+void RepoSaveEditor::SaveFile( const QString& filePath )
 {
 	// There is nothing to save if file is not open
-	if ( filePath.isEmpty() )
+	if ( openedFile.isEmpty() )
 		return;
 
 	// If directory with save file was deleted, create directory again and save file there
@@ -117,31 +117,31 @@ void RepoSaveEditor::SaveFile( const QString& filePath, const bool askBackup )
 	{
 		if ( QDir().mkpath(fileDirectory.path()) )
 		{
-			QMessageBox::critical( this, "Error", "Unable to open file for writing." );
-			qCritical() << "Error : Unable to open file for writing :" << filePath;
+			QMessageBox::critical( this, tr("Error"), tr("Unable to open file for writing.") );
+			qCritical() << tr("Error : Unable to open file for writing :") << filePath;
 			return;
 		}
 	}
 
-	if (askBackup) {
-		const int answer = QMessageBox::question(this, "Backup", "Save a backup copy of the file?", QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
+	if ( !filePath.isEmpty() ) {
+		const int answer = QMessageBox::question(this, tr("Backup"), tr("Save a backup copy of the file?"), QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
 
 		if (answer == QMessageBox::StandardButton::Yes) {
 			if (QFile::exists(filePath)) {
 				const QString directoryPath = fileDirectory.path();
 				const QString fileName = fileInfo.baseName();
-				const QString currentTime = QDateTime::currentDateTime().toString("hhmmss");
+				const QString currentTime = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
 				const QString suffix = fileInfo.suffix();
 				QString backupName = QString("%1/BACKUP-%2-%3.%4").arg(directoryPath).arg(fileName).arg(currentTime).arg(suffix);
 				if (!QFile::copy(filePath, backupName)) {
-					QMessageBox::critical(this, "Error", "Unable to create backup file.");
-					qCritical() << "Error : Unable to create backup file :" << backupName;
+					QMessageBox::critical(this, tr("Error"), tr("Unable to create backup file."));
+					qCritical() << tr("Error : Unable to create backup file :") << backupName;
 					return;
 				}
-				QMessageBox::information(this, "Save backup", QString("Save successful : %1").arg(backupName));
+				QMessageBox::information(this, tr("Save backup"), QString(tr("Save successful : %1")).arg(backupName));
 			}
 			else {
-				QMessageBox::information(this, "Backup", "No existing file to backup.");
+				QMessageBox::information(this, tr("Backup"), tr("No existing file to backup."));
 			}
 		}
 	}
@@ -149,52 +149,51 @@ void RepoSaveEditor::SaveFile( const QString& filePath, const bool askBackup )
 	QFile file( filePath );
 	if ( !file.open( QIODevice::WriteOnly ) )
 	{
-		QMessageBox::critical( this, "Error", "Unable to open file for writing." );
-		qCritical() << "Error : Unable to open file for writing :" << filePath;
+		QMessageBox::critical( this, tr("Error"), tr("Unable to open file for writing.") );
+		qCritical() << tr("Error : Unable to open file for writing :") << filePath;
 		return;
 	}
 
 
-	// Récupère le texte du plainTextEdit
+	// Extract text from JSON text edit
 	const QString texte = ui->advancedTextEdit->toPlainText();
 
-	// Vérification que le texte est un JSON valide
+	// Checking that the text is a valid JSON
 	QJsonParseError parseError;
 	const QJsonDocument jsonDoc = QJsonDocument::fromJson( texte.toUtf8(), &parseError );
 
 	if ( parseError.error != QJsonParseError::NoError )
 	{
-		QMessageBox::critical( this, "Error JSON", QString( "Error JSON : %1" ).arg( parseError.errorString() ) );
-		qCritical() << "Error JSON :" << parseError.errorString();
+		QMessageBox::critical( this, tr("Error JSON"), QString( tr("Error JSON : %1") ).arg( parseError.errorString() ) );
+		qCritical() << tr("Error JSON :") << parseError.errorString();
 		return;
 	}
 
-	// Formatte le JSON indenté avant de l'encrypter
+	// Format the indented JSON before encrypting it
 	const QByteArray jsonFormatted = jsonDoc.toJson( QJsonDocument::Indented );
 
-	// Encrypte les données JSON
+	// Encrypts JSON data
 	const QByteArray encryptedData = EncryptData( QString::fromUtf8( jsonFormatted ) );
 
-	// Vérification de l'encryption
+	// Verification of encryption
 	if ( encryptedData.isEmpty() )
 	{
-		QMessageBox::critical( this, "Error", "Encrypted data is empty." );
-		qCritical() << "Error : Encrypted data is empty.";
+		QMessageBox::critical( this, tr("Error"), tr("Encrypted data is empty.") );
+		qCritical() << tr("Error : Encrypted data is empty.");
 		return;
 	}
 
-	// Écrit les données cryptées dans le fichier
+	// Writes the encrypted data to the file
 	file.write( encryptedData );
 	file.close();
 
-	// Information utilisateur
-	QMessageBox::information( this, "Save", QString( "Save successful : %1" ).arg( filePath ) );
-	qDebug() << "Save successful :" << filePath;
+	QMessageBox::information( this, tr("Save"), QString( tr("Save successful : %1") ).arg( filePath ) );
+	qDebug() << tr("Save successful :") << filePath;
 }
 
 void RepoSaveEditor::SaveOpenedFile()
 {
-	SaveFile( openedFile, true );
+	SaveFile( openedFile );
 }
 
 void RepoSaveEditor::SaveFileAs()
@@ -210,9 +209,9 @@ void RepoSaveEditor::SaveFileAs()
 		savesLocation = openedDirectory;
 	}
 
-	const QString filePath = QFileDialog::getSaveFileName( this, "Save as", savesLocation, "ES3 File (*.es3)" );
+	const QString filePath = QFileDialog::getSaveFileName( this, tr("Save as"), savesLocation, "ES3 File (*.es3)" );
 
-	SaveFile( filePath, openedFile == filePath );
+	SaveFile( filePath );
 }
 
 void RepoSaveEditor::LoadJson( const QString& filePath )
@@ -221,8 +220,8 @@ void RepoSaveEditor::LoadJson( const QString& filePath )
 	json = JsonWrapper( QJsonDocument::fromJson( filePath.toUtf8(), &parseError ) );
 	if ( parseError.error != QJsonParseError::NoError )
 	{
-		QMessageBox::critical( this, "Error", "Invalid JSON." );
-		qCritical() << "Error : invalid JSON.";
+		QMessageBox::critical( this, tr("Error"), tr("Invalid JSON.") );
+		qCritical() << tr("Error : invalid JSON.");
 		return;
 	}
 
@@ -255,13 +254,13 @@ void RepoSaveEditor::CheckJson()
 	const QJsonDocument jsonDoc = QJsonDocument::fromJson( jsonText.toUtf8(), &parseError );
 	if ( parseError.error != QJsonParseError::NoError )
 	{
-		QMessageBox::critical( this, "Error JSON", QString( "Error JSON : %1" ).arg( parseError.errorString() ) );
-		qCritical() << "Error JSON :" << parseError.errorString();
+		QMessageBox::critical( this, tr("Error JSON"), QString( tr("Error JSON : %1") ).arg( parseError.errorString() ) );
+		qCritical() << tr("Error JSON :") << parseError.errorString();
 		return;
 	}
 
-	QMessageBox::information( this, "JSON", "JSON is valid." );
-	qDebug() << "JSON is valid.";
+	QMessageBox::information( this, "JSON", tr("JSON is valid.") );
+	qDebug() << tr("JSON is valid.");
 
 	json = JsonWrapper( jsonDoc );
 
@@ -294,13 +293,13 @@ QString RepoSaveEditor::DecryptFile( const QString& filePath )
 	QFile file( filePath );
 	if ( !file.open( QIODevice::ReadOnly ) )
 	{
-		qCritical() << "Error opening file for reading.";
+		qCritical() << tr("Error opening file for reading.");
 		return {};
 	}
 
 	if ( file.size() < 32 )
 	{
-		qCritical() << "File is too small to be a valid ES3 file.";
+		qCritical() << tr("File is too small to be a valid ES3 file.");
 		return {};
 	}
 

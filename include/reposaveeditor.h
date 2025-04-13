@@ -29,7 +29,7 @@ signals:
 
 private slots:
 	void OpenFile();
-	void SaveFile( const QString& filePath, const bool askBackup );
+	void SaveFile( const QString& filePath);
 	void SaveOpenedFile();
 	void SaveFileAs();
 

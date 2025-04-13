@@ -135,12 +135,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\classes\innerwindow.cpp" />
-    <ClCompile Include="src/widgets/itemwidget/itemwidget.cpp" />
-    <ClCompile Include="src/widgets/itemwidgetitem/itemwidgetitem.cpp" />
+    <ClCompile Include="src\widgets\itemwidget\itemwidget.cpp" />
+    <ClCompile Include="src\widgets\itemwidgetitem\itemwidgetitem.cpp" />
     <ClCompile Include="src\utilities\jsonwrapper.cpp" />
     <ClCompile Include="src/windows/playereditionwindow/playereditionwindow.cpp" />
-    <ClCompile Include="src/widgets/playerwidget/playerwidget.cpp" />
-    <ClCompile Include="src/widgets/worldwidget/worldwidget.cpp" />
+    <ClCompile Include="src\widgets\playerwidget\playerwidget.cpp" />
+    <ClCompile Include="src\widgets\worldwidget\worldwidget.cpp" />
     <None Include="translations\translation_ru.qm" />
     <QtMoc Include="include\innerwindow.h" />
     <ClInclude Include="include\jsonwrapper.h" />
@@ -149,16 +149,16 @@
     <ClInclude Include="include\utility.h" />
     <QtMoc Include="include\worldwidget.h" />
     <QtRcc Include="reposaveeditor.qrc" />
-    <QtUic Include="src/widgets/itemwidget/itemwidget.ui" />
-    <QtUic Include="src/widgets/itemwidgetitem/itemwidgetitem.ui" />
+    <QtUic Include="src\widgets\itemwidget\itemwidget.ui" />
+    <QtUic Include="src\widgets\itemwidgetitem\itemwidgetitem.ui" />
     <QtUic Include="src/windows/playereditionwindow/playereditionwindow.ui" />
-    <QtUic Include="src/widgets/playerwidget/playerwidget.ui" />
+    <QtUic Include="src\widgets\playerwidget\playerwidget.ui" />
     <QtUic Include="reposaveeditor.ui" />
     <QtMoc Include="include\reposaveeditor.h" />
     <ClCompile Include="reposaveeditor.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="public/icon.ico" />
-    <QtUic Include="src/widgets/worldwidget/worldwidget.ui" />
+    <QtUic Include="src\widgets\worldwidget\worldwidget.ui" />
     <ResourceCompile Include="reposaveeditor.rc" />
     <QtMoc Include="include\playerwidget.h" />
     <QtMoc Include="include\itemwidget.h" />
