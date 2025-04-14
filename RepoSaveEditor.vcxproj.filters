@@ -126,7 +126,7 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtTranslation Include="src\i11n\translation_ru.ts">
+    <QtTranslation Include="src\i18n\translation_ru.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
   </ItemGroup>
