@@ -30,47 +30,47 @@
 <context>
     <name>PlayerEditionWindow</name>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="128"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
         <source>SteamID found:</source>
         <translation>SteamID найден:</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="132"/>
         <source>SteamID found</source>
         <translation>SteamID найден</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="130"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="132"/>
         <source>SteamID found: %1</source>
         <translation>SteamID найден: %1</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="142"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="144"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="142"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="144"/>
         <source>Unable to find data in the provided URL/ID.</source>
         <translation>Не получилось найти данные по предоставленному URL/ID.</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="169"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="171"/>
         <source>Add New Player</source>
         <translation>Добавить нового игрока</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="170"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="172"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="178"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="181"/>
         <source>Remove Player</source>
         <translation>Удалить игрока</translation>
     </message>
     <message>
-        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="179"/>
+        <location filename="../windows/playereditionwindow/playereditionwindow.cpp" line="182"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
@@ -141,68 +141,58 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="168"/>
-        <source>Reset</source>
-        <translation>Сбросить</translation>
-    </message>
-    <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="187"/>
-        <source>Save</source>
-        <translation>Сохранить</translation>
-    </message>
-    <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="214"/>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="314"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="176"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="276"/>
         <source>Health</source>
         <translation>Здоровье</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="278"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="240"/>
         <source>Upgrades</source>
         <translation>Улучшения</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="347"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="309"/>
         <source>Stamina</source>
         <translation>Выносливость</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="380"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="342"/>
         <source>Extra Jump</source>
         <translation>Дополнительный прыжок</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="413"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="375"/>
         <source>Launch</source>
         <translation>Кувырок</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="446"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="408"/>
         <source>Map Player Count</source>
         <translation>Количество игроков на карте</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="479"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="441"/>
         <source>Speed</source>
         <translation>Скорость</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="512"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="474"/>
         <source>Strength</source>
         <translation>Сила</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="545"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="507"/>
         <source>Range</source>
         <translation>Дальность</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="578"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="540"/>
         <source>Throw</source>
         <translation>Бросок</translation>
     </message>
     <message>
-        <location filename="../widgets/playerwidget/playerwidget.ui" line="611"/>
+        <location filename="../widgets/playerwidget/playerwidget.ui" line="573"/>
         <source>Has Crown</source>
         <translation>Есть корона</translation>
     </message>

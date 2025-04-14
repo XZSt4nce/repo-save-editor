@@ -159,22 +159,22 @@ PropertyPath PropertyPath::PlayerPath()
 
 PropertyPath PropertyPath::PlayerNamePath( const QString& steamId )
 {
-	return PropertyPath( PropertyPath( "playerNames.value.%1" ).arg( steamId ) );
+	return PropertyPath( QString( "playerNames.value.%1" ).arg( steamId ) );
 }
 
 PropertyPath PropertyPath::PlayerUpgrade(const QString& upgradeName)
 {
-	return PropertyPath( PropertyPath( "dictionaryOfDictionaries.value.%1").arg(upgradeName) );
+	return PropertyPath( QString( "dictionaryOfDictionaries.value.%1").arg(upgradeName) );
 }
 
 PropertyPath PropertyPath::PlayerIdUpgrade(const QString& upgradeName, const QString& steamId )
 {
-	return PropertyPath( PropertyPath( "dictionaryOfDictionaries.value.%1.%2" ).arg( upgradeName ).arg( steamId ) );
+	return PropertyPath( QString( "dictionaryOfDictionaries.value.%1.%2" ).arg( upgradeName ).arg( steamId ) );
 }
 
 PropertyPath PropertyPath::RunStatsPath( const QString& key )
 {
-	return PropertyPath( PropertyPath( "dictionaryOfDictionaries.value.runStats.%1" ).arg( key ) );
+	return PropertyPath( QString( "dictionaryOfDictionaries.value.runStats.%1" ).arg( key ) );
 }
 
 PropertyPath PropertyPath::TeamNamePath()
