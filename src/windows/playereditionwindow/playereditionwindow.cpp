@@ -3,13 +3,15 @@
 
 #include <QtNetwork/QNetworkReply>
 
-PlayerEditionWindow::PlayerEditionWindow(QWidget* parent, JsonWrapper& json_) : InnerWindow(parent), ui(new Ui::PlayerEditionWindowClass()), json(json_)
+PlayerEditionWindow::PlayerEditionWindow(QWidget* parent, JsonWrapper& json_, ePlayerEditionMode mode, static const QMap < QString, int > playerStats) : InnerWindow(parent), ui(new Ui::PlayerEditionWindowClass()), json(json_), PlayerStats(playerStats)
 {
 	ui->setupUi(this);
 	ui->idLineEdit->setFocus();
 
-	connect(ui->closeButton, &QPushButton::pressed, this, &PlayerEditionWindow::close);
-	connect(ui->cancelButton, &QPushButton::pressed, this, &PlayerEditionWindow::close);
+	SetEditionMode(mode);
+
+	connect(ui->closeButton, &QPushButton::clicked, this, &PlayerEditionWindow::close);
+	connect(ui->cancelButton, &QPushButton::clicked, this, &PlayerEditionWindow::close);
 }
 
 PlayerEditionWindow::~PlayerEditionWindow()
@@ -26,6 +28,23 @@ void PlayerEditionWindow::changeEvent(QEvent* e)
 			break;
 		default:
 			break;
+	}
+}
+
+void PlayerEditionWindow::keyPressEvent(QKeyEvent* event)
+{
+	int key = event->key();
+	if (key == Qt::Key_Return)
+	{
+		ui->utilityButton->click();
+	}
+	else if (key == Qt::Key_Escape)
+	{
+		ui->cancelButton->click();
+	}
+	else
+	{
+		QWidget::keyPressEvent(event);
 	}
 }
 
@@ -68,11 +87,11 @@ void PlayerEditionWindow::AddPlayer()
 		profileUrl = profileId;
 	}
 	else if (profileId.length() == 17 && profileId.startsWith("7656119")) {
-		profileUrl = QString::fromStdString(std::format("{}{}", "https://steamcommunity.com/profiles/", profileId.toStdString()));
+		profileUrl = QString( "https://steamcommunity.com/profiles/%1" ).arg( profileId );
 		inputType = "SteamID";
 	}
 	else {
-		profileUrl = QString::fromStdString(std::format("{}{}", "https://steamcommunity.com/id/", profileId.toStdString()));
+		profileUrl = QString( "https://steamcommunity.com/id/%1" ).arg( profileId );
 	}
 
 	if (!profileUrl.isValid() || profileUrl.isEmpty())
@@ -115,7 +134,7 @@ void PlayerEditionWindow::AddPlayer()
 			json.Set(PropertyPath::PlayerNamePath(steamId), personaName);
 
 			for (const QString& key : PlayerStats.keys())
-				json.Set(PropertyPath::PlayerIdUpgrade(steamId, key), PlayerStats[key]);
+				json.Set(PropertyPath::PlayerIdUpgrade(key, steamId), PlayerStats[key]);
 
 			emit Edited();
 			this->close();
@@ -153,7 +172,8 @@ void PlayerEditionWindow::SetupAddMode()
 	ui->utilityButton->setText(tr("Add"));
 	ui->stackedWidget->setCurrentWidget(ui->addPage);
 
-	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::AddPlayer);
+	disconnect(ui->utilityButton, &QPushButton::clicked, this, &PlayerEditionWindow::AddPlayer);
+	connect(ui->utilityButton, &QPushButton::clicked, this, &PlayerEditionWindow::AddPlayer);
 }
 
 void PlayerEditionWindow::SetupRemoveMode()
@@ -168,5 +188,6 @@ void PlayerEditionWindow::SetupRemoveMode()
 		ui->removeComboBox->addItem(QString("%1 | %2").arg(playerName).arg(steamId), steamId);
 	}
 
-	connect(ui->utilityButton, &QPushButton::pressed, this, &PlayerEditionWindow::RemovePlayer);
+	disconnect(ui->utilityButton, &QPushButton::clicked, this, &PlayerEditionWindow::RemovePlayer);
+	connect(ui->utilityButton, &QPushButton::clicked, this, &PlayerEditionWindow::RemovePlayer);
 }

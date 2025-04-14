@@ -16,8 +16,6 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 	explicit PlayerWidget( QWidget* parent = nullptr );
 	~PlayerWidget() override;
 
-	void changeEvent(QEvent* e);
-
 	void UpdateWidgets( const JsonWrapper& json );
 	void UpdatePlayerInfo() const;
 	void SetJsonValue( JsonWrapper& json ) const;
@@ -27,29 +25,55 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 signals:
 	void Edited();
 
+protected:
+	void changeEvent(QEvent* e);
+
 private slots:
 	void AddPlayer();
 	void RemovePlayer();
 
 	void ValueChanged();
-	void SavePlayerInfo();
+	void UserValueChanged(const QString& property, int value);
+	void HealthChanged(int value);
+	void HealthUpgradeChanged(int value);
+	void StaminaUpgradeChanged(int value);
+	void ExtraJumpUpgradeChanged(int value);
+	void LaunchUpgradeChanged(int value);
+	void MapPlayerCountUpgradeChanged(int value);
+	void SpeedUpgradeChanged(int value);
+	void StrengthUpgradeChanged(int value);
+	void RangeUpgradeChanged(int value);
+	void ThrowUpgradeChanged(int value);
+	void HasCrownChanged(Qt::CheckState checked);
 
 private:
 	Ui::PlayerWidgetClass* ui;
 
 	JsonWrapper defaultJson;
 
+	inline static const QString health = "playerHealth";
+	inline static const QString healthUpgrade = "playerUpgradeHealth";
+	inline static const QString staminaUpgrade = "playerUpgradeStamina";
+	inline static const QString extraJumpUpgrade = "playerUpgradeExtraJump";
+	inline static const QString launchUpgrade = "playerUpgradeLaunch";
+	inline static const QString mapPlayerCountUpgrade = "playerUpgradeMapPlayerCount";
+	inline static const QString speedUpgrade = "playerUpgradeSpeed";
+	inline static const QString strengthUpgrade = "playerUpgradeStrength";
+	inline static const QString rangeUpgrade = "playerUpgradeRange";
+	inline static const QString throwUpgrade = "playerUpgradeThrow";
+	inline static const QString hasCrown = "playerHasCrown";
+
 	inline static const QMap < QString, int > PlayerStats = {
-		{ "playerHealth", 100 },
-		{ "playerUpgradeHealth", 0 },
-		{ "playerUpgradeStamina", 0 },
-		{ "playerUpgradeExtraJump", 0 },
-		{ "playerUpgradeLaunch", 0 },
-		{ "playerUpgradeMapPlayerCount", 0 },
-		{ "playerUpgradeSpeed", 0 },
-		{ "playerUpgradeStrength", 0 },
-		{ "playerUpgradeRange", 0 },
-		{ "playerUpgradeThrow", 0 },
-		{ "playerHasCrown", 0 }
+		{ health, 100 },
+		{ healthUpgrade, 0 },
+		{ staminaUpgrade, 0 },
+		{ extraJumpUpgrade, 0 },
+		{ launchUpgrade, 0 },
+		{ mapPlayerCountUpgrade, 0 },
+		{ speedUpgrade, 0 },
+		{ strengthUpgrade, 0 },
+		{ rangeUpgrade, 0 },
+		{ throwUpgrade, 0 },
+		{ hasCrown, 0 }
 	};
 };

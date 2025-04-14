@@ -20,8 +20,6 @@ class RepoSaveEditor final : public QMainWindow
 	explicit RepoSaveEditor( QWidget* parent = nullptr );
 	~RepoSaveEditor() override;
 
-	void changeEvent(QEvent* e);
-
 	static void SetWidgetsVisible( const QLayout* layout, bool enabled );
 
 signals:
@@ -42,6 +40,9 @@ private slots:
 	void UpdateJsonText();
 
 	void CheckJson();
+
+protected:
+	void changeEvent(QEvent* e);
 
 private:
 	Ui::RepoSaveEditorClass* ui;
