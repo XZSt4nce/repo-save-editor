@@ -404,9 +404,14 @@ QByteArray RepoSaveEditor::EncryptData( const QString& data, const bool useGzip 
 }
 
 void RepoSaveEditor::SelectLanguage(const QString& suffix) {
-	if (translator.load(QString("translation_%1.qm").arg(suffix), "translations"))
+	if (qtTranslator.load(QString("qt_%1.qm").arg(suffix), QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
 	{
-		qApp->installTranslator(&translator);
+		qApp->installTranslator(&qtTranslator);
+	}
+
+	if (appTranslator.load(QString("translation_%1.qm").arg(suffix), QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+	{
+		qApp->installTranslator(&appTranslator);
 	}
 }
 

@@ -56,7 +56,8 @@ private:
 
 	QString openedFile;
 
-	QTranslator translator;
+	QTranslator qtTranslator;
+	QTranslator appTranslator;
 
 	QPalette lightPalette;
 	QPalette darkPalette;
