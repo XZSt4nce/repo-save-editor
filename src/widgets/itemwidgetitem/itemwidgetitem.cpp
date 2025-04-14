@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "itemwidgetitem.h"
 
-ItemWidgetItem::ItemWidgetItem( const QString& itemName_, const QString& itemLabel_, QWidget* parent) : QWidget( parent ), ui( new Ui::ItemWidgetItemClass() ), itemName(itemName_), itemLabel(itemLabel_)
+ItemWidgetItem::ItemWidgetItem( const QString& itemName_, const std::function< QString()>& itemLabel_, QWidget* parent) : QWidget( parent ), ui( new Ui::ItemWidgetItemClass() ), itemName(itemName_), itemLabel(itemLabel_)
 {
 	ui->setupUi( this );
 
-	ui->itemNameLabel->setText(itemLabel_);
+	ui->itemNameLabel->setText(itemLabel_());
 
 	connect( ui->valueSpinBox, QOverload < int >::of( &QSpinBox::valueChanged ), this, &ItemWidgetItem::ValueChanged );
 }

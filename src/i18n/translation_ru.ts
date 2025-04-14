@@ -4,192 +4,192 @@
 <context>
     <name>ItemWidget</name>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="39"/>
+        <location filename="../../include/itemwidget.h" line="38"/>
         <source>Pocket C.A.R.T.</source>
         <translation>Карманная C.A.R.T.</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="40"/>
+        <location filename="../../include/itemwidget.h" line="39"/>
         <source>Recharge Drone</source>
         <translation>Дрон перезарядки</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="41"/>
+        <location filename="../../include/itemwidget.h" line="40"/>
         <source>Feather Drone</source>
         <translation>Дрон пера</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="42"/>
+        <location filename="../../include/itemwidget.h" line="41"/>
         <source>Indestructible Drone</source>
         <translation>Дрон неразрушимости</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="43"/>
+        <location filename="../../include/itemwidget.h" line="42"/>
         <source>Zero Gravity Drone</source>
         <translation>Дрон нулевой гравитации</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="44"/>
+        <location filename="../../include/itemwidget.h" line="43"/>
         <source>Roll Drone</source>
         <translation>Дрон поворота</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="45"/>
+        <location filename="../../include/itemwidget.h" line="44"/>
         <source>Extraction Tracker</source>
         <translation>Трекер точки экстракции</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="46"/>
+        <location filename="../../include/itemwidget.h" line="45"/>
         <source>Duct Taped Grenades</source>
         <translation>Обмотанные скотчем гранаты</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="47"/>
+        <location filename="../../include/itemwidget.h" line="46"/>
         <source>Grenade</source>
         <translation>Граната</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="48"/>
+        <location filename="../../include/itemwidget.h" line="47"/>
         <source>Human Grenade</source>
         <translation>Человеческая граната</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="49"/>
+        <location filename="../../include/itemwidget.h" line="48"/>
         <source>Shockwave Grenade</source>
         <translation>Ударная граната</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="50"/>
+        <location filename="../../include/itemwidget.h" line="49"/>
         <source>Stun Grenade</source>
         <translation>Светошумовая граната</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="51"/>
+        <location filename="../../include/itemwidget.h" line="50"/>
         <source>Gun</source>
         <translation>Пистолет</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="52"/>
+        <location filename="../../include/itemwidget.h" line="51"/>
         <source>Shotgun</source>
         <translation>Дробовик</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="53"/>
+        <location filename="../../include/itemwidget.h" line="52"/>
         <source>Tranq Gun</source>
         <translation>Транквилизаторный пистолет</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="54"/>
+        <location filename="../../include/itemwidget.h" line="53"/>
         <source>Small Health Pack</source>
         <translation>Маленький набор здоровья</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="55"/>
+        <location filename="../../include/itemwidget.h" line="54"/>
         <source>Medium Health Pack</source>
         <translation>Средний набор здоровья</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="56"/>
+        <location filename="../../include/itemwidget.h" line="55"/>
         <source>Large Health Pack</source>
         <translation>Большой набор здоровья</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="57"/>
+        <location filename="../../include/itemwidget.h" line="56"/>
         <source>Baseball Bat</source>
         <translation>Бейсбольная бита</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="58"/>
+        <location filename="../../include/itemwidget.h" line="57"/>
         <source>Frying Pan</source>
         <translation>Сковорода</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="59"/>
+        <location filename="../../include/itemwidget.h" line="58"/>
         <source>Inflatable Hammer</source>
         <translation>Надувной молоток</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="60"/>
+        <location filename="../../include/itemwidget.h" line="59"/>
         <source>Sledge Hammer</source>
         <translation>Кувалда</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="61"/>
+        <location filename="../../include/itemwidget.h" line="60"/>
         <source>Sword</source>
         <translation>Меч</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="62"/>
+        <location filename="../../include/itemwidget.h" line="61"/>
         <source>Explosive Mine</source>
         <translation>Взрывоопасная мина</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="63"/>
+        <location filename="../../include/itemwidget.h" line="62"/>
         <source>Shockwave Mine</source>
         <translation>Ударная мина</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="64"/>
+        <location filename="../../include/itemwidget.h" line="63"/>
         <source>Stun Mine</source>
         <translation>Светошумовая мина</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="65"/>
+        <location filename="../../include/itemwidget.h" line="64"/>
         <source>Zero Gravity Orb</source>
         <translation>Сфера нулевой гравитации</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="66"/>
+        <location filename="../../include/itemwidget.h" line="65"/>
         <source>Energy Crystal</source>
         <translation>Кристалл энергии</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="68"/>
+        <location filename="../../include/itemwidget.h" line="67"/>
         <source>Map Player Count Upgrade</source>
         <translation>Улучшение количества игроков на карте</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="69"/>
+        <location filename="../../include/itemwidget.h" line="68"/>
         <source>Stamina Upgrade</source>
         <translation>Улучшение выносливости</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="70"/>
+        <location filename="../../include/itemwidget.h" line="69"/>
         <source>Extra Jump Upgrade</source>
         <translation>Улучшение дополнительного прыжка</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="71"/>
+        <location filename="../../include/itemwidget.h" line="70"/>
         <source>Range Upgrade</source>
         <translation>Улучшение дальности</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="72"/>
+        <location filename="../../include/itemwidget.h" line="71"/>
         <source>Strength Upgrade</source>
         <translation>Улучшение силы</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="73"/>
+        <location filename="../../include/itemwidget.h" line="72"/>
         <source>Health Upgrade</source>
         <translation>Улучшение здоровья</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="74"/>
+        <location filename="../../include/itemwidget.h" line="73"/>
         <source>Sprint Upgrade</source>
         <translation>Улучшение бега</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="75"/>
+        <location filename="../../include/itemwidget.h" line="74"/>
         <source>Tumble Launch Upgrade</source>
         <translation>Улучшение рывка</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="67"/>
+        <location filename="../../include/itemwidget.h" line="66"/>
         <source>Rubber Duck</source>
         <translation>Резиновая уточка</translation>
     </message>
     <message>
-        <location filename="../widgets/itemwidget/itemwidget.cpp" line="76"/>
+        <location filename="../../include/itemwidget.h" line="75"/>
         <source>Valuable Tracker</source>
         <translation>Трекер ценностей</translation>
     </message>
@@ -212,11 +212,6 @@
     <message>
         <location filename="../widgets/itemwidgetitem/itemwidgetitem.ui" line="14"/>
         <source>ItemWidgetItem</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../widgets/itemwidgetitem/itemwidgetitem.ui" line="38"/>
-        <source>#ITEM_NAME</source>
         <translation></translation>
     </message>
 </context>
@@ -392,110 +387,115 @@
 <context>
     <name>RepoSaveEditor</name>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="133"/>
+        <location filename="../../reposaveeditor.cpp" line="13"/>
+        <source>R.E.P.O. Save Editor</source>
+        <translation>Редактор Сохранений R.E.P.O.</translation>
+    </message>
+    <message>
+        <location filename="../../reposaveeditor.cpp" line="134"/>
         <source>Open a File</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="145"/>
-        <location filename="../../reposaveeditor.cpp" line="170"/>
-        <location filename="../../reposaveeditor.cpp" line="187"/>
-        <location filename="../../reposaveeditor.cpp" line="202"/>
-        <location filename="../../reposaveeditor.cpp" line="231"/>
-        <location filename="../../reposaveeditor.cpp" line="285"/>
-        <location filename="../../reposaveeditor.cpp" line="299"/>
+        <location filename="../../reposaveeditor.cpp" line="146"/>
+        <location filename="../../reposaveeditor.cpp" line="171"/>
+        <location filename="../../reposaveeditor.cpp" line="188"/>
+        <location filename="../../reposaveeditor.cpp" line="203"/>
+        <location filename="../../reposaveeditor.cpp" line="232"/>
+        <location filename="../../reposaveeditor.cpp" line="286"/>
+        <location filename="../../reposaveeditor.cpp" line="300"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="145"/>
+        <location filename="../../reposaveeditor.cpp" line="146"/>
         <source>Error while decrypting data.</source>
         <translation>Ошибка во время расшифровки данны.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="146"/>
+        <location filename="../../reposaveeditor.cpp" line="147"/>
         <source>Error : empty decrypted data.</source>
         <translation>Ошибка: пустые расшифрованные данные.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="170"/>
-        <location filename="../../reposaveeditor.cpp" line="202"/>
+        <location filename="../../reposaveeditor.cpp" line="171"/>
+        <location filename="../../reposaveeditor.cpp" line="203"/>
         <source>Unable to open file for writing.</source>
         <translation>Невозможно открыть файл для записи.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="171"/>
-        <location filename="../../reposaveeditor.cpp" line="203"/>
+        <location filename="../../reposaveeditor.cpp" line="172"/>
+        <location filename="../../reposaveeditor.cpp" line="204"/>
         <source>Error : Unable to open file for writing :</source>
         <translation>Ошибка: Невозможно открыть файл для записи:</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="177"/>
-        <location filename="../../reposaveeditor.cpp" line="194"/>
+        <location filename="../../reposaveeditor.cpp" line="178"/>
+        <location filename="../../reposaveeditor.cpp" line="195"/>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="177"/>
+        <location filename="../../reposaveeditor.cpp" line="178"/>
         <source>Save a backup copy of the file?</source>
         <translation>Сохранить резервную копию этого файла?</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="187"/>
+        <location filename="../../reposaveeditor.cpp" line="188"/>
         <source>Unable to create backup file.</source>
         <translation>Невозможно создать резервную копию.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="188"/>
+        <location filename="../../reposaveeditor.cpp" line="189"/>
         <source>Error : Unable to create backup file :</source>
         <translation>Ошибка: Невозможно создать резервную копию:</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="191"/>
+        <location filename="../../reposaveeditor.cpp" line="192"/>
         <source>Save backup</source>
         <translation>Сохранение резервной копии</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="191"/>
-        <location filename="../../reposaveeditor.cpp" line="240"/>
+        <location filename="../../reposaveeditor.cpp" line="192"/>
+        <location filename="../../reposaveeditor.cpp" line="241"/>
         <source>Save successful : %1</source>
         <translation>Сохранение успешно : %1</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="194"/>
+        <location filename="../../reposaveeditor.cpp" line="195"/>
         <source>No existing file to backup.</source>
         <translation>Нет существующего файла для резервного копирования.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="217"/>
-        <location filename="../../reposaveeditor.cpp" line="333"/>
+        <location filename="../../reposaveeditor.cpp" line="218"/>
+        <location filename="../../reposaveeditor.cpp" line="334"/>
         <source>Error JSON</source>
         <translation>Ошибка JSON</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="217"/>
-        <location filename="../../reposaveeditor.cpp" line="333"/>
+        <location filename="../../reposaveeditor.cpp" line="218"/>
+        <location filename="../../reposaveeditor.cpp" line="334"/>
         <source>Error JSON : %1</source>
         <translation>Ошибка JSON : %1</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="218"/>
-        <location filename="../../reposaveeditor.cpp" line="334"/>
+        <location filename="../../reposaveeditor.cpp" line="219"/>
+        <location filename="../../reposaveeditor.cpp" line="335"/>
         <source>Error JSON :</source>
         <translation>Ошибка JSON :</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="231"/>
+        <location filename="../../reposaveeditor.cpp" line="232"/>
         <source>Encrypted data is empty.</source>
         <translation>Зашифрованные данные пустые.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="232"/>
+        <location filename="../../reposaveeditor.cpp" line="233"/>
         <source>Error : Encrypted data is empty.</source>
         <translation>Ошибка: Зашифрованные данные пустые.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="240"/>
+        <location filename="../../reposaveeditor.cpp" line="241"/>
         <source>Save</source>
         <translation>Сохранение</translation>
     </message>
@@ -504,34 +504,34 @@
         <translation type="vanished">Сохранение успешно :</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="274"/>
+        <location filename="../../reposaveeditor.cpp" line="275"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="285"/>
-        <location filename="../../reposaveeditor.cpp" line="299"/>
+        <location filename="../../reposaveeditor.cpp" line="286"/>
+        <location filename="../../reposaveeditor.cpp" line="300"/>
         <source>Invalid JSON.</source>
         <translation>Недействительный JSON.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="286"/>
-        <location filename="../../reposaveeditor.cpp" line="300"/>
+        <location filename="../../reposaveeditor.cpp" line="287"/>
+        <location filename="../../reposaveeditor.cpp" line="301"/>
         <source>Error : invalid JSON.</source>
         <translation>Ошибка: недействительный JSON.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="338"/>
+        <location filename="../../reposaveeditor.cpp" line="339"/>
         <source>JSON is valid.</source>
         <translation>JSON действителен.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="373"/>
+        <location filename="../../reposaveeditor.cpp" line="374"/>
         <source>Error opening file for reading.</source>
         <translation>Ошибка открытия файла для чтения.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="379"/>
+        <location filename="../../reposaveeditor.cpp" line="380"/>
         <source>File is too small to be a valid ES3 file.</source>
         <translation>Файл слишком маленький для того, чтобы быть действительным ES3 файлом.</translation>
     </message>
@@ -539,92 +539,91 @@
 <context>
     <name>RepoSaveEditorClass</name>
     <message>
-        <location filename="../../reposaveeditor.ui" line="14"/>
         <source>R.E.P.O. Save Editor</source>
-        <translation>Редактор Сохранений R.E.P.O.</translation>
+        <translation type="vanished">Редактор Сохранений R.E.P.O.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="37"/>
+        <location filename="../../reposaveeditor.ui" line="34"/>
         <source>World</source>
         <translation>Мир</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="66"/>
+        <location filename="../../reposaveeditor.ui" line="63"/>
         <source>Items</source>
         <translation>Предметы</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="88"/>
+        <location filename="../../reposaveeditor.ui" line="85"/>
         <source>Players</source>
         <translation>Игроки</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="110"/>
+        <location filename="../../reposaveeditor.ui" line="107"/>
         <source>Advanced</source>
         <translation>Продвинутое</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="161"/>
+        <location filename="../../reposaveeditor.ui" line="158"/>
         <source>Editable</source>
         <translation>Редактируемое</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="187"/>
+        <location filename="../../reposaveeditor.ui" line="184"/>
         <source>Check JSON</source>
         <translation>Проверить JSON</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="210"/>
+        <location filename="../../reposaveeditor.ui" line="207"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="219"/>
+        <location filename="../../reposaveeditor.ui" line="216"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="226"/>
+        <location filename="../../reposaveeditor.ui" line="223"/>
         <source>Theme</source>
         <translation>Тема</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="238"/>
+        <location filename="../../reposaveeditor.ui" line="235"/>
         <source>New</source>
         <translation>Новый</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="243"/>
+        <location filename="../../reposaveeditor.ui" line="240"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="248"/>
+        <location filename="../../reposaveeditor.ui" line="245"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="253"/>
+        <location filename="../../reposaveeditor.ui" line="250"/>
         <source>Save As</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="258"/>
+        <location filename="../../reposaveeditor.ui" line="255"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="263"/>
+        <location filename="../../reposaveeditor.ui" line="260"/>
         <source>Русский</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="268"/>
+        <location filename="../../reposaveeditor.ui" line="265"/>
         <source>Light</source>
         <translation>Светлая</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="273"/>
+        <location filename="../../reposaveeditor.ui" line="270"/>
         <source>Dark</source>
         <translation>Тёмная</translation>
     </message>

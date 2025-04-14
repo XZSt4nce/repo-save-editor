@@ -10,7 +10,7 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 {
 	ui->setupUi( this );
 
-	setWindowTitle( QString( "%1 - %2" ).arg( windowTitle() ).arg( Version ) );
+	setWindowTitle( QString( "%1 - %2" ).arg( tr("R.E.P.O. Save Editor") ).arg( Version ) );
 
 	connect( ui->actionNew, &QAction::triggered, this, &RepoSaveEditor::NewFile );
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
@@ -96,6 +96,7 @@ void RepoSaveEditor::changeEvent(QEvent* e)
 	switch (e->type()) {
 		case QEvent::LanguageChange:
 			ui->retranslateUi(this);
+			UpdateWidgets();
 			break;
 		default:
 			break;

@@ -10,9 +10,6 @@
     <height>460</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>R.E.P.O. Save Editor</string>
-  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_4">
     <property name="leftMargin">

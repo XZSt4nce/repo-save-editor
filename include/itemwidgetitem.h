@@ -12,8 +12,8 @@ QT_BEGIN_NAMESPACE namespace Ui
 
 QT_END_NAMESPACE class ItemWidgetItem final : public QWidget
 {
-	Q_OBJECT public:
-	explicit ItemWidgetItem( const QString& itemName = "", const QString& itemLabel = "", QWidget* parent = nullptr );
+Q_OBJECT public:
+	explicit ItemWidgetItem( const QString& itemName = "", const std::function< QString()>& itemLabel = [] { return ""; }, QWidget* parent = nullptr );
 	~ItemWidgetItem() override;
 
 	void UpdateWidget( const JsonWrapper& json);
@@ -32,5 +32,5 @@ private:
 	Ui::ItemWidgetItemClass* ui;
 
 	const QString& itemName;
-	const QString& itemLabel;
+	const std::function< QString()>& itemLabel;
 };

@@ -49,7 +49,7 @@ void WorldWidget::UpdateWidgets( const JsonWrapper& json ) const
 		QSignalBlocker( ui->timePlayedDoubleSpinBox )
 	};
 
-	SetVisible( true );
+	SetVisible( !json.IsEmpty() );
 
 	ui->levelSpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "level" ) ).toInt() );
 	ui->currencySpinBox->setValue( json.Get( PropertyPath::RunStatsPath( "currency" ) ).toInt() );

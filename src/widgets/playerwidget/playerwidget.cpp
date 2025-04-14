@@ -59,7 +59,7 @@ void PlayerWidget::UpdateWidgets( const JsonWrapper& json )
 		UpdatePlayerInfo();
 	}
 
-	SetVisible( true );
+	SetVisible( !json.IsEmpty() );
 }
 
 void PlayerWidget::UpdatePlayerInfo() const
