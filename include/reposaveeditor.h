@@ -35,6 +35,9 @@ private slots:
 	void SelectEnglishLanguage();
 	void SelectRussianLanguage();
 
+	void SelectLightTheme();
+	void SelectDarkTheme();
+
 	void LoadJson( const QString& filePath );
 	void UpdateWidgets() const;
 	void UpdateJsonText();
@@ -54,6 +57,9 @@ private:
 	QString openedFile;
 
 	QTranslator translator;
+
+	QPalette lightPalette;
+	QPalette darkPalette;
 
 	void HideUi() const;
 	void SetupShortcuts() const;

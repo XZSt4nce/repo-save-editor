@@ -19,6 +19,9 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	connect( ui->actionSelectEnglish, &QAction::triggered, this, &RepoSaveEditor::SelectEnglishLanguage );
 	connect( ui->actionSelectRussian, &QAction::triggered, this, &RepoSaveEditor::SelectRussianLanguage );
 
+	connect( ui->actionSelectLight, &QAction::triggered, this, &RepoSaveEditor::SelectLightTheme );
+	connect( ui->actionSelectDark, &QAction::triggered, this, &RepoSaveEditor::SelectDarkTheme );
+
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->playerWidget, &PlayerWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -34,6 +37,40 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	jsonHighlighter = new JsonHighlighter( ui->advancedTextEdit->document() );
 
 	SelectLanguage(QLocale::system().bcp47Name());
+
+	lightPalette.setColor(QPalette::Window, QColor(240, 240, 240));
+	lightPalette.setColor(QPalette::WindowText, Qt::black);
+	lightPalette.setColor(QPalette::Base, Qt::white);
+	lightPalette.setColor(QPalette::AlternateBase, QColor(233, 231, 227));
+	lightPalette.setColor(QPalette::Text, Qt::black);
+	lightPalette.setColor(QPalette::Button, QColor(240, 240, 240));
+	lightPalette.setColor(QPalette::ButtonText, Qt::black);
+	lightPalette.setColor(QPalette::Highlight, QColor(61, 174, 233));
+	lightPalette.setColor(QPalette::HighlightedText, Qt::white);
+	lightPalette.setColor(QPalette::Disabled, QPalette::WindowText, QColor(120, 120, 120));
+	lightPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(120, 120, 120));
+	lightPalette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(120, 120, 120));
+
+	darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+	darkPalette.setColor(QPalette::WindowText, Qt::white);
+	darkPalette.setColor(QPalette::Base, QColor(35, 35, 35));
+	darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+	darkPalette.setColor(QPalette::Text, Qt::white);
+	darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+	darkPalette.setColor(QPalette::ButtonText, Qt::white);
+	darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+	darkPalette.setColor(QPalette::HighlightedText, Qt::white);
+	darkPalette.setColor(QPalette::Disabled, QPalette::WindowText, QColor(127, 127, 127));
+	darkPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(127, 127, 127));
+	darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(127, 127, 127));
+
+	if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light) {
+		SelectLightTheme();
+	}
+	else
+	{
+		SelectDarkTheme();
+	}
 
 	HideUi();
 	SetupShortcuts();
@@ -381,6 +418,16 @@ void RepoSaveEditor::SelectEnglishLanguage()
 void RepoSaveEditor::SelectRussianLanguage()
 {
 	SelectLanguage("ru");
+}
+
+void RepoSaveEditor::SelectLightTheme()
+{
+	qApp->setPalette(lightPalette);
+}
+
+void RepoSaveEditor::SelectDarkTheme()
+{
+	qApp->setPalette(darkPalette);
 }
 
 void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key )

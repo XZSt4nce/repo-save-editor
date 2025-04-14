@@ -220,8 +220,16 @@
     <addaction name="actionSelectEnglish"/>
     <addaction name="actionSelectRussian"/>
    </widget>
+   <widget class="QMenu" name="menuTheme">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+    <addaction name="actionSelectLight"/>
+    <addaction name="actionSelectDark"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLanguage"/>
+   <addaction name="menuTheme"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -247,6 +255,16 @@
   <action name="actionSelectRussian">
    <property name="text">
     <string>Русский</string>
+   </property>
+  </action>
+  <action name="actionSelectLight">
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
+  <action name="actionSelectDark">
+   <property name="text">
+    <string>Dark</string>
    </property>
   </action>
  </widget>

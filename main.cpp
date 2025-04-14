@@ -18,6 +18,8 @@ int main( int argc, char* argv[ ] )
 
 	QApplication a( argc, argv );
 
+	a.setStyle(QStyleFactory::create("Fusion"));
+
 	RepoSaveEditor w;
 	Global::SetApplication( &w );
 	w.show();
