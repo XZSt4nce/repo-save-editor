@@ -72,7 +72,7 @@
     <ClInclude Include="include\jsonwrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nowheelspinbox.h">
+    <ClInclude Include="include\nowheeledit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\utility.h">

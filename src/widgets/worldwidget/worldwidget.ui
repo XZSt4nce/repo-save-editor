@@ -383,7 +383,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDateEdit" name="dateEdit">
+            <widget class="NoWheelDateEdit" name="dateEdit">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -480,12 +480,17 @@
   <customwidget>
    <class>NoWheelSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>nowheelspinbox.h</header>
+   <header>nowheeledit.h</header>
   </customwidget>
   <customwidget>
    <class>NoWheelDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>nowheelspinbox.h</header>
+   <header>nowheeledit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NoWheelDateEdit</class>
+   <extends>QDateEdit</extends>
+   <header>nowheeledit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

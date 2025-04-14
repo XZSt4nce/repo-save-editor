@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "itemwidgetitem.h"
 
-ItemWidgetItem::ItemWidgetItem( QWidget* parent ) : QWidget( parent ), ui( new Ui::ItemWidgetItemClass() )
+ItemWidgetItem::ItemWidgetItem( const QString& itemName_, const QString& itemLabel_, QWidget* parent) : QWidget( parent ), ui( new Ui::ItemWidgetItemClass() ), itemName(itemName_), itemLabel(itemLabel_)
 {
 	ui->setupUi( this );
+
+	ui->itemNameLabel->setText(itemLabel_);
 
 	connect( ui->valueSpinBox, QOverload < int >::of( &QSpinBox::valueChanged ), this, &ItemWidgetItem::ValueChanged );
 }
@@ -25,14 +27,11 @@ void ItemWidgetItem::changeEvent(QEvent* e)
 	}
 }
 
-void ItemWidgetItem::UpdateWidget( const JsonWrapper& json, const QString& itemName_ )
+void ItemWidgetItem::UpdateWidget( const JsonWrapper& json )
 {
-	itemName = itemName_;
-
 	// Block signals to prevent signals from being emitted when setting values
 	QSignalBlocker blockers[ ] = { QSignalBlocker( ui->valueSpinBox ) };
 
-	ui->itemNameLabel->setText( QString( itemName ).replace( "Item ", "" ) );
 	ui->valueSpinBox->setValue( json.Get( PropertyPath::ItemsPurchasedCountPath( itemName ) ).toInt() );
 }
 

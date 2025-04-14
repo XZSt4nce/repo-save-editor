@@ -21,10 +21,10 @@ QT_END_NAMESPACE class ItemWidget final : public QWidget
 	
 	void SetVisible( bool visible ) const;
 	
-	signals:
+signals:
 	void Edited();
 	
-	private slots:
+private slots:
 	void ValueChanged();
 	
 protected:

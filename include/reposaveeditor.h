@@ -26,6 +26,7 @@ signals:
 	void WindowMovedOrResized();
 
 private slots:
+	void NewFile();
 	void OpenFile();
 	void SaveFile( const QString& filePath);
 	void SaveOpenedFile();
@@ -35,9 +36,10 @@ private slots:
 	void SelectEnglishLanguage();
 	void SelectRussianLanguage();
 
-	void SelectLightTheme();
-	void SelectDarkTheme();
+	void SelectLightTheme() const;
+	void SelectDarkTheme() const;
 
+	void GenerateJson();
 	void LoadJson( const QString& filePath );
 	void UpdateWidgets() const;
 	void UpdateJsonText();

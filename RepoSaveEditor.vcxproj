@@ -144,7 +144,7 @@
     <None Include="translations\translation_ru.qm" />
     <QtMoc Include="include\innerwindow.h" />
     <ClInclude Include="include\jsonwrapper.h" />
-    <ClInclude Include="include\nowheelspinbox.h" />
+    <ClInclude Include="include\nowheeledit.h" />
     <QtMoc Include="include\playereditionwindow.h" />
     <ClInclude Include="include\utility.h" />
     <QtMoc Include="include\worldwidget.h" />

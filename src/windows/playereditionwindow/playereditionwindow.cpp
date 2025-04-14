@@ -96,7 +96,7 @@ void PlayerEditionWindow::AddPlayer()
 
 	if (!profileUrl.isValid() || profileUrl.isEmpty())
 	{
-		qDebug() << std::format("%s invalide.", inputType);
+		qDebug() << QString("%1 invalide.").arg(inputType);
 
 		EnableButtons();
 
@@ -127,7 +127,7 @@ void PlayerEditionWindow::AddPlayer()
 
 		if (!steamId.isEmpty())
 		{
-			qDebug() << tr("SteamID found:") << steamId << personaName;
+			qDebug() << "SteamID found:" << steamId << personaName;
 
 			QMessageBox::information(this, tr("SteamID found"), QString(tr("SteamID found: %1")).arg(steamId));
 

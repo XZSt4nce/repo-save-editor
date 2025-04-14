@@ -65,7 +65,7 @@
   <customwidget>
    <class>NoWheelSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>nowheelspinbox.h</header>
+   <header>nowheeledit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

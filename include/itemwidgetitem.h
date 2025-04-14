@@ -13,10 +13,10 @@ QT_BEGIN_NAMESPACE namespace Ui
 QT_END_NAMESPACE class ItemWidgetItem final : public QWidget
 {
 	Q_OBJECT public:
-	explicit ItemWidgetItem( QWidget* parent = nullptr );
+	explicit ItemWidgetItem( const QString& itemName = "", const QString& itemLabel = "", QWidget* parent = nullptr );
 	~ItemWidgetItem() override;
 
-	void UpdateWidget( const JsonWrapper& json, const QString& itemName_ );
+	void UpdateWidget( const JsonWrapper& json);
 	void SetJsonValues( JsonWrapper& json ) const;
 
 signals:
@@ -31,5 +31,6 @@ protected:
 private:
 	Ui::ItemWidgetItemClass* ui;
 
-	QString itemName;
+	const QString& itemName;
+	const QString& itemLabel;
 };

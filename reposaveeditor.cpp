@@ -12,6 +12,7 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 
 	setWindowTitle( QString( "%1 - %2" ).arg( windowTitle() ).arg( Version ) );
 
+	connect( ui->actionNew, &QAction::triggered, this, &RepoSaveEditor::NewFile );
 	connect( ui->actionOpen, &QAction::triggered, this, &RepoSaveEditor::OpenFile );
 	connect( ui->actionSave, &QAction::triggered, this, &RepoSaveEditor::SaveOpenedFile );
 	connect( ui->actionSaveAs, &QAction::triggered, this, &RepoSaveEditor::SaveFileAs );
@@ -118,6 +119,15 @@ void RepoSaveEditor::SetWidgetsVisible( const QLayout* layout, const bool enable
 	}
 }
 
+void RepoSaveEditor::NewFile()
+{
+	HideUi();
+
+	GenerateJson();
+
+	openedFile = "";
+}
+
 void RepoSaveEditor::OpenFile()
 {
 	QString file = QFileDialog::getOpenFileName(this, tr("Open a File"), DEFAULT_SAVES_LOCATION, "ES3 File (*.es3)");
@@ -142,8 +152,11 @@ void RepoSaveEditor::OpenFile()
 
 void RepoSaveEditor::SaveFile( const QString& filePath )
 {
-	// There is nothing to save if file is not open
-	if ( openedFile.isEmpty() )
+	// There is nothing to save if json is empty
+	if ( json.IsEmpty() )
+		return;
+
+	if ( filePath.isEmpty() )
 		return;
 
 	// If directory with save file was deleted, create directory again and save file there
@@ -225,19 +238,29 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 	file.close();
 
 	QMessageBox::information( this, tr("Save"), QString( tr("Save successful : %1") ).arg( filePath ) );
-	qDebug() << tr("Save successful :") << filePath;
+	qDebug() << "Save successful :" << filePath;
 }
 
 void RepoSaveEditor::SaveOpenedFile()
 {
-	SaveFile( openedFile );
+	if (openedFile.isEmpty())
+	{
+		if (!json.IsEmpty())
+		{
+			SaveFileAs();
+		}
+	}
+	else
+	{
+		SaveFile( openedFile );
+	}
 }
 
 void RepoSaveEditor::SaveFileAs()
 {
 	QString savesLocation = DEFAULT_SAVES_LOCATION;
 
-	if ( openedFile.isEmpty() )
+	if ( json.IsEmpty() )
 		return;
 
 	const QString openedDirectory = QFileInfo( openedFile ).absolutePath();
@@ -246,9 +269,25 @@ void RepoSaveEditor::SaveFileAs()
 		savesLocation = openedDirectory;
 	}
 
-	const QString filePath = QFileDialog::getSaveFileName( this, tr("Save as"), savesLocation, "ES3 File (*.es3)" );
+	const QString currentTime = QDateTime::currentDateTime().toString("yyyy_MM_dd_hh_mm_ss");
+	const QString defaultFileName = QString(R"(%1\REPO_SAVE_%2)").arg(savesLocation).arg(currentTime);
+	const QString filePath = QFileDialog::getSaveFileName( this, tr("Save as"), defaultFileName, "ES3 File (*.es3)" );
 
 	SaveFile( filePath );
+}
+
+void RepoSaveEditor::GenerateJson()
+{
+	QJsonParseError parseError;
+	json.Generate();
+	if (parseError.error != QJsonParseError::NoError)
+	{
+		QMessageBox::critical(this, tr("Error"), tr("Invalid JSON."));
+		qCritical() << tr("Error : invalid JSON.");
+		return;
+	}
+
+	UpdateWidgets();
 }
 
 void RepoSaveEditor::LoadJson( const QString& filePath )
@@ -297,7 +336,7 @@ void RepoSaveEditor::CheckJson()
 	}
 
 	QMessageBox::information( this, "JSON", tr("JSON is valid.") );
-	qDebug() << tr("JSON is valid.");
+	qDebug() << "JSON is valid.";
 
 	json = JsonWrapper( jsonDoc );
 
@@ -318,6 +357,7 @@ void RepoSaveEditor::HideUi() const
 void RepoSaveEditor::SetupShortcuts() const
 {
 	// Setup shortcuts for actions
+	ui->actionNew->setShortcut( QKeySequence::New );
 	ui->actionOpen->setShortcut( QKeySequence::Open );
 	ui->actionSave->setShortcut( QKeySequence::Save );
 	ui->actionSaveAs->setShortcut( QKeySequence::SaveAs );
@@ -425,12 +465,12 @@ void RepoSaveEditor::SelectRussianLanguage()
 	SelectLanguage("ru");
 }
 
-void RepoSaveEditor::SelectLightTheme()
+void RepoSaveEditor::SelectLightTheme() const
 {
 	qApp->setPalette(lightPalette);
 }
 
-void RepoSaveEditor::SelectDarkTheme()
+void RepoSaveEditor::SelectDarkTheme() const
 {
 	qApp->setPalette(darkPalette);
 }

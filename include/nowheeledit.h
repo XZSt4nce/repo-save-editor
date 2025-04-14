@@ -29,3 +29,18 @@ protected:
 			event->ignore();
 	}
 };
+
+class NoWheelDateEdit final : public QDateEdit
+{
+public:
+	explicit NoWheelDateEdit(QWidget* parent = nullptr) : QDateEdit(parent) {}
+
+protected:
+	void wheelEvent(QWheelEvent* event) override
+	{
+		if (QApplication::mouseButtons() != Qt::NoButton && hasFocus())
+			QDateEdit::wheelEvent(event);
+		else
+			event->ignore();
+	}
+};
