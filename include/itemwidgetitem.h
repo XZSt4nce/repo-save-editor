@@ -31,6 +31,6 @@ protected:
 private:
 	Ui::ItemWidgetItemClass* ui;
 
-	const QString& itemName;
+	const QString itemName;
 	const std::function< QString()>& itemLabel;
 };
