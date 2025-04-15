@@ -54,6 +54,18 @@ void PlayerWidget::changeEvent(QEvent* e)
 	}
 }
 
+void PlayerWidget::SetEditsDisabled( const bool isDisabled )
+{
+	if (editsDisabled != isDisabled)
+	{
+		for (QWidget* edit : StatsEdits.values())
+		{
+			edit->setDisabled(isDisabled);
+		}
+		editsDisabled = isDisabled;
+	}
+}
+
 void PlayerWidget::UpdateWidgets( const JsonWrapper& json )
 {
 	defaultJson = json;
@@ -70,25 +82,42 @@ void PlayerWidget::UpdateWidgets( const JsonWrapper& json )
 		ui->playerComboBox->setCurrentIndex( 0 );
 		UpdatePlayerInfo();
 	}
+	else
+	{
+		SetEditsDisabled(true);
+	}
 
 	SetVisible( !json.IsEmpty() );
 }
 
-void PlayerWidget::UpdatePlayerInfo() const
+void PlayerWidget::UpdatePlayerInfo()
 {
 	const QString steamId = ui->playerComboBox->currentData().toString();
+	const bool isSteamIdEmpty = steamId.isEmpty();
+	QString label = QString( "Steam ID: %1" ).arg( steamId );
+	std::function<int(QString)> getEditValue = [this, steamId](QString key) { return defaultJson.Get( PropertyPath::PlayerIdUpgrade( key, steamId ) ).toInt(); };
 
-	ui->steamIdLabel->setText( QString( "Steam ID: %1" ).arg( steamId ) );
+	SetEditsDisabled(isSteamIdEmpty);
+
+	if (isSteamIdEmpty)
+	{
+		ui->steamIdLabel->setText( "#STEAM_ID" );
+
+		getEditValue = [](QString) { return 0; };
+	}
+
+	ui->steamIdLabel->setText(label);
 
 	for (const QString& key : StatsEdits.keys())
 	{
 		QWidget* widget = StatsEdits[key];
+		int value = getEditValue( key );
 
 		if (QSpinBox* spinBox = qobject_cast<QSpinBox*>(widget)) {
-			spinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( key, steamId ) ).toInt() );
+			spinBox->setValue( value );
 		}
 		else if (QCheckBox* checkBox = qobject_cast<QCheckBox*>(widget)) {
-			checkBox->setCheckState( Qt::CheckState(defaultJson.Get( PropertyPath::PlayerIdUpgrade( key, steamId ) ).toInt() ) );
+			checkBox->setCheckState( Qt::CheckState( value ) );
 		}
 	}
 }

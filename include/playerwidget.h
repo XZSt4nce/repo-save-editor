@@ -17,7 +17,7 @@ QT_END_NAMESPACE class PlayerWidget final : public QWidget
 	~PlayerWidget() override;
 
 	void UpdateWidgets( const JsonWrapper& json );
-	void UpdatePlayerInfo() const;
+	void UpdatePlayerInfo();
 	void SetJsonValue( JsonWrapper& json ) const;
 
 	void SetVisible( bool visible ) const;
@@ -35,10 +35,14 @@ private slots:
 	void ValueChanged();
 	void UserValueChanged(const QString& property, int value);
 
+	void SetEditsDisabled( const bool isDisabled );
+
 private:
 	Ui::PlayerWidgetClass* ui;
 
 	JsonWrapper defaultJson;
+
+	bool editsDisabled = false;
 
 	inline static const QString health = "playerHealth";
 	inline static const QString healthUpgrade = "playerUpgradeHealth";
