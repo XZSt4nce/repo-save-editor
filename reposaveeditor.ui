@@ -222,6 +222,7 @@
     <property name="title">
      <string>Theme</string>
     </property>
+    <addaction name="actionSelectSystem"/>
     <addaction name="actionSelectLight"/>
     <addaction name="actionSelectDark"/>
    </widget>
@@ -258,6 +259,11 @@
   <action name="actionSelectRussian">
    <property name="text">
     <string>Русский</string>
+   </property>
+  </action>
+  <action name="actionSelectSystem">
+   <property name="text">
+    <string>System</string>
    </property>
   </action>
   <action name="actionSelectLight">

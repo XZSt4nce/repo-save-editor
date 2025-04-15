@@ -36,6 +36,8 @@ private slots:
 	void SelectEnglishLanguage();
 	void SelectRussianLanguage();
 
+	void UpdateWindow() const;
+	void SelectSystemTheme() const;
 	void SelectLightTheme() const;
 	void SelectDarkTheme() const;
 
@@ -76,5 +78,5 @@ private:
 	void resizeEvent( QResizeEvent* event ) override;
 
 	inline static const QString Password = "Why would you want to cheat?... :o It's no fun. :') :'D";
-	inline static const QString Version = "1.1.0";
+	inline static const QString Version = "1.1.1";
 };

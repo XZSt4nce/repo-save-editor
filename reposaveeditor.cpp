@@ -20,8 +20,9 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	connect( ui->actionSelectEnglish, &QAction::triggered, this, &RepoSaveEditor::SelectEnglishLanguage );
 	connect( ui->actionSelectRussian, &QAction::triggered, this, &RepoSaveEditor::SelectRussianLanguage );
 
-	connect( ui->actionSelectLight, &QAction::triggered, this, &RepoSaveEditor::SelectLightTheme );
-	connect( ui->actionSelectDark, &QAction::triggered, this, &RepoSaveEditor::SelectDarkTheme );
+	connect( ui->actionSelectSystem, &QAction::triggered, this, [=] { RepoSaveEditor::SelectSystemTheme(); } );
+	connect( ui->actionSelectLight, &QAction::triggered, this, [=] { RepoSaveEditor::SelectLightTheme(); } );
+	connect( ui->actionSelectDark, &QAction::triggered, this, [=] { RepoSaveEditor::SelectDarkTheme(); } );
 
 	connect( ui->worldWidget, &WorldWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
 	connect( ui->itemWidget, &ItemWidget::Edited, this, &RepoSaveEditor::UpdateJsonText );
@@ -65,13 +66,7 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	darkPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(127, 127, 127));
 	darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(127, 127, 127));
 
-	if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light) {
-		SelectLightTheme();
-	}
-	else
-	{
-		SelectDarkTheme();
-	}
+	SelectSystemTheme();
 
 	HideUi();
 	SetupShortcuts();
@@ -466,14 +461,36 @@ void RepoSaveEditor::SelectRussianLanguage()
 	SelectLanguage("ru");
 }
 
+void RepoSaveEditor::UpdateWindow() const
+{
+	QTimer::singleShot(0, [this]
+		{
+			this->window()->hide();
+			this->window()->show();
+		});
+}
+
+void RepoSaveEditor::SelectSystemTheme() const
+{
+	if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light) {
+		SelectLightTheme();
+	}
+	else
+	{
+		SelectDarkTheme();
+	}
+}
+
 void RepoSaveEditor::SelectLightTheme() const
 {
 	qApp->setPalette(lightPalette);
+	UpdateWindow();
 }
 
 void RepoSaveEditor::SelectDarkTheme() const
 {
 	qApp->setPalette(darkPalette);
+	UpdateWindow();
 }
 
 void RepoSaveEditor::DeriveKey( const std::string& password, const CryptoPP::byte* iv, CryptoPP::byte* key )
