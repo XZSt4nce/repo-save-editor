@@ -36,6 +36,8 @@ private slots:
 	void SelectEnglishLanguage();
 	void SelectRussianLanguage();
 
+	void UpdateWindow() const;
+	void SelectSystemTheme() const;
 	void SelectLightTheme() const;
 	void SelectDarkTheme() const;
 

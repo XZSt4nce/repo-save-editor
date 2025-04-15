@@ -16,7 +16,7 @@
     <message>
         <location filename="../../include/itemwidget.h" line="40"/>
         <source>Feather Drone</source>
-        <translation>Дрон пера</translation>
+        <translation>Дрон-перо</translation>
     </message>
     <message>
         <location filename="../../include/itemwidget.h" line="41"/>
@@ -389,113 +389,113 @@
     <message>
         <location filename="../../reposaveeditor.cpp" line="13"/>
         <source>R.E.P.O. Save Editor</source>
-        <translation>Редактор Сохранений R.E.P.O.</translation>
+        <translation>R.E.P.O. Редактор Сохранений</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="134"/>
+        <location filename="../../reposaveeditor.cpp" line="129"/>
         <source>Open a File</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="146"/>
-        <location filename="../../reposaveeditor.cpp" line="171"/>
-        <location filename="../../reposaveeditor.cpp" line="188"/>
-        <location filename="../../reposaveeditor.cpp" line="203"/>
-        <location filename="../../reposaveeditor.cpp" line="232"/>
-        <location filename="../../reposaveeditor.cpp" line="286"/>
-        <location filename="../../reposaveeditor.cpp" line="300"/>
+        <location filename="../../reposaveeditor.cpp" line="141"/>
+        <location filename="../../reposaveeditor.cpp" line="166"/>
+        <location filename="../../reposaveeditor.cpp" line="183"/>
+        <location filename="../../reposaveeditor.cpp" line="198"/>
+        <location filename="../../reposaveeditor.cpp" line="227"/>
+        <location filename="../../reposaveeditor.cpp" line="281"/>
+        <location filename="../../reposaveeditor.cpp" line="295"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="146"/>
+        <location filename="../../reposaveeditor.cpp" line="141"/>
         <source>Error while decrypting data.</source>
         <translation>Ошибка во время расшифровки данны.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="147"/>
+        <location filename="../../reposaveeditor.cpp" line="142"/>
         <source>Error : empty decrypted data.</source>
         <translation>Ошибка: пустые расшифрованные данные.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="171"/>
-        <location filename="../../reposaveeditor.cpp" line="203"/>
+        <location filename="../../reposaveeditor.cpp" line="166"/>
+        <location filename="../../reposaveeditor.cpp" line="198"/>
         <source>Unable to open file for writing.</source>
         <translation>Невозможно открыть файл для записи.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="172"/>
-        <location filename="../../reposaveeditor.cpp" line="204"/>
+        <location filename="../../reposaveeditor.cpp" line="167"/>
+        <location filename="../../reposaveeditor.cpp" line="199"/>
         <source>Error : Unable to open file for writing :</source>
         <translation>Ошибка: Невозможно открыть файл для записи:</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="178"/>
-        <location filename="../../reposaveeditor.cpp" line="195"/>
+        <location filename="../../reposaveeditor.cpp" line="173"/>
+        <location filename="../../reposaveeditor.cpp" line="190"/>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="178"/>
+        <location filename="../../reposaveeditor.cpp" line="173"/>
         <source>Save a backup copy of the file?</source>
         <translation>Сохранить резервную копию этого файла?</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="188"/>
+        <location filename="../../reposaveeditor.cpp" line="183"/>
         <source>Unable to create backup file.</source>
         <translation>Невозможно создать резервную копию.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="189"/>
+        <location filename="../../reposaveeditor.cpp" line="184"/>
         <source>Error : Unable to create backup file :</source>
         <translation>Ошибка: Невозможно создать резервную копию:</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="192"/>
+        <location filename="../../reposaveeditor.cpp" line="187"/>
         <source>Save backup</source>
         <translation>Сохранение резервной копии</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="192"/>
-        <location filename="../../reposaveeditor.cpp" line="241"/>
+        <location filename="../../reposaveeditor.cpp" line="187"/>
+        <location filename="../../reposaveeditor.cpp" line="236"/>
         <source>Save successful : %1</source>
         <translation>Сохранение успешно : %1</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="195"/>
+        <location filename="../../reposaveeditor.cpp" line="190"/>
         <source>No existing file to backup.</source>
         <translation>Нет существующего файла для резервного копирования.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="218"/>
-        <location filename="../../reposaveeditor.cpp" line="334"/>
+        <location filename="../../reposaveeditor.cpp" line="213"/>
+        <location filename="../../reposaveeditor.cpp" line="329"/>
         <source>Error JSON</source>
         <translation>Ошибка JSON</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="218"/>
-        <location filename="../../reposaveeditor.cpp" line="334"/>
+        <location filename="../../reposaveeditor.cpp" line="213"/>
+        <location filename="../../reposaveeditor.cpp" line="329"/>
         <source>Error JSON : %1</source>
         <translation>Ошибка JSON : %1</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="219"/>
-        <location filename="../../reposaveeditor.cpp" line="335"/>
+        <location filename="../../reposaveeditor.cpp" line="214"/>
+        <location filename="../../reposaveeditor.cpp" line="330"/>
         <source>Error JSON :</source>
         <translation>Ошибка JSON :</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="232"/>
+        <location filename="../../reposaveeditor.cpp" line="227"/>
         <source>Encrypted data is empty.</source>
         <translation>Зашифрованные данные пустые.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="233"/>
+        <location filename="../../reposaveeditor.cpp" line="228"/>
         <source>Error : Encrypted data is empty.</source>
         <translation>Ошибка: Зашифрованные данные пустые.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="241"/>
+        <location filename="../../reposaveeditor.cpp" line="236"/>
         <source>Save</source>
         <translation>Сохранение</translation>
     </message>
@@ -504,34 +504,34 @@
         <translation type="vanished">Сохранение успешно :</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="275"/>
+        <location filename="../../reposaveeditor.cpp" line="270"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="286"/>
-        <location filename="../../reposaveeditor.cpp" line="300"/>
+        <location filename="../../reposaveeditor.cpp" line="281"/>
+        <location filename="../../reposaveeditor.cpp" line="295"/>
         <source>Invalid JSON.</source>
         <translation>Недействительный JSON.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="287"/>
-        <location filename="../../reposaveeditor.cpp" line="301"/>
+        <location filename="../../reposaveeditor.cpp" line="282"/>
+        <location filename="../../reposaveeditor.cpp" line="296"/>
         <source>Error : invalid JSON.</source>
         <translation>Ошибка: недействительный JSON.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="339"/>
+        <location filename="../../reposaveeditor.cpp" line="334"/>
         <source>JSON is valid.</source>
         <translation>JSON действителен.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="374"/>
+        <location filename="../../reposaveeditor.cpp" line="369"/>
         <source>Error opening file for reading.</source>
         <translation>Ошибка открытия файла для чтения.</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.cpp" line="380"/>
+        <location filename="../../reposaveeditor.cpp" line="375"/>
         <source>File is too small to be a valid ES3 file.</source>
         <translation>Файл слишком маленький для того, чтобы быть действительным ES3 файлом.</translation>
     </message>
@@ -588,42 +588,47 @@
         <translation>Тема</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="235"/>
+        <location filename="../../reposaveeditor.ui" line="236"/>
         <source>New</source>
         <translation>Новый</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="240"/>
+        <location filename="../../reposaveeditor.ui" line="241"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="245"/>
+        <location filename="../../reposaveeditor.ui" line="246"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="250"/>
+        <location filename="../../reposaveeditor.ui" line="251"/>
         <source>Save As</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="255"/>
+        <location filename="../../reposaveeditor.ui" line="256"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="260"/>
+        <location filename="../../reposaveeditor.ui" line="261"/>
         <source>Русский</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="265"/>
+        <location filename="../../reposaveeditor.ui" line="266"/>
+        <source>System</source>
+        <translation>Системная</translation>
+    </message>
+    <message>
+        <location filename="../../reposaveeditor.ui" line="271"/>
         <source>Light</source>
         <translation>Светлая</translation>
     </message>
     <message>
-        <location filename="../../reposaveeditor.ui" line="270"/>
+        <location filename="../../reposaveeditor.ui" line="276"/>
         <source>Dark</source>
         <translation>Тёмная</translation>
     </message>
