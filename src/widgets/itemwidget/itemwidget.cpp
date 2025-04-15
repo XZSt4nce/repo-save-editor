@@ -36,7 +36,7 @@ void ItemWidget::UpdateWidgets( const JsonWrapper& json ) const
 
 	for ( const QString& itemName : Items.keys())
 	{
-		const auto itemWidget = new ItemWidgetItem(itemName, Items[itemName]);
+		ItemWidgetItem* itemWidget = new ItemWidgetItem(itemName, Items[itemName]);
 		itemWidget->UpdateWidget( json );
 		connect( itemWidget, &ItemWidgetItem::Edited, this, &ItemWidget::ValueChanged );
 		ui->itemLayout->insertWidget( ui->itemLayout->count(), itemWidget );
@@ -49,7 +49,7 @@ void ItemWidget::SetJsonValue( JsonWrapper& json ) const
 {
 	for ( int i = 0; i < ui->itemLayout->count(); ++i )
 	{
-		const auto itemWidget = qobject_cast < ItemWidgetItem* >( ui->itemLayout->itemAt( i )->widget() );
+		const ItemWidgetItem* itemWidget = qobject_cast < ItemWidgetItem* >( ui->itemLayout->itemAt( i )->widget() );
 		itemWidget->SetJsonValues( json );
 	}
 }

@@ -3,26 +3,38 @@
 
 #include "playereditionwindow.h"
 
-PlayerWidget::PlayerWidget( QWidget* parent ) : QWidget( parent ), ui( new Ui::PlayerWidgetClass() )
+PlayerWidget::PlayerWidget( QWidget* parent ) : QWidget( parent ), ui( new Ui::PlayerWidgetClass() ), StatsEdits([this](){
+	ui->setupUi(this);
+	QMap<QString, QWidget*> tempMap;
+	tempMap.insert(health, ui->playerHealthSpinBox);
+	tempMap.insert(healthUpgrade, ui->healthSpinBox);
+	tempMap.insert(staminaUpgrade, ui->staminaSpinBox);
+	tempMap.insert(extraJumpUpgrade, ui->extraJumpSpinBox);
+	tempMap.insert(launchUpgrade, ui->launchSpinBox);
+	tempMap.insert(mapPlayerCountUpgrade, ui->mapPlayerCountSpinBox);
+	tempMap.insert(speedUpgrade, ui->speedSpinBox);
+	tempMap.insert(strengthUpgrade, ui->strengthSpinBox);
+	tempMap.insert(rangeUpgrade, ui->rangeSpinBox);
+	tempMap.insert(throwUpgrade, ui->throwSpinBox);
+	tempMap.insert(hasCrown, ui->hasCrownCheckBox);
+	return tempMap;
+}())
 {
-	ui->setupUi( this );
-
 	connect( ui->playerComboBox, &QComboBox::currentIndexChanged, this, &PlayerWidget::UpdatePlayerInfo );
 
 	connect( ui->addButton, &QPushButton::clicked, this, &PlayerWidget::AddPlayer );
 	connect( ui->removeButton, &QPushButton::clicked, this, &PlayerWidget::RemovePlayer );
 
-	connect( ui->playerHealthSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::HealthChanged );
-	connect( ui->healthSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::HealthUpgradeChanged );
-	connect( ui->staminaSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::StaminaUpgradeChanged );
-	connect( ui->extraJumpSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::ExtraJumpUpgradeChanged );
-	connect( ui->launchSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::LaunchUpgradeChanged );
-	connect( ui->mapPlayerCountSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::MapPlayerCountUpgradeChanged );
-	connect( ui->speedSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::SpeedUpgradeChanged );
-	connect( ui->strengthSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::StrengthUpgradeChanged );
-	connect( ui->rangeSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::RangeUpgradeChanged );
-	connect( ui->throwSpinBox, &QSpinBox::valueChanged, this, &PlayerWidget::ThrowUpgradeChanged );
-	connect( ui->hasCrownCheckBox, &QCheckBox::checkStateChanged, this, &PlayerWidget::HasCrownChanged );
+	for (const QString& key : StatsEdits.keys())
+	{
+		QWidget* widget = StatsEdits[key];
+		if (QSpinBox* spinBox = qobject_cast<QSpinBox*>(widget)) {
+			connect( spinBox, &QSpinBox::valueChanged, this, [this, key]( int value ) { UserValueChanged( key, value ); } );
+		}
+		else if (QCheckBox* checkBox = qobject_cast<QCheckBox*>(widget)) {
+			connect(checkBox, &QCheckBox::checkStateChanged, this, [this, key]( Qt::CheckState checked ) { UserValueChanged( key, static_cast< int >( checked ) ); } );
+		}
+	}
 }
 
 PlayerWidget::~PlayerWidget()
@@ -68,17 +80,17 @@ void PlayerWidget::UpdatePlayerInfo() const
 
 	ui->steamIdLabel->setText( QString( "Steam ID: %1" ).arg( steamId ) );
 
-	ui->playerHealthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( health, steamId ) ).toInt() );
-	ui->healthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( healthUpgrade, steamId ) ).toInt() );
-	ui->staminaSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( staminaUpgrade, steamId ) ).toInt() );
-	ui->extraJumpSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( extraJumpUpgrade, steamId ) ).toInt() );
-	ui->launchSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( launchUpgrade, steamId ) ).toInt() );
-	ui->mapPlayerCountSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( mapPlayerCountUpgrade, steamId ) ).toInt() );
-	ui->speedSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( speedUpgrade, steamId ) ).toInt() );
-	ui->strengthSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( strengthUpgrade, steamId ) ).toInt() );
-	ui->rangeSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( rangeUpgrade, steamId ) ).toInt() );
-	ui->throwSpinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( throwUpgrade, steamId ) ).toInt() );
-	ui->hasCrownCheckBox->setCheckState( Qt::CheckState( defaultJson.Get( PropertyPath::PlayerIdUpgrade( hasCrown, steamId ) ).toInt() ) );
+	for (const QString& key : StatsEdits.keys())
+	{
+		QWidget* widget = StatsEdits[key];
+
+		if (QSpinBox* spinBox = qobject_cast<QSpinBox*>(widget)) {
+			spinBox->setValue( defaultJson.Get( PropertyPath::PlayerIdUpgrade( key, steamId ) ).toInt() );
+		}
+		else if (QCheckBox* checkBox = qobject_cast<QCheckBox*>(widget)) {
+			checkBox->setCheckState( Qt::CheckState(defaultJson.Get( PropertyPath::PlayerIdUpgrade( key, steamId ) ).toInt() ) );
+		}
+	}
 }
 
 void PlayerWidget::SetJsonValue( JsonWrapper& json ) const
@@ -118,61 +130,6 @@ void PlayerWidget::UserValueChanged(const QString& property, const int value)
 	ValueChanged();
 }
 
-void PlayerWidget::HealthChanged(int value)
-{
-	UserValueChanged(health, value);
-}
-
-void PlayerWidget::HealthUpgradeChanged(int value)
-{
-	UserValueChanged(healthUpgrade, value);
-}
-
-void PlayerWidget::StaminaUpgradeChanged(int value)
-{
-	UserValueChanged(staminaUpgrade, value);
-}
-
-void PlayerWidget::ExtraJumpUpgradeChanged(int value)
-{
-	UserValueChanged(extraJumpUpgrade, value);
-}
-
-void PlayerWidget::LaunchUpgradeChanged(int value)
-{
-	UserValueChanged(launchUpgrade, value);
-}
-
-void PlayerWidget::MapPlayerCountUpgradeChanged(int value)
-{
-	UserValueChanged(mapPlayerCountUpgrade, value);
-}
-
-void PlayerWidget::SpeedUpgradeChanged(int value)
-{
-	UserValueChanged(speedUpgrade, value);
-}
-
-void PlayerWidget::StrengthUpgradeChanged(int value)
-{
-	UserValueChanged(strengthUpgrade, value);
-}
-
-void PlayerWidget::RangeUpgradeChanged(int value)
-{
-	UserValueChanged(rangeUpgrade, value);
-}
-
-void PlayerWidget::ThrowUpgradeChanged(int value)
-{
-	UserValueChanged(throwUpgrade, value);
-}
-
-void PlayerWidget::HasCrownChanged(Qt::CheckState checked)
-{
-	UserValueChanged(hasCrown, static_cast< int >( checked ));
-}
-
 void PlayerWidget::AddPlayer()
 {
 	if (defaultJson.IsNull())
@@ -186,7 +143,7 @@ void PlayerWidget::AddPlayer()
 
 			for (const QString& steamId : defaultJson.GetPlayerIds())
 			{
-				const QString playerName = defaultJson.GetPlayerName(steamId);
+				const QString& playerName = defaultJson.GetPlayerName(steamId);
 				ui->playerComboBox->addItem(playerName, steamId);
 			}
 

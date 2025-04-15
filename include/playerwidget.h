@@ -34,17 +34,6 @@ private slots:
 
 	void ValueChanged();
 	void UserValueChanged(const QString& property, int value);
-	void HealthChanged(int value);
-	void HealthUpgradeChanged(int value);
-	void StaminaUpgradeChanged(int value);
-	void ExtraJumpUpgradeChanged(int value);
-	void LaunchUpgradeChanged(int value);
-	void MapPlayerCountUpgradeChanged(int value);
-	void SpeedUpgradeChanged(int value);
-	void StrengthUpgradeChanged(int value);
-	void RangeUpgradeChanged(int value);
-	void ThrowUpgradeChanged(int value);
-	void HasCrownChanged(Qt::CheckState checked);
 
 private:
 	Ui::PlayerWidgetClass* ui;
@@ -62,6 +51,8 @@ private:
 	inline static const QString rangeUpgrade = "playerUpgradeRange";
 	inline static const QString throwUpgrade = "playerUpgradeThrow";
 	inline static const QString hasCrown = "playerHasCrown";
+
+	const QMap < QString, QWidget* > StatsEdits;
 
 	inline static const QMap < QString, int > PlayerStats = {
 		{ health, 100 },
