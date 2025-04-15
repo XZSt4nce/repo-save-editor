@@ -78,5 +78,5 @@ private:
 	void resizeEvent( QResizeEvent* event ) override;
 
 	inline static const QString Password = "Why would you want to cheat?... :o It's no fun. :') :'D";
-	inline static const QString Version = "1.1.1";
+	inline static const QString Version = "1.1.2";
 };
