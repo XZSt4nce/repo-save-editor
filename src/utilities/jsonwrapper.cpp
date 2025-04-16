@@ -32,32 +32,33 @@ bool JsonWrapper::Set( const QString& path, const QJsonValue& value )
 	if ( keys.isEmpty() )
 		return false;
 
-	QJsonObject root = document_.object();
-	QJsonObject* current = &root;
+	QJsonObject current = document_.object();
 
-	QList < QJsonObject* > hierarchy; // for reconstitution
+	QList < QJsonObject > hierarchy; // for reconstitution
 
 	// Descending the hierarchy
 	for ( int i = 0; i < keys.size() - 1; ++i )
 	{
 		const QString& key = keys[ i ];
-		const QJsonObject next = current->value( key ).toObject();
+		if (!current.contains(key) || !current.value(key).isObject()) {
+			current.insert(key, QJsonObject());
+		}
 		hierarchy.append( current );
-		current = new QJsonObject( next ); // new object to avoid modifying the original
+		current = current.value( key ).toObject();
 	}
 
 	// Insert value at the last level
-	current->insert( keys.last(), value );
+	current.insert( keys.last(), value );
 
 	// Rebuild the hierarchy
 	for ( int i = static_cast < int >( keys.size() ) - 2; i >= 0; --i )
 	{
-		QJsonObject* parent = hierarchy[ i ];
-		parent->insert( keys[ i ], *current );
+		QJsonObject& parent = hierarchy[ i ];
+		parent.insert( keys[ i ], current );
 		current = parent;
 	}
 
-	document_.setObject( root );
+	document_.setObject( current );
 	return true;
 }
 
@@ -67,41 +68,40 @@ bool JsonWrapper::Remove( const QString& path )
 	if ( keys.isEmpty() )
 		return false;
 
-	QJsonObject root = document_.object();
-	QJsonObject* current = &root;
+	QJsonObject current = document_.object();
 
-	QList < QJsonObject* > hierarchy;
+	QList < QJsonObject > hierarchy;
 
 	// Descending the hierarchy
 	for ( int i = 0; i < keys.size() - 1; ++i )
 	{
 		const QString& key = keys[ i ];
-		if ( !current->contains( key ) || !( *current )[ key ].isObject() )
+		if (!current.contains(key) || !current.value(key).isObject()) {
 			return false;
+		}
 
-		const QJsonObject next = ( *current )[ key ].toObject();
 		hierarchy.append( current );
-		current = new QJsonObject( next );
+		current = current.value( key ).toObject();
 	}
 
 	// Remove the last key
-	current->remove( keys.last() );
+	current.remove( keys.last() );
 
 	// Rebuild the hierarchy
 	for ( int i = static_cast < int >( keys.size() ) - 2; i >= 0; --i )
 	{
-		QJsonObject* parent = hierarchy[ i ];
-		parent->insert( keys[ i ], *current );
+		QJsonObject parent = hierarchy[ i ];
+		parent.insert( keys[ i ], current );
 		current = parent;
 	}
 
-	document_.setObject( root );
+	document_.setObject( current );
 	return true;
 }
 
 void JsonWrapper::Generate()
 {
-	document_ = QJsonDocument();
+	document_ = QJsonDocument(QJsonObject());
 
 	Set("dateAndTime.__type", "string");
 	Set(PropertyPath::DateAndTimePath(), QDateTime::currentDateTime().toString("yyyy-MM-dd"));
