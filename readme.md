@@ -71,6 +71,9 @@ R.E.P.O Save Editor is a graphical user interface (GUI) application built using 
 3. Save Your Changes:
 
     - Click "File" → "Save" or "Save as" and create a directory with the same name as the generated file, and then save the file to this directory.
+   
+   ![image](https://github.com/user-attachments/assets/a2fb4869-9de1-4ccf-ac8d-ab9a7d2b940c)
+
 
 ### Changing language
 
