@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\classes\innerwindow.cpp" />
+    <ClCompile Include="src\utilities\utility.cpp" />
     <ClCompile Include="src\widgets\itemwidget\itemwidget.cpp" />
     <ClCompile Include="src\widgets\itemwidgetitem\itemwidgetitem.cpp" />
     <ClCompile Include="src\utilities\jsonwrapper.cpp" />

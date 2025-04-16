@@ -37,6 +37,7 @@ private slots:
 	void SelectRussianLanguage();
 
 	void UpdateWindow() const;
+	void UpdateHighlighter(const Qt::ColorScheme) const;
 	void SelectSystemTheme() const;
 	void SelectLightTheme() const;
 	void SelectDarkTheme() const;

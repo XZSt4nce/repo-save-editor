@@ -35,7 +35,7 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 	{
 		ui->advancedTextEdit->setReadOnly( !ui->editableCheckBox->isChecked() );
 	} );
-
+	
 	jsonHighlighter = new JsonHighlighter( ui->advancedTextEdit->document() );
 
 	SelectLanguage(QLocale::system().bcp47Name());
@@ -82,7 +82,11 @@ RepoSaveEditor::RepoSaveEditor( QWidget* parent ) : QMainWindow( parent ), ui( n
 
 RepoSaveEditor::~RepoSaveEditor()
 {
+	delete jsonHighlighter;
 	delete ui;
+
+	jsonHighlighter = nullptr;
+	ui = nullptr;
 }
 
 void RepoSaveEditor::changeEvent(QEvent* e)
@@ -92,8 +96,6 @@ void RepoSaveEditor::changeEvent(QEvent* e)
 		case QEvent::LanguageChange:
 			ui->retranslateUi(this);
 			UpdateWidgets();
-			break;
-		default:
 			break;
 	}
 }
@@ -473,6 +475,12 @@ void RepoSaveEditor::UpdateWindow() const
 		});
 }
 
+void RepoSaveEditor::UpdateHighlighter( const Qt::ColorScheme theme ) const
+{
+	jsonHighlighter->updateColors(theme);
+	ui->advancedTextEdit->setPlainText(json.ToJson());
+}
+
 void RepoSaveEditor::SelectSystemTheme() const
 {
 	if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light) {
@@ -487,12 +495,14 @@ void RepoSaveEditor::SelectSystemTheme() const
 void RepoSaveEditor::SelectLightTheme() const
 {
 	qApp->setPalette(lightPalette);
+	UpdateHighlighter(Qt::ColorScheme::Light);
 	UpdateWindow();
 }
 
 void RepoSaveEditor::SelectDarkTheme() const
 {
 	qApp->setPalette(darkPalette);
+	UpdateHighlighter(Qt::ColorScheme::Dark);
 	UpdateWindow();
 }
 

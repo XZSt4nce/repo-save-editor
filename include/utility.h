@@ -26,38 +26,16 @@ private:
 class JsonHighlighter final : public QSyntaxHighlighter
 {
 public:
-	explicit JsonHighlighter( QTextDocument* parent = nullptr ) : QSyntaxHighlighter( parent )
-	{
-		QTextCharFormat keyFormat;
-		keyFormat.setForeground( QColor( 140, 220, 254 ) );
-		highlightingRules.append( { QRegularExpression( R"(\".*?\"(?=\s*:))" ), keyFormat } );
+	explicit JsonHighlighter( QTextDocument* parent = nullptr );
 
-		QTextCharFormat stringFormat;
-		stringFormat.setForeground( QColor( 206, 139, 85 ) );
-		highlightingRules.append( { QRegularExpression( R"(:\s*\".*?\")" ), stringFormat } );
-
-		QTextCharFormat numberFormat;
-		numberFormat.setForeground( QColor( 181, 192, 120 ) );
-		highlightingRules.append( { QRegularExpression( R"(:\s*\d+(\.\d+)?)" ), numberFormat } );
-
-		QTextCharFormat boolFormat; // no used in repo json
-		boolFormat.setForeground( Qt::darkRed );
-		highlightingRules.append( { QRegularExpression( R"(\b(true|false|null)\b)" ), boolFormat } );
-	}
+public slots:
+	void updateColors( Qt::ColorScheme currentTheme );
 
 protected:
-	void highlightBlock( const QString& text ) override
-	{
-		for ( const HighlightingRule& rule : std::as_const( highlightingRules ) )
-		{
-			QRegularExpressionMatchIterator matchIterator = rule.Pattern.globalMatch( text );
-			while ( matchIterator.hasNext() )
-			{
-				QRegularExpressionMatch match = matchIterator.next();
-				setFormat( match.capturedStart(), match.capturedLength(), rule.Format );
-			}
-		}
-	}
+	void highlightBlock( const QString& text ) override;
+
+private slots:
+	void initializeRules();
 
 private:
 	struct HighlightingRule
@@ -67,4 +45,18 @@ private:
 	};
 
 	QVector < HighlightingRule > highlightingRules;
+
+	inline static const QVector < QColor > lightThemeColors = {
+		Qt::black,
+		QColor(206, 139, 85),
+		QColor(86, 126, 162),
+		Qt::darkRed
+	};
+
+	inline static const QVector < QColor > darkThemeColors = {
+		QColor(140, 220, 254),
+		QColor(206, 139, 85),
+		QColor(181, 192, 120),
+		Qt::darkRed
+	};
 };
