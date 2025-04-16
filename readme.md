@@ -36,7 +36,7 @@ R.E.P.O Save Editor is a graphical user interface (GUI) application built using 
 
 ### Launching the Application
 
-- Simply double-click on R.E.P.O_Save_Editor.exe (Windows) to launch the application.
+- Simply double-click on RepoSaveEditor.exe (Windows) to launch the application.
 
 ### Editing Save Files
 
@@ -53,7 +53,32 @@ R.E.P.O Save Editor is a graphical user interface (GUI) application built using 
 3. Save Your Changes:
 
     - Click "File" → "Save" to re-encrypt and save your changes back to the original .es3 format.
+
     - Or click "File" → "Save As" to save your changes to a specific file.
+
+### Generating New Save File
+
+1. Create new save file:
+
+    - Click "File" → "New".
+
+    - The tool creates and loads the default data for editing.
+
+2. Edit Game Data:
+
+    - Modify player health, currency, item amounts, player upgrades, and other game statistics using intuitive input fields.
+
+3. Save Your Changes:
+
+    - Click "File" → "Save" or "Save as" and create a directory with the same name as the generated file, and then save the file to this directory.
+
+### Changing language
+
+To change the language, click "Language" and select one of the available languages. English and Russian are currently available.
+
+### Changing theme
+
+To change the theme, click "Themes" and select one of the available themes. System, Light and Dark are currently available.
 
 ---
 ## Contributing
@@ -65,7 +90,7 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 
 To build or contribute to this project, ensure you have the following:
 
-- Qt 6.7 or newer (recommended)
+- Qt 6.7.3 or newer (recommended)
 - Crypto++ library
 - C++20 compatible compiler
 

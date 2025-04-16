@@ -169,7 +169,9 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 		}
 	}
 
-	if ( !filePath.isEmpty() ) {
+	QFile file( filePath );
+
+	if (file.exists()) {
 		const int answer = QMessageBox::question(this, tr("Backup"), tr("Save a backup copy of the file?"), QMessageBox::StandardButton::Yes, QMessageBox::StandardButton::No);
 
 		if (answer == QMessageBox::StandardButton::Yes) {
@@ -192,7 +194,6 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 		}
 	}
 
-	QFile file( filePath );
 	if ( !file.open( QIODevice::WriteOnly ) )
 	{
 		QMessageBox::critical( this, tr("Error"), tr("Unable to open file for writing.") );
@@ -235,6 +236,8 @@ void RepoSaveEditor::SaveFile( const QString& filePath )
 
 	QMessageBox::information( this, tr("Save"), QString( tr("Save successful : %1") ).arg( filePath ) );
 	qDebug() << "Save successful :" << filePath;
+
+	openedFile = filePath;
 }
 
 void RepoSaveEditor::SaveOpenedFile()

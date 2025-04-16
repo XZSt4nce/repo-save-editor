@@ -96,7 +96,7 @@ void PlayerEditionWindow::AddPlayer()
 
 	if (!profileUrl.isValid() || profileUrl.isEmpty())
 	{
-		qDebug() << QString("%1 invalide.").arg(inputType);
+		qDebug() << QString("%1 invalide.").arg(QString::fromStdString(inputType));
 
 		EnableButtons();
 
